@@ -1,1 +1,79 @@
 /* You can add global styles to this file, and also import other style files */
+/* Agrega más definiciones @font-face si tienes más estilos (italic, bold italic, etc.) */
+
+/* Establece la fuente como la predeterminada para el cuerpo del documento */
+@import "assets/styles/fonts";
+@import "assets/styles/animation";
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  background: radial-gradient(
+    233.19% 107.27% at 50.05% 104.78%,
+    #000000 1%,
+    #0fd7cb 69%,
+    #000000 100%
+  );
+  font-family: "Noto Sans", sans-serif;
+}
+
+@keyframes scrollYAnimation {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hidden {
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+  animation: scrollYAnimation 0.5s ease-in-out;
+}
+
+@keyframes navbarAnimation {
+  from {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(50px);
+  }
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.navbarHidden {
+  opacity: 0;
+  transform: translateY(0);
+  animation: navbarAnimation 0.5s ease-in-out;
+}
+.navbarVisible {
+  opacity: 1;
+  transform: translateY(50px);
+  animation: navbarAnimation 0.5s ease-in-out;
+}

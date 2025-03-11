@@ -1,0 +1,22 @@
+.chatbot {
+  position: fixed;
+  bottom: 67px;
+  right: 30px;
+  cursor: pointer;
+  z-index: 4;
+}
+
+@keyframes slideLeft {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.chatbot_visible {
+  animation: slideLeft 1s ease-in-out forwards;
+}

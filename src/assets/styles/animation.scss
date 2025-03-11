@@ -1,0 +1,52 @@
+@keyframes slideDown {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 5px rgba(15, 215, 203, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(41, 233, 220, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(15, 215, 203, 0.6);
+  }
+}
+
+@keyframes pulse-error {
+  0% {
+    box-shadow: 0 0 5px rgba(255, 77, 77, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(255, 77, 77, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(255, 77, 77, 0.6);
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-3px);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+  75% {
+    transform: translateX(-3px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}

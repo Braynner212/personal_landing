@@ -1,0 +1,122 @@
+.contact {
+  box-sizing: border-box;
+  height: 100vh;
+  padding: 100px 25px 20px;
+  display: flex;
+  flex-direction: column;
+
+  &__title {
+    font-size: 26px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+
+  &__wrapper-input {
+    margin-bottom: 15px;
+  }
+
+  &__input,
+  &__textarea {
+    box-sizing: border-box;
+    border: none;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+
+    &::placeholder {
+      font-family: "Noto Sans", "Roboto";
+      color: #807c7c;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    &:focus {
+      outline: none;
+      border-width: 3px;
+      // border-color: #0fd7cb;
+      animation: pulse 1.5s infinite alternate ease-in-out;
+    }
+
+    &--error {
+      border: 1px solid #ff4d4d;
+      box-shadow: 0 0 8px rgba(255, 77, 77, 0.6);
+      animation:
+        shake 0.3s ease-in-out,
+        pulse-error 1.5s infinite alternate ease-in-out;
+    }
+
+    &--error:focus {
+      border: 1px solid #ff4d4d;
+    }
+  }
+
+  &__input {
+    height: 40px;
+    padding: 0 30px;
+  }
+
+  &__textarea {
+    resize: none;
+    height: 163px;
+    padding: 15px 30px;
+  }
+
+  &__message--error {
+    box-sizing: border-box;
+    width: 100%;
+    color: #ff4d4d;
+    padding: 0px 15px;
+    margin: 5px 0px;
+  }
+
+  &__button {
+    border: none;
+    border-radius: 25px;
+    height: 40px;
+    width: 100%;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 16px;
+    font-weight: 300;
+    cursor: pointer;
+    margin-top: 15px;
+
+    &:hover {
+      transform: scale(1.06);
+    }
+  }
+
+  &__paragraph {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 300;
+  }
+
+  &__socials-media {
+    &-container {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &-icon {
+      box-sizing: border-box;
+      width: 60px;
+      height: 60px;
+
+      background: rgba(18, 18, 18, 0.95);
+      border-width: 1px 0.5px 0.5px 1px;
+      border-style: solid;
+      border-color: #9d9a9a;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:hover {
+        transform: scale(1.06);
+      }
+    }
+  }
+}

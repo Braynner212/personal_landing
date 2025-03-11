@@ -1,0 +1,57 @@
+<section class="skills hidden" id="skills" appIsVisibleForScroll>
+  <h2 class="skills__title">Habilidades</h2>
+  <ul class="list-skills">
+    @for (skill of skills_list; track skill) {
+      <li class="list-skills__item">
+        <div class="list-skills__container">
+          @for (scope of createArrayScopeSkill(skill); track scope) {
+            <svg
+              class="list-skills__fill"
+              [class]="{
+                'list-skills__fill--empty': scope === 0,
+                'list-skills__fill--full': scope === 1,
+              }"
+              width="7"
+              height="7"
+              viewBox="0 0 42 42"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="21.2295" cy="20.981" r="20.5" fill="CurrentColor" />
+            </svg>
+          }
+        </div>
+        <span class="list-skills__name">{{ skill.name }}</span>
+      </li>
+    }
+  </ul>
+  <p class="skills__paragraph">
+    Si bien, lo anterior está relacionado con la parte técnica, destacaré
+    algunas habilidades de poder que han sido parte esencial en mi crecimiento
+    profesional y en la cuales he podido notar el impacto significativo en mi
+    vida personal.
+  </p>
+
+  <div class="skills__container">
+    <span class="radar-title radar-title-ca">Comunicación asertiva</span>
+    <span class="radar-title radar-title-aac"
+      >Adaptabilidad y aprendizaje continuo</span
+    >
+    <span class="radar-title radar-title-ad">Atención al detalle</span>
+    <span class="radar-title radar-title-tc"
+      >Trabajo en equipo y colaboración</span
+    >
+    <span class="radar-title radar-title-rp"
+      >Resolución <br />de problemas</span
+    >
+    <span class="radar-title radar-title-c">Creatividad</span>
+    <canvas
+      baseChart
+      [datasets]="radarChartDatasets"
+      [options]="radarChartOptions"
+      [labels]="radarChartLabels"
+      [type]="'radar'"
+    >
+    </canvas>
+  </div>
+</section>

@@ -1,0 +1,139 @@
+.skills {
+  box-sizing: border-box;
+  height: 100vh;
+  width: 100%;
+  padding: 120px 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    width: 250px;
+    font-size: 26px;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 10px;
+  }
+
+  &__paragraph {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 300;
+    width: 250px;
+  }
+
+  &__container {
+    box-sizing: border-box;
+    min-width: 247px;
+    height: 248px;
+    padding: 50px;
+    position: relative;
+    background: rgba(18, 18, 18, 0.95);
+    border-width: 1px 0.5px 0.5px 1px;
+    border-style: solid;
+    border-color: #9d9a9a;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 30px;
+    z-index: -2;
+  }
+}
+
+.list-skills {
+  box-sizing: border-box;
+  width: 260px;
+  height: 126px;
+  background: rgba(18, 18, 18, 0.95);
+  border-width: 1px 0.5px 0.5px 1px;
+  border-style: solid;
+  border-color: #9d9a9a;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 30px;
+
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+  padding: 20px;
+
+  &__item {
+    width: 28px;
+  }
+
+  &__name {
+    color: #ffffff;
+    font-size: 6px;
+    font-weight: 600;
+    height: 14%;
+    padding: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column-reverse;
+    height: 86%;
+  }
+
+  &__fill {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 0 0 1px;
+    width: 100%;
+
+    &--full {
+      color: #0a8d85;
+    }
+    &--empty {
+      color: #162827;
+    }
+  }
+}
+
+.radar-title {
+  font-size: 8px;
+  position: absolute;
+  z-index: -1;
+
+  &-ca {
+    width: 55px;
+    top: 30px;
+    left: 90px;
+    color: #ffffff;
+    text-align: center;
+  }
+  &-aac {
+    width: 60px;
+    top: 60px;
+    right: 34px;
+    color: #ffffff;
+    text-align: right;
+  }
+  &-ad {
+    width: 36px;
+    bottom: 70px;
+    right: 34px;
+    color: #ffffff;
+    text-align: right;
+  }
+  &-tc {
+    width: 76px;
+    bottom: 35px;
+    right: 80px;
+    color: #ffffff;
+    text-align: center;
+  }
+  &-rp {
+    width: 60px;
+    bottom: 70px;
+    left: 30px;
+    color: #ffffff;
+    text-align: left;
+  }
+  &-c {
+    top: 65px;
+    left: 30px;
+    color: #ffffff;
+    text-align: left;
+  }
+}

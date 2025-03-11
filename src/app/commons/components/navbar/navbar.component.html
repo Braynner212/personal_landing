@@ -1,0 +1,154 @@
+<header>
+  <nav class="navbar navbarvisible">
+    <div class="container">
+      <div class="navbar__menu-toggle-container">
+        <input type="checkbox" class="navbar__menu-toggle" id="menu-toggle" />
+        <label for="menu-toggle" class="navbar__menu-label-icon">
+          <svg
+            class="navbar__icon-menu"
+            width="15"
+            height="10"
+            viewBox="0 0 15 10"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line
+              x1="0.9"
+              y1="9.1"
+              x2="14.1"
+              y2="9.1"
+              stroke="white"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            />
+            <line
+              x1="0.9"
+              y1="5.1"
+              x2="14.1"
+              y2="5.1"
+              stroke="white"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            />
+            <line
+              x1="0.9"
+              y1="1.1"
+              x2="14.1"
+              y2="1.1"
+              stroke="white"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            />
+          </svg>
+          <svg
+            class="navbar__icon-closed"
+            width="12"
+            height="12"
+            viewBox="0 0 12 12"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line
+              x1="1.46908"
+              y1="1.69672"
+              x2="10.8029"
+              y2="11.0305"
+              stroke="white"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            />
+            <line
+              x1="1.19678"
+              y1="11.0306"
+              x2="10.5306"
+              y2="1.69674"
+              stroke="white"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            />
+          </svg>
+        </label>
+        <ul class="navbar__menu-toggle-options">
+          @for (option of menuOptions; track option; let last = $last) {
+            <li
+              class="navbar-menu__item"
+              [routerLink]="option.routerlink"
+              routerLinkActive="navbar-menu__item--active"
+            >
+              {{ option.content }}
+            </li>
+            @if (!last) {
+              <hr class="navbar-menu__split" />
+            }
+          }
+        </ul>
+      </div>
+      <div class="navbar__logo">
+        <span class="navbar__logo-letter navbar__logo-letter--semibold">{{
+          "\<D"
+        }}</span>
+        <span class="navbar__logo-letter navbar__logo-letter--regular">{{
+          "ev.a"
+        }}</span>
+        <span
+          class="navbar__logo-letter navbar__logo-letter--semibold navbar__logo-letter--15px"
+          >{{ "l" }}</span
+        >
+        <span class="navbar__logo-letter navbar__logo-letter--semibold">{{
+          ">"
+        }}</span>
+      </div>
+    </div>
+
+    <!-- <ul class="navbar-menu">
+      <li
+        class="navbar-menu__item"
+        [ngClass]="{
+          'navbar-menu__item--active': currentMenuItem === 'home',
+        }"
+        (click)="scrollTo('home')"
+      >
+        Inicio
+      </li>
+      <li
+        class="navbar-menu__item"
+        [ngClass]="{
+          'navbar-menu__item--active': currentMenuItem === 'about',
+        }"
+        (click)="scrollTo('about')"
+      >
+        Sobre mí
+      </li>
+      <li
+        class="navbar-menu__item"
+        [ngClass]="{
+          'navbar-menu__item--active': currentMenuItem === 'projects',
+        }"
+        (click)="scrollTo('projects')"
+      >
+        Proyectos
+      </li>
+      <li
+        class="navbar-menu__item"
+        [ngClass]="{
+          'navbar-menu__item--active': currentMenuItem === 'skills',
+        }"
+        (click)="scrollTo('skills')"
+      >
+        Habilidades
+      </li>
+      <li
+        class="navbar-menu__item"
+        [ngClass]="{
+          'navbar-menu__item--active': currentMenuItem === 'skills',
+        }"
+        (click)="scrollTo('skills')"
+      >
+        Experiencias
+      </li>
+    </ul> -->
+    <button class="navbar__button--conversemos" routerLink="/contact">
+      conversemos
+    </button>
+  </nav>
+</header>
