@@ -27,10 +27,10 @@ import { CommonModule } from '@angular/common';
 export class ContactComponent implements OnInit {
   form!: FormGroup;
   socialsMedia: { src: string; alt: string }[] = [
-    { src: '../../assets/icons/whatsapp.png', alt: 'Ícono Whatsapp' },
-    { src: '../../assets/icons/linkedin.png', alt: 'Ícono linkedIn' },
-    { src: '../../assets/icons/github.png', alt: 'Ícono Github' },
-    { src: '../../assets/icons/instagram.png', alt: 'Ícono Instagram' },
+    { src: './assets/icons/whatsapp.png', alt: 'Ícono Whatsapp' },
+    { src: './assets/icons/linkedin.png', alt: 'Ícono linkedIn' },
+    { src: './assets/icons/github.png', alt: 'Ícono Github' },
+    { src: './assets/icons/instagram.png', alt: 'Ícono Instagram' },
   ];
 
   constructor(
