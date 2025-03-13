@@ -18,7 +18,7 @@ export default [
       { path: 'skill', component: SkillComponent },
       { path: 'experience', component: ExperienceComponent },
       { path: 'contact', component: ContactComponent },
-      { path: '**', redirectTo: 'project', pathMatch: 'full' },
+      { path: '**', redirectTo: 'home', pathMatch: 'full' },
     ],
   },
 ] as Routes;
