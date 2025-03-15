@@ -1,15 +1,16 @@
 <section class="skills hidden" id="skills" appIsVisibleForScroll>
-  <h2 class="skills__title">Habilidades</h2>
-  <ul class="list-skills">
+  <div class="skills__container">
+    <h2 class="skills__title">Habilidades</h2>
+    <ul class="list-skills">
     @for (skill of skills_list; track skill) {
       <li class="list-skills__item">
-        <div class="list-skills__container">
+        <div class="list-skills__scope-container">
           @for (scope of createArrayScopeSkill(skill); track scope) {
             <svg
-              class="list-skills__fill"
+              class="list-skills__scope"
               [class]="{
-                'list-skills__fill--empty': scope === 0,
-                'list-skills__fill--full': scope === 1,
+                'list-skills__scope--empty': scope === 0,
+                'list-skills__scope--full': scope === 1,
               }"
               width="7"
               height="7"
@@ -24,15 +25,14 @@
         <span class="list-skills__name">{{ skill.name }}</span>
       </li>
     }
-  </ul>
-  <p class="skills__paragraph">
-    Si bien, lo anterior está relacionado con la parte técnica, destacaré
-    algunas habilidades de poder que han sido parte esencial en mi crecimiento
-    profesional y en la cuales he podido notar el impacto significativo en mi
-    vida personal.
-  </p>
-
-  <div class="skills__container">
+    </ul>
+    <p class="skills__paragraph">
+      Si bien, lo anterior está relacionado con la parte técnica, destacaré
+      algunas habilidades de poder que han sido parte esencial en mi crecimiento
+      profesional y en la cuales he podido notar el impacto significativo en mi
+      vida personal.
+    </p>
+    <div class="skills__radar-container">
     <span class="radar-title radar-title-ca">Comunicación asertiva</span>
     <span class="radar-title radar-title-aac"
       >Adaptabilidad y aprendizaje continuo</span
@@ -53,5 +53,7 @@
       [type]="'radar'"
     >
     </canvas>
+    </div> 
   </div>
+
 </section>

@@ -1,9 +1,16 @@
+@use '../../assets/styles/breakpoint' as bp;
+
 .contact {
-  box-sizing: border-box;
   height: 100vh;
-  padding: 100px 25px 20px;
+  width: 98vw;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__container{
+    width: 282px;
+  }
 
   &__title {
     font-size: 26px;
@@ -117,6 +124,82 @@
       &:hover {
         transform: scale(1.06);
       }
+    }
+  }
+}
+
+@include bp.responsive("movil m") {
+  .contact {
+    &__container {
+      width: 330px;
+    }
+  }
+}
+@include bp.responsive("tablet") {
+  .contact {
+    &__container {
+      width: 450px;
+    }
+
+    &__socials-media {
+      &-container {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+      }
+  
+      &-icon {
+        box-sizing: border-box;
+        width: 80px;
+        height: 80px;
+
+        
+      }
+      
+      &-icon-img {
+        width: 50px;
+        height: 50px;
+      }
+    }
+  }
+}
+
+@include bp.responsive("laptop") {
+  .contact {
+    &__container {
+      width: 750px;
+      display: grid;
+      grid-template-rows: 0.1fr 1fr 0.4fr;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    &__title {
+      font-size: 48px;
+      grid-column: 1 / 2;
+      margin:  0 0 20px;
+
+    }
+
+    &__form {
+      grid-row: 2 / 4;
+      width: 80%;
+
+    }
+
+    &__message--error {
+      font-size: 13px;
+    }
+
+    &__paragraph {
+      grid-row: 2 / 2;
+      font-size: 22px;
+      margin: 0;
+    }
+
+    &__socials-media-container {
+      grid-column: 2 / 3;
+      grid-row: 3 / 4;
+      place-self: end;
     }
   }
 }

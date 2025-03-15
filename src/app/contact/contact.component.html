@@ -1,5 +1,6 @@
 <section class="contact hidden" id="contact" appIsVisibleForScroll>
-  <h2 class="contact__title">Convencemos!</h2>
+  <div class="contact__container">
+  <h2 class="contact__title">¡Convencemos!</h2>
   <form class="contact__form" [formGroup]="form">
     <div class="contact__wrapper-input">
       <input
@@ -128,8 +129,9 @@
   <div class="contact__socials-media-container">
     @for (socialMedia of socialsMedia; track socialMedia) {
       <div class="contact__socials-media-icon">
-        <img [src]="socialMedia.src" [alt]="socialMedia.alt" />
+        <img class="contact__socials-media-icon-img" [src]="socialMedia.src" [alt]="socialMedia.alt" />
       </div>
     }
   </div>
+</div>
 </section>

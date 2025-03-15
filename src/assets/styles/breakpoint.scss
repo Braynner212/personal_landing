@@ -1,0 +1,15 @@
+$breakpoints: (
+  "movil s": 320px,
+  "movil m": 375px,
+  "movil l": 425px,
+  "tablet": 768px,
+  "laptop": 1024px,
+  "laptop l": 1440px,
+  "4k": 2560px,
+) !default;
+
+@mixin responsive($size) {
+  @media (min-width: map-get($breakpoints, $size)) {
+    @content;
+  }
+}
