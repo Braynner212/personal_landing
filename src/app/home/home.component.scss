@@ -1,12 +1,15 @@
+@use '../../assets/styles/breakpoint' as bp;
+
 .home {
   color: #fff;
-  box-sizing: border-box;
   height: 100vh;
-  padding: 200px 15px 20px;
+  width: 100vw;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-  &__text {
+  &__container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -14,7 +17,7 @@
     text-align: center;
   }
 
-  &__phase {
+  &__phrase {
     font-size: 26px;
     font-weight: 600;
     margin-bottom: 30px;
@@ -40,6 +43,40 @@
 
     &:hover {
       transform: scale(1.06);
+    }
+  }
+}
+
+@include bp.responsive("tablet") {
+  .home {
+
+    &__phrase {
+      width: 600px;
+      margin: 0 0 20px;
+
+    }
+
+    &__description {
+      width: 300px;
+      margin: 0 0 20px;
+    }
+  }
+}
+
+@include bp.responsive("laptop") {
+  .home {
+
+    &__phrase {
+      font-size: 36px;
+      width: 730px;
+      margin: 0 0 20px;
+
+    }
+
+    &__description {
+      font-size: 18px;
+      width: 530px;
+      margin: 0 0 20px;
     }
   }
 }

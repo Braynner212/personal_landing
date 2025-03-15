@@ -1,8 +1,16 @@
+@use "../../assets/styles/breakpoint.scss" as bp;
+
 .about {
   box-sizing: border-box;
-  height: calc(100vh - 100px);
-  width: calc(100% - 100px);
-  padding: 100px 50px 20px;
+  height: 100vh;
+  width: 98vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__container {
+    width: 240px;
+  }
 
   &__title {
     font-size: 26px;
@@ -13,8 +21,63 @@
 
   &__text-about {
     font-size: 16px;
-    width: 250px;
     color: #fff;
     font-weight: 300;
+  }
+}
+
+@include bp.responsive("movil m") {
+  .about {
+    &__container {
+      width: 280px;
+    }
+  }
+}
+
+@include bp.responsive("tablet") {
+  .about {
+    &__container {
+      width: 460px;
+    }
+
+    &__title {
+      font-size: 48px;
+    }
+
+    &__text-about {
+      font-size: 20px;
+    }
+  }
+}
+
+@include bp.responsive("laptop") {
+  .about {
+    &__container {
+      width: 800px;
+    }
+
+    &__title {
+      font-size: 48px;
+    }
+
+    &__text-about {
+      font-size: 20px;
+    }
+  }
+}
+
+@include bp.responsive("laptop l") {
+  .about {
+    &__container {
+      width: 900px;
+    }
+
+    &__title {
+      font-size: 48px;
+    }
+
+    &__text-about {
+      font-size: 20px;
+    }
   }
 }
