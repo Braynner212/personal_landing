@@ -1,7 +1,21 @@
+@use "../../assets/styles/breakpoint.scss" as bp;
+
 .projects {
   box-sizing: border-box;
   height: 100vh;
-  padding: 130px 30px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__container {
+    width: 240px;
+    height: 660px;
+  }
+
+  &__text-container {
+
+  }
 
   &__title {
     font-size: 26px;
@@ -18,10 +32,32 @@
     margin-bottom: 70px;
   }
 
-  &__container {
-    box-sizing: border-box;
+}
+
+
+@include bp.responsive("tablet") {
+  .projects {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
+
+    &__container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 530px;
+      height: 260px;
+      gap: 30px;
+    }
+
+    &__text-container {
+      grid-column: 2 / 3;
+    }
+
+    &__project {
+      grid-column: 1 / 2;
+      grid-row: 1 / 2;
+    }
+
   }
 }

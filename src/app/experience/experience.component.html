@@ -1,7 +1,8 @@
-<section class="experience" id="experience" appIsVisibleForScroll>
-  <h2 class="experience__title">Experiencia laboral</h2>
-  @for (experience of experiences; track experience) {
-    <article class="experience__container">
+<section class="experiences" id="experience" appIsVisibleForScroll>
+  <div class="experiences__container">
+    <h2 class="experiences__title">Experiencia laboral</h2>
+    @for (experience of experiences; track experience) {
+    <article class="experience__box">
       <h3 class="experience__role">{{ experience.role }}</h3>
       <div class="experience__middle">
         <span class="experience__company">{{ experience.company }}</span>
@@ -9,11 +10,12 @@
       </div>
       <ul class="experience__functions">
         @for (function of experience.functions; track function) {
-          <li class="experience__function">
-            {{ function }}
-          </li>
+        <li class="experience__function">
+          {{ function }}
+        </li>
         }
       </ul>
     </article>
-  }
+    }
+  </div>
 </section>
