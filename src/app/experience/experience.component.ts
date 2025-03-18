@@ -1,18 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { IsVisibleForScrollDirective } from '../commons/directives/is-visible-for-scroll.directive';
+import { Component } from '@angular/core';
 import { IExperience } from '../commons/interfaces/Experience.interface';
-import { listenToMenuItemForAnimation } from '../commons/utils/animations/animate';
-import { MenuItemService } from '../commons/services/menu-item.service';
 
 @Component({
   selector: 'app-experience',
   standalone: true,
-  imports: [IsVisibleForScrollDirective],
   templateUrl: './experience.component.html',
   styleUrl: './experience.component.scss',
 })
-export class ExperienceComponent implements OnInit {
-  constructor(private menuItemService: MenuItemService) {}
+export class ExperienceComponent {
 
   experiences: IExperience[] = [
     {
@@ -42,8 +37,4 @@ export class ExperienceComponent implements OnInit {
       ],
     },
   ];
-
-  ngOnInit(): void {
-    listenToMenuItemForAnimation('experience', this.menuItemService);
-  }
 }

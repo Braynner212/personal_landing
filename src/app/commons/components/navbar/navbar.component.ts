@@ -1,20 +1,16 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { MenuItemService } from '../../services/menu-item.service';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
-import { enterElementAnimation } from '../../utils/animations/animate';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   standalone: true,
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, RouterLinkActive],
 })
-export class NavbarComponent implements OnInit {
-  menuItemService = inject(MenuItemService);
-  currentMenuItem: string = 'home';
+export class NavbarComponent {
+  currentMenuItem = 'home';
   menuOptions: { content: string; routerlink: string }[] = [
     { content: 'Inicio', routerlink: '/home' },
     { content: 'Sobre mí', routerlink: '/about' },
@@ -23,24 +19,4 @@ export class NavbarComponent implements OnInit {
     { content: 'Experiencia', routerlink: '/experience' },
     { content: 'Convercemos', routerlink: '/contact' },
   ];
-
-  ngOnInit(): void {
-    this.menuItemService.currentMenuItem$
-      .pipe(debounceTime(300), distinctUntilChanged())
-      .subscribe((element) => {
-        this.currentMenuItem = element.id;
-      });
-
-    this.menuItemService.scrollTo('home');
-
-    this.navbarInit();
-  }
-
-  navbarInit() {
-    enterElementAnimation('navbar', 'navbar_visible');
-  }
-
-  scrollTo(elementId: string) {
-    this.menuItemService.scrollTo(elementId);
-  }
 }

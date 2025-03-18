@@ -1,18 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { IsVisibleForScrollDirective } from '../commons/directives/is-visible-for-scroll.directive';
-import { listenToMenuItemForAnimation } from '../commons/utils/animations/animate';
-import { MenuItemService } from '../commons/services/menu-item.service';
+import { Component } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration } from 'chart.js';
 
 @Component({
   selector: 'app-skills',
   standalone: true,
-  imports: [IsVisibleForScrollDirective, BaseChartDirective],
+  imports: [ BaseChartDirective ],
   templateUrl: './skills.component.html',
   styleUrl: './skills.component.scss',
 })
-export class SkillComponent implements OnInit {
+export class SkillComponent {
   skills_list: { name: string; scope: number }[] = [
     { name: 'Angular', scope: 8 },
     { name: 'Node', scope: 7 },
@@ -24,12 +21,6 @@ export class SkillComponent implements OnInit {
     { name: 'Figma', scope: 4 },
     { name: 'MySQL', scope: 8 },
   ];
-
-  constructor(private menuItemService: MenuItemService) {}
-
-  ngOnInit(): void {
-    listenToMenuItemForAnimation('skills', this.menuItemService);
-  }
 
   // Create an array scope of skills with 10 elements with value 0 if lenght is 10 and each element if scope is 8  create a array [1,1,1,1,1,1,1,1,0,0]
   createArrayScopeSkill(skill: { name: string; scope: number }) {

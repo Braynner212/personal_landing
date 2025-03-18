@@ -1,8 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { IProject } from '../commons/interfaces/Project.interface';
-import { MenuItemService } from '../commons/services/menu-item.service';
-import { listenToMenuItemForAnimation } from '../commons/utils/animations/animate';
-import { IsVisibleForScrollDirective } from '../commons/directives/is-visible-for-scroll.directive';
 import { ProjectComponent } from './project/project.component';
 import { CommonModule } from '@angular/common';
 
@@ -11,9 +8,9 @@ import { CommonModule } from '@angular/common';
   selector: 'app-projects',
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss'],
-  imports: [CommonModule, ProjectComponent, IsVisibleForScrollDirective],
+  imports: [CommonModule, ProjectComponent],
 })
-export class ProjectsComponent implements OnInit {
+export class ProjectsComponent {
   projects: IProject[] = [
     {
       name: 'Gestoring Task',
@@ -48,10 +45,4 @@ export class ProjectsComponent implements OnInit {
       url: 'https://ai-arboard.netlify.app/',
     }, */
   ];
-
-  constructor(private menuItemService: MenuItemService) {}
-
-  ngOnInit(): void {
-    listenToMenuItemForAnimation('projects', this.menuItemService);
-  }
 }

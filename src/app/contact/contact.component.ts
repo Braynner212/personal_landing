@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
   FormGroup,
@@ -6,11 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { IsVisibleForScrollDirective } from '../commons/directives/is-visible-for-scroll.directive';
-import { MenuItemService } from '../commons/services/menu-item.service';
-import { listenToMenuItemForAnimation } from '../commons/utils/animations/animate';
 import { ContactFormService } from '../commons/services/contact-form.service';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-contact',
@@ -19,7 +16,6 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    IsVisibleForScrollDirective,
   ],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss',
@@ -35,13 +31,11 @@ export class ContactComponent implements OnInit {
 
   constructor(
     private formBuild: FormBuilder,
-    private menuItemService: MenuItemService,
     private contactFormService: ContactFormService,
   ) {}
 
   ngOnInit(): void {
     this.makeForm();
-    listenToMenuItemForAnimation('contact', this.menuItemService);
   }
 
   makeForm() {

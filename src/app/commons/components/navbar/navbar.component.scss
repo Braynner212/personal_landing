@@ -1,8 +1,11 @@
+@use "../../../../assets/styles/breakpoint" as bp;
+
 .navbar {
+  box-sizing: border-box;
   position: fixed;
   top: 0px;
   left: 0px;
-  width: calc(100% - 20px);
+  width: 100%;
   height: 50px;
   padding: 0px 10px;
   display: flex;
@@ -12,22 +15,32 @@
   z-index: 4;
   transform: translateY(-100%);
   opacity: 0;
+  animation: slideDown 1s ease-in-out both;
 
-  &__logo-letter {
-    color: #ffffff;
+  &__menu-logo-container {
+    display: flex;
+    align-items: center;
+  }
 
-    &--semibold {
-      font-weight: 600;
-      font-size: 16px;
-    }
+  &__logo {
+    margin-bottom: 5px;
 
-    &--regular {
-      font-weight: 400;
-      font-size: 20px;
-    }
+    &-letter {
+      color: #ffffff;
 
-    &--15px {
-      font-size: 15px;
+      &--semibold {
+        font-weight: 600;
+        font-size: 16px;
+      }
+
+      &--regular {
+        font-weight: 400;
+        font-size: 20px;
+      }
+
+      &--15px {
+        font-size: 15px;
+      }
     }
   }
 
@@ -54,20 +67,16 @@
       margin: 0;
       list-style-type: none;
       opacity: 0;
-      transition:
-        opacity 0.5s ease-in,
-        height 0.2s ease-in;
+      transition: opacity 0.5s ease-in, height 0.2s ease-in;
     }
 
     &:checked ~ &-options {
       opacity: 1;
-      height: 250px;
+      height: 285px;
     }
 
     &:not(:checked) ~ &-options {
-      transition:
-        opacity 0.2s ease-in,
-        height 0.5s ease-in;
+      transition: opacity 0.2s ease-in, height 0.5s ease-in;
     }
 
     &:not(:checked) ~ &-options .navbar-menu__item,
@@ -95,59 +104,17 @@
     display: none;
   }
 
-  &-menu {
-    display: flex;
-    justify-content: space-between;
-    list-style-type: none;
-    padding-left: 0;
+  &__menu {
     display: none;
 
-    &__item {
-      padding: 5px 15px 10px;
-      font-size: 16px;
+    &-item {
+      padding: 3px 10px;
+      transition: all 0.3s ease;
     }
 
-    &__split {
-      height: 0px;
-      border: 1px solid #b6b3b3;
-      margin: 0;
+    &-item--active {
+      color: #ffffff;
     }
-
-    /* &__item {
-      text-decoration: none;
-      color: #000;
-      padding: 0px;
-      padding-left: 10px;
-      font-size: 16px;
-      font-weight: 300;
-      cursor: pointer;
-      position: relative;
-
-      &:hover::before,
-      &--active::before {
-        color: rgba(255, 255, 255, 1) !important;
-        box-shadow: 0 4px 16px #0fd7cb;
-        transition: all 0.2s ease;
-      } */
-
-    /*       &::after {
-        content: "";
-        position: absolute;
-        bottom: -2px;
-        left: 50%;
-        width: 0;
-        height: 2px;
-        background-color: #807c7c;
-        transition:
-          width 0.5s ease,
-          left 0.5s ease;
-      }
-
-      &:hover::after, &--active::after {
-        width: 100%;
-        left: 0;
-      } 
-    }*/
   }
 
   &__button--conversemos {
@@ -166,11 +133,72 @@
   }
 }
 
-.container {
-  display: flex;
-  align-items: center;
-}
+@include bp.responsive("laptop") {
+  .navbar {
+    height: 86px;
+    padding: 0px 60px;
 
-.navbar_visible {
-  animation: slideDown 1s ease-in-out forwards;
+    &__menu-toggle-container {
+      display: none;
+    }
+
+    &__menu {
+      display: flex;
+      justify-content: space-between;
+      list-style-type: none;
+      padding-left: 0;
+
+      &-split {
+        height: 0px;
+        border: 1px solid #b6b3b3;
+        margin: 0;
+      }
+
+      &-item {
+        text-decoration: none;
+        color: #b6b3b3;
+        padding: 0px;
+        margin-left: 10px;
+        font-size: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        position: relative;
+
+        &::after {
+          content: "";
+          position: absolute;
+          bottom: -2px;
+          left: 50%;
+          width: 0;
+          height: 1px;
+          background-color: #ffffff;
+          transition: width 0.5s ease, left 0.5s ease;
+        }
+
+        &:hover::after,
+        &--active::after {
+          width: 100%;
+          left: 0;
+          box-shadow: 0 4px 16px #0fd7cb;
+          transition: all 0.5s ease;
+
+        }
+
+        &:hover, &--active {
+          color: #ffffff;        
+        }
+
+      }
+    }
+
+    &__logo {
+      width: 145px;
+    }
+
+    &__button--conversemos {
+      font-size: 14px;
+      width: 145px;
+      height: 40px;
+    }
+  }
 }

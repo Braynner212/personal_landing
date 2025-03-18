@@ -7,6 +7,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  animation: slideUp 1s ease-in-out both;
+
 
   &__container {
     display: flex;

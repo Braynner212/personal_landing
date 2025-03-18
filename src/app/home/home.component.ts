@@ -1,8 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { IsVisibleForScrollDirective } from '../commons/directives/is-visible-for-scroll.directive';
+import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { listenToMenuItemForAnimation } from '../commons/utils/animations/animate';
-import { MenuItemService } from '../commons/services/menu-item.service';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -10,17 +7,12 @@ import { RouterLink } from '@angular/router';
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  imports: [RouterLink, IsVisibleForScrollDirective],
+  imports: [RouterLink],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   constructor(
     private http: HttpClient,
-    private menuItemService: MenuItemService,
   ) {}
-
-  ngOnInit(): void {
-    listenToMenuItemForAnimation('home', this.menuItemService);
-  }
 
   downloadCurriculum() {
     const url = 'assets/files/Braynner Polo Curriculum vitae - English.pdf'; // reemplaza con la ruta del archivo que deseas descargar
