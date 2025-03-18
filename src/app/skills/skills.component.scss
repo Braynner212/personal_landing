@@ -1,7 +1,6 @@
 @use "../../assets/styles/breakpoint.scss" as bp;
 
 .skills {
-  width: 98vw;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -316,13 +315,3 @@
     }
   }
 }
-
-/* 
-@include bp.reponsive("4k") {
-  .skills {
-    &__container {
-      grid-template-columns: 1.4fr 0.6fr;
-      grid-template-rows: 0.1fr 0.4fr 0.4fr;
-    }
-  }
-} */

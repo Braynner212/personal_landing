@@ -1,3 +1,47 @@
+.navbarHidden {
+  opacity: 0;
+  transform: translateY(0);
+  animation: navbarAnimation 0.5s ease-in-out;
+}
+.navbarVisible {
+  opacity: 1;
+  transform: translateY(50px);
+  animation: navbarAnimation 0.5s ease-in-out;
+}
+
+.hidden {
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+  animation: scrollYAnimation 0.5s ease-in-out;
+}
+
+@keyframes scrollYAnimation {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes navbarAnimation {
+  from {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(50px);
+  }
+}
+
 @keyframes slideDown {
   0% {
     transform: translateY(-100%);
@@ -8,6 +52,7 @@
     opacity: 1;
   }
 }
+
 
 @keyframes pulse {
   0% {
