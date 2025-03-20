@@ -3,7 +3,7 @@
     <h2 class="contact__title">¡Convencemos!</h2>
     <form class="contact__form" [formGroup]="form">
       <div class="contact__wrapper-input">
-        <input class="contact__input" type="text" placeholder="Nombre Completo" formControlName="name_complete"
+        <input class="contact__input" id="name_complete" type="text" placeholder="Nombre Completo" formControlName="name_complete"
           [ngClass]="{
           'contact__input--error':
             (form.get('name_complete')?.hasError('required') &&
@@ -17,7 +17,7 @@
           form.get('name_complete')?.hasError('required') &&
           form.get('name_complete')?.touched
         " class="contact__message--error">
-          El nombre es necesario para enviar enviar la información
+          El nombre es necesario para enviar la información
         </p>
         <p *ngIf="
           form.get('name_complete')?.hasError('minlength') &&
@@ -39,7 +39,7 @@
         </p>
       </div>
       <div class="contact__wrapper-input">
-        <input class="contact__input" type="email" placeholder="Correo" formControlName="mail" [ngClass]="{
+        <input class="contact__input" id="mail" type="email" placeholder="Correo" formControlName="mail" [ngClass]="{
           'contact__input--error':
             (form.get('mail')?.hasError('required') &&
               form.get('mail')?.touched) ||
@@ -54,15 +54,15 @@
           El correo debe ser válido
         </p>
       </div>
-      <div class="contact__wrapper-input">
-        <textarea class="contact__textarea" cols="30" rows="10" formControlName="message"
+      <div class="contact__wrapper-textarea">
+        <textarea class="contact__textarea" id="message" cols="30" formControlName="message"
           placeholder="Cuéntame de esa idea que tienes en mente" [ngClass]="{
           'contact__textarea--error':
             (form.get('message')?.hasError('required') &&
               form.get('message')?.touched) ||
             (form.get('message')?.hasError('maxlength') &&
               form.get('message')?.touched),
-        }"></textarea>
+        }" appFixedTextAreaHeightByMessagesErrors></textarea>
         <p *ngIf="
           form.get('message')?.hasError('required') &&
           form.get('message')?.touched

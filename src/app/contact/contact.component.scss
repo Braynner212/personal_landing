@@ -22,6 +22,10 @@
     margin-bottom: 15px;
   }
 
+  &__wrapper-textarea {
+    margin-bottom: 0px;
+  }
+
   &__input,
   &__textarea {
     box-sizing: border-box;
@@ -63,8 +67,9 @@
 
   &__textarea {
     resize: none;
-    height: 163px;
+    height: 180px;
     padding: 15px 30px;
+    margin-bottom: 0;
   }
 
   &__message--error {
@@ -85,7 +90,7 @@
     font-size: 16px;
     font-weight: 300;
     cursor: pointer;
-    margin-top: 15px;
+    margin-top: 10px;
 
     &:hover {
       transform: scale(1.06);
@@ -158,7 +163,7 @@
     }
 
     &__message--error {
-      font-size: 13px;
+      font-size: 11px;
     }
 
     &__box-right {
@@ -173,6 +178,7 @@
 
     &__socials-media {
       &-container {
+        margin-top: 70px;
         width: 100%;
         display: flex;
         justify-content: space-between;
@@ -188,16 +194,6 @@
         width: 40px;
         height: 40px;
       }
-    }
-  }
-}
-
-@include bp.responsive("laptop") {
-  .contact {
-    &__box-right {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
     }
   }
 }

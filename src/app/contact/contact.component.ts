@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ContactFormService } from '../commons/services/contact-form.service';
+import { FixedTextAreaHeightByMessagesErrorsDirective } from '../commons/directives/fixed-text-area-height-by-messages-errors.directive';
 
 @Component({
   selector: 'app-contact',
@@ -16,12 +17,14 @@ import { ContactFormService } from '../commons/services/contact-form.service';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    FixedTextAreaHeightByMessagesErrorsDirective
   ],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss',
 })
 export class ContactComponent implements OnInit {
   form!: FormGroup;
+
   socialsMedia: { src: string; alt: string }[] = [
     { src: './assets/icons/whatsapp.png', alt: 'Ícono Whatsapp' },
     { src: './assets/icons/linkedin.png', alt: 'Ícono linkedIn' },
@@ -32,7 +35,8 @@ export class ContactComponent implements OnInit {
   constructor(
     private formBuild: FormBuilder,
     private contactFormService: ContactFormService,
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.makeForm();
@@ -57,7 +61,7 @@ export class ContactComponent implements OnInit {
   }
 
   sendMessage() {
-    console.log(this.form.value);
+    console.log(this.form);
 
     if (this.form.valid) {
       this.contactFormService
@@ -67,4 +71,5 @@ export class ContactComponent implements OnInit {
         });
     }
   }
+  
 }
