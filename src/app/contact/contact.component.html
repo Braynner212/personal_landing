@@ -1,14 +1,10 @@
 <section class="contact" id="contact">
-  <div class="contact__container">
-  <h2 class="contact__title">¡Convencemos!</h2>
-  <form class="contact__form" [formGroup]="form">
-    <div class="contact__wrapper-input">
-      <input
-        class="contact__input"
-        type="text"
-        placeholder="Nombre Completo"
-        formControlName="name_complete"
-        [ngClass]="{
+  <div class="contact__container container-generic">
+    <h2 class="contact__title">¡Convencemos!</h2>
+    <form class="contact__form" [formGroup]="form">
+      <div class="contact__wrapper-input">
+        <input class="contact__input" type="text" placeholder="Nombre Completo" formControlName="name_complete"
+          [ngClass]="{
           'contact__input--error':
             (form.get('name_complete')?.hasError('required') &&
               form.get('name_complete')?.touched) ||
@@ -16,122 +12,89 @@
               form.get('name_complete')?.touched) ||
             (form.get('name_complete')?.hasError('maxLength') &&
               form.get('name_complete')?.touched),
-        }"
-      />
-      <p
-        *ngIf="
+        }" />
+        <p *ngIf="
           form.get('name_complete')?.hasError('required') &&
           form.get('name_complete')?.touched
-        "
-        class="contact__message--error"
-      >
-        El nombre es necesario para enviar enviar la información
-      </p>
-      <p
-        *ngIf="
+        " class="contact__message--error">
+          El nombre es necesario para enviar enviar la información
+        </p>
+        <p *ngIf="
           form.get('name_complete')?.hasError('minlength') &&
           form.get('name_complete')?.touched
-        "
-        class="contact__message--error"
-      >
-        el nombre debe tener más de
-        {{ form.get("name_complete")?.errors?.["minlength"]["requiredLength"] }}
-        letras y tiene
-        {{ form.get("name_complete")?.errors?.["minlength"]["actualLength"] }}
-      </p>
-      <p
-        *ngIf="
+        " class="contact__message--error">
+          el nombre debe tener más de
+          {{ form.get("name_complete")?.errors?.["minlength"]["requiredLength"] }}
+          letras y tiene
+          {{ form.get("name_complete")?.errors?.["minlength"]["actualLength"] }}
+        </p>
+        <p *ngIf="
           form.get('name_complete')?.hasError('maxlength') &&
           form.get('name_complete')?.touched
-        "
-        class="contact__message--error"
-      >
-        El nombre no debe tener más de
-        {{ form.get("name_complete")?.errors?.["maxlength"]["requiredLength"] }}
-        carácteres y tiene
-        {{ form.get("name_complete")?.errors?.["maxlength"]["actualLength"] }}
-      </p>
-    </div>
-    <div class="contact__wrapper-input">
-      <input
-        class="contact__input"
-        type="email"
-        placeholder="Correo"
-        formControlName="mail"
-        [ngClass]="{
+        " class="contact__message--error">
+          El nombre no debe tener más de
+          {{ form.get("name_complete")?.errors?.["maxlength"]["requiredLength"] }}
+          carácteres y tiene
+          {{ form.get("name_complete")?.errors?.["maxlength"]["actualLength"] }}
+        </p>
+      </div>
+      <div class="contact__wrapper-input">
+        <input class="contact__input" type="email" placeholder="Correo" formControlName="mail" [ngClass]="{
           'contact__input--error':
             (form.get('mail')?.hasError('required') &&
               form.get('mail')?.touched) ||
             (form.get('mail')?.hasError('email') && form.get('mail')?.touched),
-        }"
-      />
-      <p
-        *ngIf="
+        }" />
+        <p *ngIf="
           form.get('mail')?.hasError('required') && form.get('mail')?.touched
-        "
-        class="contact__message--error"
-      >
-        El correo es necesario para enviar la información
-      </p>
-      <p
-        *ngIf="form.get('mail')?.hasError('email') && form.get('mail')?.touched"
-        class="contact__message--error"
-      >
-        El correo debe ser válido
-      </p>
-    </div>
-    <div class="contact__wrapper-input">
-      <textarea
-        class="contact__textarea"
-        cols="30"
-        rows="10"
-        formControlName="message"
-        placeholder="Cuéntame de esa idea que tienes en mente"
-        [ngClass]="{
+        " class="contact__message--error">
+          El correo es necesario para enviar la información
+        </p>
+        <p *ngIf="form.get('mail')?.hasError('email') && form.get('mail')?.touched" class="contact__message--error">
+          El correo debe ser válido
+        </p>
+      </div>
+      <div class="contact__wrapper-input">
+        <textarea class="contact__textarea" cols="30" rows="10" formControlName="message"
+          placeholder="Cuéntame de esa idea que tienes en mente" [ngClass]="{
           'contact__textarea--error':
             (form.get('message')?.hasError('required') &&
               form.get('message')?.touched) ||
             (form.get('message')?.hasError('maxlength') &&
               form.get('message')?.touched),
-        }"
-      ></textarea>
-      <p
-        *ngIf="
+        }"></textarea>
+        <p *ngIf="
           form.get('message')?.hasError('required') &&
           form.get('message')?.touched
-        "
-        class="contact__message--error"
-      >
-        Este campo es necesario para enviar la información
-      </p>
-      <p
-        *ngIf="
+        " class="contact__message--error">
+          Este campo es necesario para enviar la información
+        </p>
+        <p *ngIf="
           form.get('message')?.hasError('maxlength') &&
           form.get('message')?.touched
-        "
-        class="contact__message--error"
-      >
-        Este campo no debe tener más de
-        {{ form.get("message")?.errors?.["maxlength"]["requiredLength"] }}
-        carácteres y tiene
-        {{ form.get("message")?.errors?.["maxlength"]["actualLength"] }}
-      </p>
-    </div>
-    <button class="contact__button" (click)="sendMessage()">Enviar</button>
-  </form>
-
-  <p class="contact__paragraph">
-    Me gustaría que conversemos sobre tu idea, puedes dejarla a través del
-    formulario o si lo prefieres puedes escribirme por Whatsapp, Instagram o
-    LinkedIn y por su puesto si quieres saber sobre contenido digital no dudes
-    en seguirme en redes.
-  </p>
-  <div class="contact__socials-media-container">
-    @for (socialMedia of socialsMedia; track socialMedia) {
-      <div class="contact__socials-media-icon">
-        <img class="contact__socials-media-icon-img" [src]="socialMedia.src" [alt]="socialMedia.alt" />
+        " class="contact__message--error">
+          Este campo no debe tener más de
+          {{ form.get("message")?.errors?.["maxlength"]["requiredLength"] }}
+          carácteres y tiene
+          {{ form.get("message")?.errors?.["maxlength"]["actualLength"] }}
+        </p>
       </div>
-    }
+      <button class="contact__button" (click)="sendMessage()">Enviar</button>
+    </form>
+    <div class="contact__box-right">
+      <p class="contact__paragraph">
+        Me gustaría que conversemos sobre tu idea, puedes dejarla a través del
+        formulario o si lo prefieres puedes escribirme por Whatsapp, Instagram o
+        LinkedIn y por su puesto si quieres saber sobre contenido digital no dudes
+        en seguirme en redes.
+      </p>
+      <div class="contact__socials-media-container">
+        @for (socialMedia of socialsMedia; track socialMedia) {
+        <div class="contact__socials-media-icon">
+          <img class="contact__socials-media-icon-img" [src]="socialMedia.src" [alt]="socialMedia.alt" />
+        </div>
+        }
+      </div>
+    </div>
   </div>
-</div>
 </section>

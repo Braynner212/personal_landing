@@ -42,12 +42,24 @@
     &__container {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      width: 530px;
-      height: 260px;
       gap: 30px;
+      place-content: center;
+
+    }
+
+    &__title {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 48px;
+    }
+
+    &__paragraph {
+      font-size: 20px;
     }
 
     &__text-container {
+      place-self: end;
+      width: 250px;
       grid-column: 2 / 3;
     }
 
@@ -56,5 +68,22 @@
       grid-row: 1 / 2;
     }
 
+  }
+}
+
+@include bp.responsive("laptop") {
+  .projects {
+    &__title {
+      padding-top: 0;
+      font-size: 48px;
+    }
+
+    &__text-container {
+      place-self: center;
+    }
+
+    &__project {
+      place-self: center;
+    }
   }
 }

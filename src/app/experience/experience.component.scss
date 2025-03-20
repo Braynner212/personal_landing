@@ -81,16 +81,13 @@
 @include bp.responsive("tablet") {
   .experiences {
     &__container {
-      width: 460px;
+      display: grid;
+      place-content: center;
     }
-  }
-}
 
-@include bp.responsive("laptop") {
-  .experiences {
-    &__container {
-      width: 520px;
-      height: 520px;
+    &__title {
+      font-size: 48px;
+      width: 100%;
     }
   }
 }

@@ -13,3 +13,16 @@ $breakpoints: (
     @content;
   }
 }
+
+@include responsive("tablet") {
+  .container-generic {
+    width: 600px !important;
+    height: 600px !important;
+  }
+}
+
+@include responsive("laptop") {
+  .container-generic {
+    width: 730px !important;
+  }
+}
