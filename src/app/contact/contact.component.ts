@@ -9,6 +9,8 @@ import {
 } from '@angular/forms';
 import { ContactFormService } from '../commons/services/contact-form.service';
 import { FixedTextAreaHeightByMessagesErrorsDirective } from '../commons/directives/fixed-text-area-height-by-messages-errors.directive';
+import { RecaptchaService } from '../commons/services/recaptcha.service';
+import { ModalService } from '../commons/services/modal.service';
 
 @Component({
   selector: 'app-contact',
@@ -17,14 +19,13 @@ import { FixedTextAreaHeightByMessagesErrorsDirective } from '../commons/directi
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    FixedTextAreaHeightByMessagesErrorsDirective
+    FixedTextAreaHeightByMessagesErrorsDirective,
   ],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss',
 })
 export class ContactComponent implements OnInit {
   form!: FormGroup;
-
   socialsMedia: { src: string; alt: string }[] = [
     { src: './assets/icons/whatsapp.png', alt: 'Ícono Whatsapp' },
     { src: './assets/icons/linkedin.png', alt: 'Ícono linkedIn' },
@@ -34,9 +35,10 @@ export class ContactComponent implements OnInit {
 
   constructor(
     private formBuild: FormBuilder,
-    private contactFormService: ContactFormService,
-  ) {
-  }
+    private contactFormServ: ContactFormService,
+    private recaptchaServ: RecaptchaService,
+    private modalService: ModalService
+  ) {}
 
   ngOnInit(): void {
     this.makeForm();
@@ -50,26 +52,79 @@ export class ContactComponent implements OnInit {
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(100),
+          Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+$/)
         ],
       ],
       mail: [
         '',
         [Validators.required, Validators.email, Validators.maxLength(50)],
       ],
-      message: ['', [Validators.required, Validators.maxLength(1000)]],
+      message: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(255),
+        ],
+      ],
     });
   }
 
-  sendMessage() {
-    console.log(this.form);
-
-    if (this.form.valid) {
-      this.contactFormService
-        .createContactForm(this.form.value)
-        .subscribe((data) => {
-          console.log(data);
+  async onSubmit() {
+    if (this.form.invalid) {
+      Object.keys(this.form.controls).forEach((key) => {
+        if (this.form.controls[key].invalid) {
+          this.form.controls[key].markAsTouched();
+        }
+      });
+    } else {
+      try {
+        const recaptchaToken = await this.recaptchaServ.executeRecaptcha(
+          'submit'
+        );
+        this.openModal({ message: 'Enviando...', type: 'loading' });
+        this.contactFormServ
+          .sendData(this.form.value, recaptchaToken)
+          .subscribe({
+            next: (response: any) => {
+              setTimeout(() => {
+                this.closeModal();
+                this.openModal({ message: response.msg, type: 'success' });
+              }, 1500);
+            },
+            error: () => {
+              this.closeModal();
+              this.openModal({
+                message:
+                  'Estamos presentando algunos inconvenientes, si persisten existes otros medios para que conversemos LinkedIn, Whatsapp e Instagram',
+                type: 'error',
+              });
+            },
+            complete: () => {
+              this.form.reset();
+            },
+          });
+      } catch {
+        this.openModal({
+          message:
+            'Estamos presentando algunos inconvenientes, si persisten existes otros medios para que conversemos LinkedIn, Whatsapp e Instagram',
+          type: 'error',
         });
+      }
     }
   }
-  
+
+  openModal(config: {
+    message: string;
+    type: 'success' | 'error' | 'loading';
+  }) {
+    this.modalService.open({
+      message: config.message,
+      type: config.type,
+    });
+  }
+
+  closeModal() {
+    this.modalService.close();
+  }
 }

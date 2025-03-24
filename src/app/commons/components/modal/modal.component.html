@@ -1,0 +1,28 @@
+<div class="modal__cap-priority">
+    @if(type === 'success' || type === 'error'){
+    <div class="modal__container" [ngClass]="{'modal__container--success':type === 'success','modal__container--error':type === 'error'}">
+        <div class="modal__header">
+            <img [src]="icons[type]" alt="ícono modal" class="modal__icon" />
+        </div>
+        <div class="modal__body">
+            <p class="modal__message" [ngClass]="{'modal__message--success':type === 'success','modal__message--error':type === 'error'}">
+                {{message}}
+            </p>
+        </div>
+        <div class="modal__footer">
+            <button class="modal__button" (click)="closeModal()">Listo, gracias!</button>
+        </div>
+    </div>
+    } @else {
+    <div class="modal__container">
+        <div class="modal__header">
+            <div class="modal__spinner"></div>
+        </div>
+        <div class="modal__body">
+            <p class="modal__message">
+                {{message}}
+            </p>
+        </div>
+    </div>
+    }
+</div>

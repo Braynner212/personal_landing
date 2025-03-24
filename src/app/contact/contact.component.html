@@ -1,17 +1,19 @@
 <section class="contact" id="contact">
   <div class="contact__container container-generic">
     <h2 class="contact__title">¡Convencemos!</h2>
-    <form class="contact__form" [formGroup]="form">
+    <form class="contact__form" [formGroup]="form" (submit)="onSubmit()">
       <div class="contact__wrapper-input">
         <input class="contact__input" id="name_complete" type="text" placeholder="Nombre Completo" formControlName="name_complete"
           [ngClass]="{
           'contact__input--error':
             (form.get('name_complete')?.hasError('required') &&
               form.get('name_complete')?.touched) ||
-            (form.get('name_complete')?.hasError('minLength') &&
+            (form.get('name_complete')?.hasError('pattern') &&
               form.get('name_complete')?.touched) ||
-            (form.get('name_complete')?.hasError('maxLength') &&
-              form.get('name_complete')?.touched),
+            (form.get('name_complete')?.hasError('minlength') &&
+              form.get('name_complete')?.touched) ||
+            (form.get('name_complete')?.hasError('maxlength') &&
+              form.get('name_complete')?.touched) 
         }" />
         <p *ngIf="
           form.get('name_complete')?.hasError('required') &&
@@ -20,10 +22,16 @@
           El nombre es necesario para enviar la información
         </p>
         <p *ngIf="
+          form.get('name_complete')?.hasError('pattern') &&
+          form.get('name_complete')?.touched
+        " class="contact__message--error">
+          El nombre solo permite letras y espacios
+        </p>
+        <p *ngIf="
           form.get('name_complete')?.hasError('minlength') &&
           form.get('name_complete')?.touched
         " class="contact__message--error">
-          el nombre debe tener más de
+          El nombre debe tener más de
           {{ form.get("name_complete")?.errors?.["minlength"]["requiredLength"] }}
           letras y tiene
           {{ form.get("name_complete")?.errors?.["minlength"]["actualLength"] }}
@@ -43,7 +51,7 @@
           'contact__input--error':
             (form.get('mail')?.hasError('required') &&
               form.get('mail')?.touched) ||
-            (form.get('mail')?.hasError('email') && form.get('mail')?.touched),
+            (form.get('mail')?.hasError('email') && form.get('mail')?.touched)
         }" />
         <p *ngIf="
           form.get('mail')?.hasError('required') && form.get('mail')?.touched
@@ -60,14 +68,25 @@
           'contact__textarea--error':
             (form.get('message')?.hasError('required') &&
               form.get('message')?.touched) ||
+            (form.get('message')?.hasError('minlength') &&
+              form.get('message')?.touched) ||
             (form.get('message')?.hasError('maxlength') &&
-              form.get('message')?.touched),
+              form.get('message')?.touched) 
         }" appFixedTextAreaHeightByMessagesErrors></textarea>
         <p *ngIf="
           form.get('message')?.hasError('required') &&
           form.get('message')?.touched
         " class="contact__message--error">
           Este campo es necesario para enviar la información
+        </p>
+        <p *ngIf="
+          form.get('message')?.hasError('minlength') &&
+          form.get('message')?.touched
+        " class="contact__message--error">
+          Este campo debe tener más de
+          {{ form.get("message")?.errors?.["minlength"]["requiredLength"] }}
+          carácteres y tiene
+          {{ form.get("message")?.errors?.["minlength"]["actualLength"] }}
         </p>
         <p *ngIf="
           form.get('message')?.hasError('maxlength') &&
@@ -79,7 +98,7 @@
           {{ form.get("message")?.errors?.["maxlength"]["actualLength"] }}
         </p>
       </div>
-      <button class="contact__button" (click)="sendMessage()">Enviar</button>
+      <button class="contact__button" type="submit">Enviar</button>
     </form>
     <div class="contact__box-right">
       <p class="contact__paragraph">

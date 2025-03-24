@@ -5,11 +5,11 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class ContactFormService {
-  apiUrl = 'http://localhost:3023/api/contact-form';
+  private apiUrl = 'http://localhost:3023';
 
   constructor(private httpClient: HttpClient) {}
 
-  createContactForm(data: { name: string; email: string; message: string }) {
-    return this.httpClient.post(this.apiUrl, { ...data });
+  sendData(data: { name: string; mail: string; message: string }, recaptchaToken: string) {
+    return this.httpClient.post(`${this.apiUrl}/api/contact-form`, { data, recaptchaToken });
   }
 }
