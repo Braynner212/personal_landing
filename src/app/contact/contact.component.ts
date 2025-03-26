@@ -52,7 +52,7 @@ export class ContactComponent implements OnInit {
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(100),
-          Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+$/)
+          Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+$/),
         ],
       ],
       mail: [
@@ -92,13 +92,21 @@ export class ContactComponent implements OnInit {
                 this.openModal({ message: response.msg, type: 'success' });
               }, 1500);
             },
-            error: () => {
+            error: (error) => {
               this.closeModal();
-              this.openModal({
-                message:
-                  'Estamos presentando algunos inconvenientes, si persisten existes otros medios para que conversemos LinkedIn, Whatsapp e Instagram',
-                type: 'error',
-              });
+              if ( error.error.message ===
+                'Exceso de solicitudes, espera un momento antes de intentarlo de nuevo.' )
+                { this.openModal({
+                    message: error.error.message,
+                    type: 'error',
+                  })
+                } else {
+                  this.openModal({
+                    message:
+                      'Estamos presentando algunos inconvenientes, si persisten existes otros medios para que conversemos LinkedIn, Whatsapp e Instagram',
+                    type: 'error',
+                  });
+                } 
             },
             complete: () => {
               this.form.reset();

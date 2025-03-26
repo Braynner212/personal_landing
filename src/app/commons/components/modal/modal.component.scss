@@ -18,7 +18,7 @@
     animation: slideDown 1s ease-in-out both;
     box-sizing: border-box;
 
-    width: 266px;
+    width: 282px;
 
     display: flex;
     flex-direction: column;
@@ -33,18 +33,11 @@
     border-radius: 30px;
     transform: matrix(1, 0, 0, 1, 0, 0);
     padding: 20px 10px;
-
-    &--success {
-        height: 236px;
-    }
-
-    &--error {
-        height: 289px;
-    }
   }
 
   &__header {
     height: 64px;
+    margin-bottom: 10px;
   }
 
   &__icon {
@@ -62,7 +55,7 @@
   }
 
   &__body {
-    height: 80px;
+    height: auto;
     display: flex;
     align-items: center;
   }
@@ -77,16 +70,15 @@
 
     &--success {
         width: 193px;
-        height: 58px;
     }
     &--error {
         width: 197px;
-        height: 118px;
     }
 
-    &--loading {
-        height: 20px;
-    }
+  }
+
+  &__footer {
+    margin-top: 15px;
   }
 
   &__button {
@@ -107,15 +99,8 @@
     }
 
     &__message {
-        width: 220px;
-        font-size: 16px;
-
-        &--success {
-            height: 65px;
-        }
-        &--error {
-            height: 135px;
-        }
+      width: 220px;
+      font-size: 16px;
     }
 
   }
