@@ -109,11 +109,11 @@
       </p>
       <div class="contact__socials-media-container">
         @for (socialMedia of socialsMedia; track socialMedia) {
-        <a [href]="socialMedia.href" target="_blank">
           <div class="contact__socials-media-icon">
-            <img class="contact__socials-media-icon-img" [src]="socialMedia.src" [alt]="socialMedia.alt" />
+            <a [href]="socialMedia.href" target="_blank">
+              <img class="contact__socials-media-icon-img" [src]="socialMedia.src" [alt]="socialMedia.alt" />
+            </a>
           </div>
-        </a>
         }
       </div>
     </div>
