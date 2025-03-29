@@ -26,11 +26,11 @@ import { ModalService } from '../commons/services/modal.service';
 })
 export class ContactComponent implements OnInit {
   form!: FormGroup;
-  socialsMedia: { src: string; alt: string }[] = [
-    { src: './assets/icons/whatsapp.png', alt: 'Ícono Whatsapp' },
-    { src: './assets/icons/linkedin.png', alt: 'Ícono linkedIn' },
-    { src: './assets/icons/github.png', alt: 'Ícono Github' },
-    { src: './assets/icons/instagram.png', alt: 'Ícono Instagram' },
+  socialsMedia: { src: string; alt: string, href: string }[] = [
+    { src: './assets/icons/whatsapp.png', alt: 'Ícono Whatsapp', href:"https://wa.me/573186496090" },
+    { src: './assets/icons/linkedin.png', alt: 'Ícono linkedIn', href:"https://linkedin.com/in/braynner-polo-pichón-353355199" },
+    { src: './assets/icons/github.png', alt: 'Ícono Github', href:"https://github.com/braynner212" },
+    { src: './assets/icons/instagram.png', alt: 'Ícono Instagram', href:"https://instagram.com/braynner.dev.ai" },
   ];
 
   constructor(

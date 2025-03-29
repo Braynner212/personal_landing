@@ -3,8 +3,8 @@
     <h2 class="contact__title">¡Convencemos!</h2>
     <form class="contact__form" [formGroup]="form" (submit)="onSubmit()">
       <div class="contact__wrapper-input">
-        <input class="contact__input" id="name_complete" type="text" placeholder="Nombre Completo" formControlName="name_complete"
-          [ngClass]="{
+        <input class="contact__input" id="name_complete" type="text" placeholder="Nombre Completo"
+          formControlName="name_complete" [ngClass]="{
           'contact__input--error':
             (form.get('name_complete')?.hasError('required') &&
               form.get('name_complete')?.touched) ||
@@ -109,9 +109,11 @@
       </p>
       <div class="contact__socials-media-container">
         @for (socialMedia of socialsMedia; track socialMedia) {
-        <div class="contact__socials-media-icon">
-          <img class="contact__socials-media-icon-img" [src]="socialMedia.src" [alt]="socialMedia.alt" />
-        </div>
+        <a [href]="socialMedia.href" target="_blank">
+          <div class="contact__socials-media-icon">
+            <img class="contact__socials-media-icon-img" [src]="socialMedia.src" [alt]="socialMedia.alt" />
+          </div>
+        </a>
         }
       </div>
     </div>
