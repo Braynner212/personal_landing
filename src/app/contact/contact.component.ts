@@ -26,11 +26,27 @@ import { ModalService } from '../commons/services/modal.service';
 })
 export class ContactComponent implements OnInit {
   form!: FormGroup;
-  socialsMedia: { src: string; alt: string, href: string }[] = [
-    { src: './assets/icons/whatsapp.png', alt: 'Ícono Whatsapp', href:"https://wa.me/573186496090" },
-    { src: './assets/icons/linkedin.png', alt: 'Ícono linkedIn', href:"https://linkedin.com/in/braynner-polo-pichón-353355199" },
-    { src: './assets/icons/github.png', alt: 'Ícono Github', href:"https://github.com/braynner212" },
-    { src: './assets/icons/instagram.png', alt: 'Ícono Instagram', href:"https://instagram.com/braynner.dev.ai" },
+  socialsMedia: { src: string; alt: string; href: string }[] = [
+    {
+      src: './assets/icons/whatsapp.png',
+      alt: 'Ícono Whatsapp',
+      href: 'https://wa.me/573186496090',
+    },
+    {
+      src: './assets/icons/linkedin.png',
+      alt: 'Ícono linkedIn',
+      href: 'https://linkedin.com/in/braynner-polo-pichón-353355199',
+    },
+    {
+      src: './assets/icons/github.png',
+      alt: 'Ícono Github',
+      href: 'https://github.com/braynner212',
+    },
+    {
+      src: './assets/icons/instagram.png',
+      alt: 'Ícono Instagram',
+      href: 'https://instagram.com/braynner.dev.ai',
+    },
   ];
 
   constructor(
@@ -82,7 +98,9 @@ export class ContactComponent implements OnInit {
         const recaptchaToken = await this.recaptchaServ.executeRecaptcha(
           'submit'
         );
+
         this.openModal({ message: 'Enviando...', type: 'loading' });
+
         this.contactFormServ
           .sendData(this.form.value, recaptchaToken)
           .subscribe({
@@ -94,25 +112,29 @@ export class ContactComponent implements OnInit {
             },
             error: (error) => {
               this.closeModal();
-              if ( error.error.message ===
-                'Exceso de solicitudes, espera un momento antes de intentarlo de nuevo.' )
-                { this.openModal({
-                    message: error.error.message,
-                    type: 'error',
-                  })
-                } else {
-                  this.openModal({
-                    message:
-                      'Estamos presentando algunos inconvenientes, si persisten existes otros medios para que conversemos LinkedIn, Whatsapp e Instagram',
-                    type: 'error',
-                  });
-                } 
+              if (
+                error.error.message ===
+                  'Exceso de solicitudes, espera un momento antes de intentarlo de nuevo.' ||
+                error.error.message === 'Verificación reCAPTCHA fallida'
+              ) {
+                this.openModal({
+                  message: error.error.message,
+                  type: 'error',
+                });
+              } else {
+                this.openModal({
+                  message:
+                    'Estamos presentando algunos inconvenientes, si persisten existes otros medios para que conversemos LinkedIn, Whatsapp e Instagram',
+                  type: 'error',
+                });
+              }
             },
             complete: () => {
               this.form.reset();
             },
           });
       } catch {
+        this.closeModal();
         this.openModal({
           message:
             'Estamos presentando algunos inconvenientes, si persisten existes otros medios para que conversemos LinkedIn, Whatsapp e Instagram',

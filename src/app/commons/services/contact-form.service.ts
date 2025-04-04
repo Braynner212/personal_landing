@@ -9,7 +9,7 @@ export class ContactFormService {
 
   constructor(private httpClient: HttpClient) {}
 
-  sendData(data: { name: string; mail: string; message: string }, recaptchaToken: string) {
+  sendData(data: { name_complete: string; mail: string; message: string }, recaptchaToken: string) {
     return this.httpClient.post(`${this.apiUrl}/api/contact-form`, { data, recaptchaToken });
   }
 }

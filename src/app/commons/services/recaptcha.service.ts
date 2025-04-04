@@ -19,6 +19,8 @@ export class RecaptchaService {
         return;
       }
 
+      console.log('Prueba Recaptpcha: ');
+
       (window as any).grecaptcha.ready(() => {
         (window as any).grecaptcha
           .execute(this.siteKey, { action })
