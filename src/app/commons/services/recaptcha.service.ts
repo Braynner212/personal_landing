@@ -14,15 +14,13 @@ export class RecaptchaService {
 
   async executeRecaptcha(action: string): Promise<string> {
     return new Promise((resolve, reject) => {
-      if (!(window as any).grecaptcha) {
+      if (!window.grecaptcha) {
         reject('reCAPTCHA no está cargado');
         return;
       }
 
-      console.log('Prueba Recaptpcha: ');
-
-      (window as any).grecaptcha.ready(() => {
-        (window as any).grecaptcha
+      window.grecaptcha.ready(() => {
+        window.grecaptcha!
           .execute(this.siteKey, { action })
           .then((token: string) => resolve(token))
           .catch(reject);
