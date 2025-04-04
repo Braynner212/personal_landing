@@ -11,6 +11,7 @@ import { ContactFormService } from '../commons/services/contact-form.service';
 import { FixedTextAreaHeightByMessagesErrorsDirective } from '../commons/directives/fixed-text-area-height-by-messages-errors.directive';
 import { RecaptchaService } from '../commons/services/recaptcha.service';
 import { ModalService } from '../commons/services/modal.service';
+import { ContactFormResponse } from '../commons/interfaces/response.interface';
 
 @Component({
   selector: 'app-contact',
@@ -104,7 +105,7 @@ export class ContactComponent implements OnInit {
         this.contactFormServ
           .sendData(this.form.value, recaptchaToken)
           .subscribe({
-            next: (response: any) => {
+            next: (response: ContactFormResponse) => {
               setTimeout(() => {
                 this.closeModal();
                 this.openModal({ message: response.msg, type: 'success' });

@@ -99,7 +99,7 @@ describe('ContactComponent', () => {
 
   it('should handle service success response correctly', async () => {
     recaptchaServiceSpy.executeRecaptcha.and.returnValue(Promise.resolve('test-token'));
-    contactFormServiceSpy.sendData.and.returnValue(of({ msg: 'Success' }));
+    contactFormServiceSpy.sendData.and.returnValue(of({ success: true, msg: 'Success' }));
 
     await component.onSubmit();
 
