@@ -1,4 +1,4 @@
 export interface ContactFormResponse {
     success: boolean;
-    msg: string;
+    message: string;
   }

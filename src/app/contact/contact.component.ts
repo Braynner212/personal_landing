@@ -108,7 +108,7 @@ export class ContactComponent implements OnInit {
             next: (response: ContactFormResponse) => {
               setTimeout(() => {
                 this.closeModal();
-                this.openModal({ message: response.msg, type: 'success' });
+                this.openModal({ message: response.message, type: 'success' });
               }, 1500);
             },
             error: (error) => {
