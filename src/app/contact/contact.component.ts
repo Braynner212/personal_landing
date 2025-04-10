@@ -36,7 +36,7 @@ export class ContactComponent implements OnInit {
     {
       src: './assets/icons/linkedin.png',
       alt: 'Ícono linkedIn',
-      href: 'https://linkedin.com/in/braynner-polo-pichón-353355199',
+      href: 'https://linkedin.com/in/braynner-polo',
     },
     {
       src: './assets/icons/github.png',
