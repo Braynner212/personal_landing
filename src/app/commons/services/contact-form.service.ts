@@ -7,7 +7,7 @@ import { ContactFormResponse } from '../interfaces/response.interface';
   providedIn: 'root',
 })
 export class ContactFormService {
-  private apiUrl = 'https://personallandingbackend-production.up.railway.app/';
+  private apiUrl = 'https://personallandingbackend-production.up.railway.app';
 
   constructor(private httpClient: HttpClient) {}
 
