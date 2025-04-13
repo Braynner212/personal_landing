@@ -8,8 +8,6 @@ import { ContactFormResponse } from '../interfaces/response.interface';
 })
 export class ContactFormService {
   private apiUrl = 'https://personallandingbackend-production.up.railway.app/';
-  // private apiUrl = 'http://localhost:3023';
-
 
   constructor(private httpClient: HttpClient) {}
 
