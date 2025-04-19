@@ -25,6 +25,8 @@ import { ContactFormResponse } from '../commons/interfaces/response.interface';
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss',
 })
+
+//Testing
 export class ContactComponent implements OnInit {
   form!: FormGroup;
   socialsMedia: { src: string; alt: string; href: string }[] = [
