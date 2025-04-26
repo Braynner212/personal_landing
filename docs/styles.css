@@ -1,0 +1,109 @@
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[6].rules[0].oneOf[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[6].rules[0].oneOf[0].use[2]!./node_modules/resolve-url-loader/index.js??ruleSet[1].rules[6].rules[1].use[0]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[6].rules[1].use[1]!./src/styles.scss?ngGlobalStyle ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+@charset "UTF-8";
+/* You can add global styles to this file, and also import other style files */
+/* Agrega más definiciones @font-face si tienes más estilos (italic, bold italic, etc.) */
+/* Establece la fuente como la predeterminada para el cuerpo del documento */
+@font-face {
+  font-family: "Noto Sans";
+  src: url('NotoSans-SemiBold.ttf') format("truetype");
+  font-weight: 600;
+}
+@font-face {
+  font-family: "Noto Sans";
+  src: url('NotoSans-Medium.ttf') format("truetype");
+  font-weight: 500;
+}
+@font-face {
+  font-family: "Noto Sans";
+  src: url('NotoSans-Regular.ttf') format("truetype");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Noto Sans";
+  src: url('NotoSans-Light.ttf') format("truetype");
+  font-weight: 300;
+}
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes slideDown {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 5px rgba(15, 215, 203, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(41, 233, 220, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(15, 215, 203, 0.6);
+  }
+}
+@keyframes pulse-error {
+  0% {
+    box-shadow: 0 0 5px rgba(255, 77, 77, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(255, 77, 77, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(255, 77, 77, 0.6);
+  }
+}
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-3px);
+  }
+  50% {
+    transform: translateX(3px);
+  }
+  75% {
+    transform: translateX(-3px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  overflow-y: hidden;
+  background: radial-gradient(233.19% 107.27% at 50.05% 104.78%, #000000 1%, #0fd7cb 69%, #000000 100%);
+  font-family: "Noto Sans", sans-serif;
+}
+
+/*# sourceMappingURL=styles.css.map*/
