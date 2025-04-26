@@ -13,6 +13,6 @@ export class ContactFormService {
   constructor(private httpClient: HttpClient) {}
 
   sendData(data: { name_complete: string; mail: string; message: string }, recaptchaToken: string): Observable<ContactFormResponse> {
-    return this.httpClient.post<ContactFormResponse>(`${this.apiUrl}/api/contact-form`, { data, recaptchaToken });
+    return this.httpClient.post<ContactFormResponse>(`${this.apiUrl}/contact-form`, { data, recaptchaToken });
   }
 }
