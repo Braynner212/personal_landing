@@ -129,6 +129,11 @@
       &:hover {
         transform: scale(1.03);
       }
+
+      &-img {
+        width: 30px;
+        height: 30px;
+      }
     }
   }
 }
