@@ -23,10 +23,11 @@
           <li class="navbar__menu-item" [routerLink]="option.routerlink" routerLinkActive="navbar__menu-item--active">
             {{ option.content }}
           </li>
-          @if (!last) {
           <hr class="navbar__menu-split" />
           }
-          }
+          <li class="navbar__menu-item" >
+            <button class="navbar__menu-item--button" (click)="openPrivacyPolicy()">Política de Privacidad</button>
+          </li>
         </ul>
       </div>
       <div class="navbar__logo">
@@ -48,6 +49,9 @@
           {{ option.content }}
         </li>
         }
+        <li class="navbar__menu-item" >
+          <button class="navbar__menu-item--button" (click)="openPrivacyPolicy()">Politica de Privacidad</button>
+        </li>
     </ul>
     <button class="navbar__button--conversemos" routerLink="/contact">
       conversemos

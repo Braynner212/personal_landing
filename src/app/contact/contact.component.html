@@ -98,6 +98,17 @@
           {{ form.get("message")?.errors?.["maxlength"]["actualLength"] }}
         </p>
       </div>
+      <div class="contact__wrapper-input">
+        <input type="checkbox" formControlName="privacy_policy" name="contact__privacy-policy-checkbox">
+        <label class="contact__privacy-policy-label" for="privacy-policy-consent"> Yo he leído y acepto la</label><button
+          type="button" class="contact__privacy-policy-button" (click)="openPrivacyPolicy()">Política de Privacidad.</button>
+          <p *ngIf="
+          form.get('privacy_policy')?.hasError('required') &&
+          form.get('privacy_policy')?.touched
+        " class="contact__message--error">
+          Este campo es necesario para enviar la información
+        </p>
+      </div>
       <button class="contact__button" type="submit">Enviar</button>
     </form>
     <div class="contact__box-right">
@@ -109,11 +120,11 @@
       </p>
       <div class="contact__socials-media-container">
         @for (socialMedia of socialsMedia; track socialMedia) {
-          <div class="contact__socials-media-icon">
-            <a [href]="socialMedia.href" target="_blank">
-              <img class="contact__socials-media-icon-img" [src]="socialMedia.src" [alt]="socialMedia.alt" />
-            </a>
-          </div>
+        <div class="contact__socials-media-icon">
+          <a [href]="socialMedia.href" target="_blank">
+            <img class="contact__socials-media-icon-img" [src]="socialMedia.src" [alt]="socialMedia.alt" />
+          </a>
+        </div>
         }
       </div>
     </div>

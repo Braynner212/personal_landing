@@ -72,7 +72,7 @@
 
     &:checked ~ &-options {
       opacity: 1;
-      height: 285px;
+      height: 356px;
     }
 
     &:not(:checked) ~ &-options {
@@ -110,6 +110,15 @@
     &-item {
       padding: 3px 10px;
       transition: all 0.3s ease;
+    }
+
+    &-item--button {
+      font-family: 'Noto Sans', sans-serif;
+      background-color: transparent;
+      border: none;
+      font-size: 16px;
+      text-align: start;
+      padding: 0;
     }
 
     &-split {
@@ -153,7 +162,7 @@
       list-style-type: none;
       padding-left: 0;
 
-      &-item {
+      &-item, &-item--button {
         text-decoration: none;
         color: #b6b3b3;
         padding: 0px;
@@ -168,6 +177,12 @@
         }
 
       }
+
+      &-item--button {
+        margin-left: 0;
+        font-weight: 300;
+      }
+
     }
 
     &__logo {

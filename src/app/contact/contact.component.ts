@@ -12,6 +12,7 @@ import { FixedTextAreaHeightByMessagesErrorsDirective } from '../commons/directi
 import { RecaptchaService } from '../commons/services/recaptcha.service';
 import { ModalService } from '../commons/services/modal.service';
 import { ContactFormResponse } from '../commons/interfaces/response.interface';
+import { PrivacyPolicyService } from '../commons/services/private-policy.service';
 
 @Component({
   selector: 'app-contact',
@@ -21,12 +22,11 @@ import { ContactFormResponse } from '../commons/interfaces/response.interface';
     FormsModule,
     ReactiveFormsModule,
     FixedTextAreaHeightByMessagesErrorsDirective,
-  ],
+],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss',
 })
 
-//Testing
 export class ContactComponent implements OnInit {
   form!: FormGroup;
   socialsMedia: { src: string; alt: string; href: string }[] = [
@@ -56,7 +56,8 @@ export class ContactComponent implements OnInit {
     private formBuild: FormBuilder,
     private contactFormServ: ContactFormService,
     private recaptchaServ: RecaptchaService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private privatePolicyServ: PrivacyPolicyService,
   ) {}
 
   ngOnInit(): void {
@@ -84,6 +85,12 @@ export class ContactComponent implements OnInit {
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(255),
+        ],
+      ],
+      privacy_policy: [
+        false,
+        [
+          Validators.requiredTrue
         ],
       ],
     });
@@ -160,4 +167,13 @@ export class ContactComponent implements OnInit {
   closeModal() {
     this.modalService.close();
   }
+
+  openPrivacyPolicy() {
+    this.privatePolicyServ.open();
+  }
+
+  closePrivacyPolicy() {
+    this.privatePolicyServ.close();
+  }
+
 }

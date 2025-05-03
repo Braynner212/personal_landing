@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { PrivacyPolicyService } from '../../services/private-policy.service';
 
 @Component({
   standalone: true,
@@ -19,4 +20,14 @@ export class NavbarComponent {
     { content: 'Experiencia', routerlink: '/experience' },
     { content: 'Convercemos', routerlink: '/contact' },
   ];
+
+  constructor( private privacyPolicyServ: PrivacyPolicyService) {}
+
+  openPrivacyPolicy() {
+    this.privacyPolicyServ.open();
+  }
+
+  closePrivacyPolicy() {
+    this.privacyPolicyServ.close();
+  }
 }

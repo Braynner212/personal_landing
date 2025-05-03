@@ -18,11 +18,7 @@
     color: #ffffff;
   }
 
-  &__wrapper-input {
-    margin-bottom: 15px;
-  }
-
-  &__wrapper-textarea {
+  &__wrapper-checkbox {
     margin-bottom: 0px;
   }
 
@@ -34,7 +30,7 @@
     background: rgba(255, 255, 255, 0.5);
     border-radius: 25px;
     font-family: "Noto Sans", "Roboto";
-
+    margin-bottom: 15px;
 
     &::placeholder {
       color: #807c7c;
@@ -98,6 +94,20 @@
     }
   }
 
+  &__privacy-policy-label, &__privacy-policy-button {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 300;
+  }
+
+  &__privacy-policy-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding-right: 0;
+    padding-left: 3px;
+  }
+
   &__paragraph {
     color: #ffffff;
     font-size: 16px;
@@ -143,6 +153,12 @@
     &__container {
       width: 330px;
     }
+
+    &__privacy-policy-label, &__privacy-policy-button {
+      color: #fff;
+      font-size: 14px;
+      font-weight: 300;
+    }
   }
 }
 @include bp.responsive("tablet") {
@@ -151,7 +167,7 @@
     &__container {
       display: grid;
       grid-template-rows: 0.1fr 0.6fr;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 50% 50%;
       place-content: center;
     }
 
@@ -159,13 +175,10 @@
       font-size: 48px;
       grid-column: 1 / 2;
       margin:  0 0 20px;
-
     }
 
     &__form {
       grid-row: 2 / 3;
-      width: 90%;
-
     }
 
     &__box-right {
@@ -173,12 +186,21 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      padding-left: 10%;
     }
 
     &__paragraph {
       margin-top: 0;
       margin-bottom: 10px;
       font-size: 20px;
+      width: 100%;
+    }
+
+    &__privacy-policy-label, &__privacy-policy-button {
+      font-size: 13px;
+    }
+    &__privacy-policy-button {
+      padding-left: 5px;
     }
 
     &__socials-media {
@@ -190,6 +212,27 @@
   
       &-icon {
         box-sizing: border-box;
+        width: 60px;
+        height: 60px;
+      }
+      
+      &-icon-img {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+}
+
+@include bp.responsive("laptop") {
+  .contact {
+
+    &__privacy-policy-label, &__privacy-policy-button {
+      font-size: 16px;
+    }
+
+    &__socials-media {
+      &-icon {
         width: 80px;
         height: 80px;
       }
