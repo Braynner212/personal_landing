@@ -63,8 +63,7 @@
         </p>
       </div>
       <div class="contact__wrapper-textarea">
-        <textarea class="contact__textarea" id="message" cols="30" formControlName="message"
-          placeholder="Cuéntame de esa idea que tienes en mente" [ngClass]="{
+        <div class="contact__wrapper-textarea-scrollbar" [ngClass]="{
           'contact__textarea--error':
             (form.get('message')?.hasError('required') &&
               form.get('message')?.touched) ||
@@ -72,7 +71,10 @@
               form.get('message')?.touched) ||
             (form.get('message')?.hasError('maxlength') &&
               form.get('message')?.touched) 
-        }" appFixedTextAreaHeightByMessagesErrors></textarea>
+        }" appFixedTextAreaHeightByMessagesErrors>
+        <textarea class="contact__textarea" id="message" cols="30" formControlName="message"
+          placeholder="Cuéntame de esa idea que tienes en mente"  appFixedTextAreaHeightByMessagesErrors></textarea>
+        </div>
         <p *ngIf="
           form.get('message')?.hasError('required') &&
           form.get('message')?.touched
