@@ -124,7 +124,7 @@ export class ContactComponent implements OnInit {
               this.closeModal();
               if (
                 error.error.message ===
-                  'Exceso de solicitudes, espera un momento antes de intentarlo de nuevo.' ||
+                  'Exceso de solicitudes, debe esperar 1 día para de intentarlo de nuevo.' ||
                 error.error.message === 'Verificación reCAPTCHA fallida'
               ) {
                 this.openModal({
