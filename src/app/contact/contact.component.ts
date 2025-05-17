@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
@@ -22,12 +22,11 @@ import { PrivacyPolicyService } from '../commons/services/private-policy.service
     FormsModule,
     ReactiveFormsModule,
     FixedTextAreaHeightByMessagesErrorsDirective,
-],
+  ],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss',
 })
-
-export class ContactComponent implements OnInit {
+export class ContactComponent implements OnInit, AfterViewInit {
   form!: FormGroup;
   socialsMedia: { src: string; alt: string; href: string }[] = [
     {
@@ -57,11 +56,21 @@ export class ContactComponent implements OnInit {
     private contactFormServ: ContactFormService,
     private recaptchaServ: RecaptchaService,
     private modalService: ModalService,
-    private privatePolicyServ: PrivacyPolicyService,
+    private privatePolicyServ: PrivacyPolicyService
   ) {}
 
   ngOnInit(): void {
     this.makeForm();
+  }
+
+  ngAfterViewInit(): void {
+    this.form
+      .get('privacy_policy')
+      ?.valueChanges.subscribe((checked: boolean) => {
+        if (checked) {
+          this.form.get('privacy_policy_timestamp')!.setValue(new Date().toISOString());
+        }
+      });
   }
 
   makeForm() {
@@ -87,16 +96,13 @@ export class ContactComponent implements OnInit {
           Validators.maxLength(255),
         ],
       ],
-      privacy_policy: [
-        false,
-        [
-          Validators.requiredTrue
-        ],
-      ],
+      privacy_policy: [false, [Validators.requiredTrue]],
+      privacy_policy_timestamp: ['', [Validators.required]],
     });
   }
 
   async onSubmit() {
+  console.log(this.form.value);
     if (this.form.invalid) {
       Object.keys(this.form.controls).forEach((key) => {
         if (this.form.controls[key].invalid) {
@@ -175,5 +181,4 @@ export class ContactComponent implements OnInit {
   closePrivacyPolicy() {
     this.privatePolicyServ.close();
   }
-
 }
