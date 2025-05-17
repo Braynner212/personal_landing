@@ -110,6 +110,8 @@
     &-item {
       padding: 3px 10px;
       transition: all 0.3s ease;
+      cursor: pointer;
+
     }
 
     &-item--button {
@@ -119,11 +121,12 @@
       font-size: 16px;
       text-align: start;
       padding: 0;
+      cursor: pointer;
     }
 
     &-split {
       height: 0px;
-      border: 1px solid #b6b3b3;
+      border: 1px solid transparent;
     }
 
     &-item--active {
