@@ -92,6 +92,47 @@
     transform: rotate(360deg);
   }
 }
+@keyframes hidden {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.animatable {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.6s ease;
+}
+
+.hidden-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+}
+
+*::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 20px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 20px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 html,
 body {
   margin: 0;
@@ -101,8 +142,8 @@ body {
 body {
   height: 100vh;
   width: 100vw;
-  overflow-y: hidden;
   background: radial-gradient(233.19% 107.27% at 50.05% 104.78%, #000000 1%, #0fd7cb 69%, #000000 100%);
+  background-attachment: fixed;
   font-family: "Noto Sans", sans-serif;
 }
 

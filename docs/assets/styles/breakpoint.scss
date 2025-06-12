@@ -14,10 +14,16 @@ $breakpoints: (
   }
 }
 
+@include responsive("movil m") {
+  .container-generic {
+    width: 330px !important;
+    height: 600px !important;
+  }
+}
+
 @include responsive("tablet") {
   .container-generic {
     width: 600px !important;
-    height: 600px !important;
   }
 }
 
