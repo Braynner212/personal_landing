@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { PrivacyPolicyService } from '../../services/private-policy.service';
+import { MenuItemService } from '../../services/menu-item.service';
 
 @Component({
   standalone: true,
@@ -10,24 +10,29 @@ import { PrivacyPolicyService } from '../../services/private-policy.service';
   styleUrls: ['./navbar.component.scss'],
   imports: [CommonModule, RouterLink, RouterLinkActive],
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   currentMenuItem = 'home';
-  menuOptions: { content: string; routerlink: string }[] = [
-    { content: 'Inicio', routerlink: '/home' },
-    { content: 'Sobre mí', routerlink: '/about' },
-    { content: 'Proyectos', routerlink: '/project' },
-    { content: 'Habilidades', routerlink: '/skill' },
-    { content: 'Experiencia', routerlink: '/experience' },
-    { content: 'Convercemos', routerlink: '/contact' },
+  menuOptions: { content: string; name: string, href: string }[] = [
+    { content: 'Inicio', name: 'home', href: '#home', },
+    { content: 'Sobre mí', name: 'about', href: '#about', },
+    { content: 'Proyectos', name: 'project', href: '#project' },
+    { content: 'Habilidades', name: 'skills', href: '#skills' },
+    { content: 'Experiencia', name: 'experience', href: '#experience' },
+    { content: 'Convercemos', name: 'contact', href: '#contact' },
   ];
 
-  constructor( private privacyPolicyServ: PrivacyPolicyService) {}
+  constructor( private menuItemServ: MenuItemService) {}
+  
+  ngOnInit(): void {
+    this.menuItemServ.scrollTo('home');
 
-  openPrivacyPolicy() {
-    this.privacyPolicyServ.open();
+    this.menuItemServ.currentMenuItem$.subscribe((elementId) => {
+      this.currentMenuItem = elementId;
+    });
   }
 
-  closePrivacyPolicy() {
-    this.privacyPolicyServ.close();
+  scrollTo(elementId: string) {
+    this.menuItemServ.scrollTo(elementId);
   }
+
 }

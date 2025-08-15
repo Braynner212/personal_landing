@@ -2,9 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { of, throwError } from 'rxjs';
 import { ContactComponent } from './contact.component';
-import { ContactFormService } from '../commons/services/contact-form.service';
-import { RecaptchaService } from '../commons/services/recaptcha.service';
-import { ModalService } from '../commons/services/modal.service';
+import { ContactFormService } from '../../commons/services/contact-form.service';
+import { RecaptchaService } from '../../commons/services/recaptcha.service';
+import { ModalService } from '../../commons/services/modal.service';
 
 describe('ContactComponent', () => {
   let component: ContactComponent;

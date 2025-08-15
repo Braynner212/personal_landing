@@ -1,4 +1,4 @@
-@use '../../assets/styles/breakpoint' as bp;
+@use '../../../assets/styles/breakpoint' as bp;
 
 .home {
   color: #fff;
@@ -7,8 +7,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  animation: slideUp 1s ease-in-out both;
-
 
   &__container {
     display: flex;

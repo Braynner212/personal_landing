@@ -7,12 +7,13 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ContactFormService } from '../commons/services/contact-form.service';
-import { FixedTextAreaHeightByMessagesErrorsDirective } from '../commons/directives/fixed-text-area-height-by-messages-errors.directive';
-import { RecaptchaService } from '../commons/services/recaptcha.service';
-import { ModalService } from '../commons/services/modal.service';
-import { ContactFormResponse } from '../commons/interfaces/response.interface';
-import { PrivacyPolicyService } from '../commons/services/private-policy.service';
+import { ContactFormService } from '../../commons/services/contact-form.service';
+import { FixedTextAreaHeightByMessagesErrorsDirective } from '../../commons/directives/fixed-text-area-height-by-messages-errors.directive';
+import { RecaptchaService } from '../../commons/services/recaptcha.service';
+import { ModalService } from '../../commons/services/modal.service';
+import { ContactFormResponse } from '../../commons/interfaces/response.interface';
+import { PrivacyPolicyService } from '../../commons/services/private-policy.service';
+import { AnimateOnScrollDirective } from '../../commons/directives/animate-on-scroll.directive';
 
 @Component({
   selector: 'app-contact',
@@ -22,6 +23,7 @@ import { PrivacyPolicyService } from '../commons/services/private-policy.service
     FormsModule,
     ReactiveFormsModule,
     FixedTextAreaHeightByMessagesErrorsDirective,
+    AnimateOnScrollDirective
   ],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss',

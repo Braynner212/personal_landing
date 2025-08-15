@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AnimateOnScrollDirective } from '../../commons/directives/animate-on-scroll.directive';
 
 @Component({
   standalone: true,
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  imports: [RouterLink],
+  imports: [CommonModule, AnimateOnScrollDirective],
 })
 export class HomeComponent {
   constructor(

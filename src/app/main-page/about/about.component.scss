@@ -1,4 +1,4 @@
-@use "../../assets/styles/breakpoint.scss" as bp;
+@use "../../../assets/styles/breakpoint.scss" as bp;
 
 .about {
   box-sizing: border-box;
@@ -6,7 +6,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: slideUp 1s ease-in-out both;
 
 
   &__container {

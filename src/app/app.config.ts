@@ -9,7 +9,6 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(ROUTES_ROOT, withHashLocation()),
     provideHttpClient(withFetch()),
-    provideHttpClient(),
     provideAnimations(),
     provideCharts(withDefaultRegisterables()),
   ],

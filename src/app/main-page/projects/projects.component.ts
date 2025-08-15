@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
-import { IProject } from '../commons/interfaces/Project.interface';
+import { IProject } from '../../commons/interfaces/Project.interface';
 import { ProjectComponent } from './project/project.component';
 import { CommonModule } from '@angular/common';
+import { AnimateOnScrollDirective } from '../../commons/directives/animate-on-scroll.directive';
 
 @Component({
   standalone: true,
   selector: 'app-projects',
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss'],
-  imports: [CommonModule, ProjectComponent],
+  imports: [CommonModule, ProjectComponent, AnimateOnScrollDirective],
 })
 export class ProjectsComponent {
   projects: IProject[] = [

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration } from 'chart.js';
+import { AnimateOnScrollDirective } from '../../commons/directives/animate-on-scroll.directive';
 
 @Component({
   selector: 'app-skills',
   standalone: true,
-  imports: [ BaseChartDirective ],
+  imports: [ BaseChartDirective, AnimateOnScrollDirective ],
   templateUrl: './skills.component.html',
   styleUrl: './skills.component.scss',
 })

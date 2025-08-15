@@ -20,38 +20,25 @@
         </label>
         <ul class="navbar__menu-toggle-options">
           @for (option of menuOptions; track option; let last = $last) {
-          <li class="navbar__menu-item" [routerLink]="option.routerlink" routerLinkActive="navbar__menu-item--active">
-            {{ option.content }}
+          <li class="navbar__menu-item">
+            <a class="navbar__menu-link" [ngClass]="{ 'navbar-menu__item--active': currentMenuItem === option.name }" (click)="scrollTo(option.name)"  href={{option.href}}>{{ option.content }}</a>
           </li>
-          <hr class="navbar__menu-split" />
           }
-          <li class="navbar__menu-item" >
-            <button class="navbar__menu-item--button" (click)="openPrivacyPolicy()">Política de Privacidad</button>
-          </li>
         </ul>
       </div>
       <div class="navbar__logo">
-        <span class="navbar__logo-letter navbar__logo-letter--semibold">{{
-          "\<D" }}</span>
-            <span class="navbar__logo-letter navbar__logo-letter--regular">{{
-              "ev.a"
-              }}</span>
-            <span class="navbar__logo-letter navbar__logo-letter--semibold navbar__logo-letter--15px">{{ "l" }}</span>
-            <span class="navbar__logo-letter navbar__logo-letter--semibold">{{
-              ">"
-              }}</span>
+        <span class="navbar__logo-letter navbar__logo-letter--semibold">
+          {{"\<braystack\>" }}
+          </span>
       </div>
     </div>
 
     <ul class="navbar__menu">
       @for (option of menuOptions; track option; let last = $last) {
-        <li class="navbar__menu-item" [routerLink]="option.routerlink" routerLinkActive="navbar__menu-item--active">
+        <li class="navbar__menu-item" routerLinkActive="navbar__menu-item--active">
           {{ option.content }}
         </li>
         }
-        <li class="navbar__menu-item" >
-          <button class="navbar__menu-item--button" (click)="openPrivacyPolicy()">Politica de Privacidad</button>
-        </li>
     </ul>
     <button class="navbar__button--conversemos" routerLink="/contact">
       conversemos
