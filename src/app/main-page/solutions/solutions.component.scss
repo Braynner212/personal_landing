@@ -117,6 +117,23 @@
       grid-column: 1 / 1;
       place-self: center;
       width: 520px;
+      height: 300px;
     }
+  }
+
+  .row {
+    height: 300px;
+  }
+  .carousel-control {
+    &-prev{
+      left: -58px !important;
+    }
+    &-next{
+      right: -58px !important;
+    }
+  }
+
+  .col-md-12, .col-md-6 {
+    padding: 0;
   }
 }

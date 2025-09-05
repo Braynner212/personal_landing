@@ -64,6 +64,10 @@
 
 @include bp.responsive("laptop") {
   .home {
+    &__container {
+      width: 840px !important;
+    }
+
     &__phrase {
       font-size: 36px;
       width: 840px;

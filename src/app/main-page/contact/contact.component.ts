@@ -42,14 +42,9 @@ export class ContactComponent implements OnInit, AfterViewInit {
       href: 'https://linkedin.com/in/braynner-polo',
     },
     {
-      src: './assets/icons/github.png',
-      alt: 'Ícono Github',
-      href: 'https://github.com/braynner212',
-    },
-    {
       src: './assets/icons/instagram.png',
       alt: 'Ícono Instagram',
-      href: 'https://instagram.com/braynner.dev.ai',
+      href: 'https://instagram.com/somos.atemia',
     },
   ];
 
