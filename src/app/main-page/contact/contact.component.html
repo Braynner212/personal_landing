@@ -1,6 +1,6 @@
 <section class="contact" id="contact" appAnimateOnScroll>
   <div class="contact__container container-generic">
-    <h2 class="contact__title">¡Convencemos!</h2>
+    <h2 class="contact__title">Convercemos!</h2>
     <form class="contact__form" [formGroup]="form" (submit)="onSubmit()">
       <div class="contact__wrapper-input">
         <input class="contact__input" id="name_complete" type="text" placeholder="Nombre Completo"
@@ -101,12 +101,13 @@
         </p>
       </div>
       <div class="contact__wrapper-input">
-        <input type="checkbox" formControlName="privacy_policy" name="contact__privacy-policy-checkbox" id="privacy-policy-consent">
-        <label class="contact__privacy-policy-label" for="privacy-policy-consent"> Yo he leído y acepto la</label><button
-          type="button" class="contact__privacy-policy-button" (click)="openPrivacyPolicy()">Política de Privacidad.</button>
+          <label class="contact__privacy-policy-label" for="privacy-policy-consent"><input type="checkbox" class="contact__privacy-policy-acceptance" formControlName="privacy_policy_acceptance" name="contact__privacy-policy-checkbox"
+              id="privacy-policy-consent"> Yo he leído y acepto
+              la <strong class="contact__privacy-policy-button"
+              (click)="openPrivacyPolicy()">Política de Privacidad.</strong></label>
           <p *ngIf="
-          form.get('privacy_policy')?.hasError('required') &&
-          form.get('privacy_policy')?.touched
+          form.get('privacy_policy_acceptance')?.hasError('required') &&
+          form.get('privacy_policy_acceptance')?.touched
         " class="contact__message--error">
           Este campo es necesario para enviar la información
         </p>
@@ -115,10 +116,10 @@
     </form>
     <div class="contact__box-right">
       <p class="contact__paragraph">
-        Me gustaría que conversemos sobre tu idea, puedes dejarla a través del
-        formulario o si lo prefieres puedes escribirme por Whatsapp, Instagram o
+        Cuentanos sobre tu idea, puedes dejarla a través del
+        formulario o si lo prefieres puedes escribirnos por Whatsapp, Instagram o
         LinkedIn y por su puesto si quieres saber sobre contenido digital no dudes
-        en seguirme en redes.
+        en seguirnos en redes.
       </p>
       <div class="contact__socials-media-container">
         @for (socialMedia of socialsMedia; track socialMedia) {

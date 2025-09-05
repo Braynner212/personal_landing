@@ -11,7 +11,7 @@ import { ContactFormService } from '../../commons/services/contact-form.service'
 import { FixedTextAreaHeightByMessagesErrorsDirective } from '../../commons/directives/fixed-text-area-height-by-messages-errors.directive';
 import { RecaptchaService } from '../../commons/services/recaptcha.service';
 import { ModalService } from '../../commons/services/modal.service';
-import { ContactFormResponse } from '../../commons/interfaces/response.interface';
+import { ContactFormResponse, DataSendSubmit } from '../../commons/interfaces/response.interface';
 import { PrivacyPolicyService } from '../../commons/services/private-policy.service';
 import { AnimateOnScrollDirective } from '../../commons/directives/animate-on-scroll.directive';
 
@@ -23,7 +23,7 @@ import { AnimateOnScrollDirective } from '../../commons/directives/animate-on-sc
     FormsModule,
     ReactiveFormsModule,
     FixedTextAreaHeightByMessagesErrorsDirective,
-    AnimateOnScrollDirective
+    AnimateOnScrollDirective,
   ],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss',
@@ -67,10 +67,12 @@ export class ContactComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.form
-      .get('privacy_policy')
+      .get('privacy_policy_acceptance')
       ?.valueChanges.subscribe((checked: boolean) => {
         if (checked) {
-          this.form.get('privacy_policy_timestamp')!.setValue(new Date().toISOString());
+          this.form
+            .get('privacy_policy_acceptance_timestamp')!
+            .setValue(new Date().toISOString());
         }
       });
   }
@@ -98,13 +100,13 @@ export class ContactComponent implements OnInit, AfterViewInit {
           Validators.maxLength(255),
         ],
       ],
-      privacy_policy: [false, [Validators.requiredTrue]],
-      privacy_policy_timestamp: ['', [Validators.required]],
+      privacy_policy_acceptance: [false, [Validators.requiredTrue]],
+      privacy_policy_acceptance_timestamp: ['', [Validators.required]],
     });
   }
 
   async onSubmit() {
-  console.log(this.form.value);
+    console.log(this.form.value);
     if (this.form.invalid) {
       Object.keys(this.form.controls).forEach((key) => {
         if (this.form.controls[key].invalid) {
@@ -119,8 +121,18 @@ export class ContactComponent implements OnInit, AfterViewInit {
 
         this.openModal({ message: 'Enviando...', type: 'loading' });
 
+        const data: DataSendSubmit = {
+          name_complete: this.form.value.name_complete,
+          mail: this.form.value.mail,
+          message: this.form.value.message,
+          privacy_policy_acceptance: this.form.value.privacy_policy_acceptance,
+          privacy_policy_acceptance_timestamp:
+            this.form.value.privacy_policy_acceptance_timestamp,
+          recaptcha: recaptchaToken,
+        };
+
         this.contactFormServ
-          .sendData(this.form.value, recaptchaToken)
+          .sendData( data )
           .subscribe({
             next: (response: ContactFormResponse) => {
               setTimeout(() => {
@@ -132,7 +144,7 @@ export class ContactComponent implements OnInit, AfterViewInit {
               this.closeModal();
               if (
                 error.error.message ===
-                  'Exceso de solicitudes, debe esperar 1 día para de intentarlo de nuevo.' ||
+                  'Exceso de solicitudes, debe esperar 1 dia para intentarlo de nuevo.' ||
                 error.error.message === 'Verificación reCAPTCHA fallida'
               ) {
                 this.openModal({

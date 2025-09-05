@@ -14,10 +14,10 @@ export class NavbarComponent implements OnInit {
   currentMenuItem = 'home';
   menuOptions: { content: string; name: string, href: string }[] = [
     { content: 'Inicio', name: 'home', href: '#home', },
-    { content: 'Sobre mí', name: 'about', href: '#about', },
-    { content: 'Proyectos', name: 'project', href: '#project' },
-    { content: 'Habilidades', name: 'skills', href: '#skills' },
-    { content: 'Experiencia', name: 'experience', href: '#experience' },
+    { content: 'Nosotros', name: 'about', href: '#about', },
+    { content: 'servicios', name: 'solutions', href: '#solution' },
+/*     { content: 'Habilidades', name: 'skills', href: '#skills' },
+    { content: 'Experiencia', name: 'experience', href: '#experience' }, */
     { content: 'Convercemos', name: 'contact', href: '#contact' },
   ];
 

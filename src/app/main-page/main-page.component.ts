@@ -3,7 +3,7 @@ import { NavbarComponent } from '../commons/components/navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
-import { ProjectsComponent } from './projects/projects.component';
+import { SolutionsComponent } from './solutions/solutions.component';
 import { SkillComponent } from './skills/skills.component';
 import { ContactComponent } from './contact/contact.component';
 import { ExperienceComponent } from './experience/experience.component';
@@ -18,7 +18,7 @@ import { ExperienceComponent } from './experience/experience.component';
     NavbarComponent,
     HomeComponent,
     AboutComponent,
-    ProjectsComponent,
+    SolutionsComponent,
     SkillComponent,
     ExperienceComponent,
     ContactComponent,

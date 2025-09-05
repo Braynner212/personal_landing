@@ -1,7 +1,7 @@
-.project {
+.solution {
   box-sizing: border-box;
   padding: 30px 20px 40px;
-  width: 250px;
+  width: 240px;
   height: 260px;
   background: rgba(18, 18, 18, 0.95);
   border-width: 1px 0.5px 0.5px 1px;
@@ -30,15 +30,18 @@
   }
 
   &__title {
-    font-size: 20px;
+    font-size: 26px;
     font-weight: bold;
     margin-bottom: 0px;
     color: #ffffff;
+    text-align: center;
   }
 
   &__description {
-    font-size: 11px;
+    font-size: 16px;
     color: #807c7c;
-    width: 173px;
+    margin-top: 10px;
+    text-align: center;
+
   }
 }

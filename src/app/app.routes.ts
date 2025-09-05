@@ -4,7 +4,7 @@ import { HomeComponent } from './main-page/home/home.component';
 import { AboutComponent } from './main-page/about/about.component';
 import { SkillComponent } from './main-page/skills/skills.component';
 import { ExperienceComponent } from './main-page/experience/experience.component';
-import { ProjectsComponent } from './main-page/projects/projects.component';
+import { SolutionsComponent } from './main-page/solutions/solutions.component';
 import { ContactComponent } from './main-page/contact/contact.component';
 
 export default [
@@ -14,7 +14,7 @@ export default [
     children: [
       { path: '#home', component: HomeComponent },
       { path: '#about', component: AboutComponent },
-      { path: '#project', component: ProjectsComponent },
+      { path: '#solution', component: SolutionsComponent },
       { path: '#skill', component: SkillComponent },
       { path: '#experience', component: ExperienceComponent },
       { path: '#contact', component: ContactComponent },

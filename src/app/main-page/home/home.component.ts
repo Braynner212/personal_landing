@@ -1,7 +1,7 @@
 import { Component, } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { AnimateOnScrollDirective } from '../../commons/directives/animate-on-scroll.directive';
+import { AnimateOnScrollDirective } from 'src/app/commons/directives/animate-on-scroll.directive';
 
 @Component({
   standalone: true,

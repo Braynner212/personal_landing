@@ -6,16 +6,18 @@
   top: 0px;
   left: 0px;
   width: 100%;
-  height: 50px;
-  padding: 0px 10px;
+  height: 60px;
+  padding: 0 20px 0 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: transparent;
+  background: transparent;
   z-index: 4;
   transform: translateY(-100%);
   opacity: 0;
   animation: slideDown 1s ease-in-out both;
+
+
 
   &__menu-logo-container {
     display: flex;
@@ -27,20 +29,8 @@
 
     &-letter {
       color: #ffffff;
-
-      &--semibold {
-        font-weight: 600;
-        font-size: 16px;
-      }
-
-      &--regular {
-        font-weight: 400;
-        font-size: 20px;
-      }
-
-      &--15px {
-        font-size: 15px;
-      }
+      font-weight: 600;
+      font-size: 16px;
     }
   }
 
@@ -72,7 +62,7 @@
 
     &:checked ~ &-options {
       opacity: 1;
-      height: 300px;
+      height: 221px;
     }
 
     &:not(:checked) ~ &-options {
