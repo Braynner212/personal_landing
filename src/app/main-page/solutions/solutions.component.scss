@@ -10,6 +10,10 @@
   &__container {
     width: 240px;
     height: 660px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   &__title {
@@ -80,6 +84,7 @@
       width: 250px;
       grid-column: 2 / 3;
       grid-row: 1 / 1;
+      margin-bottom: 90px;
     }
 
     &__project {
@@ -110,6 +115,7 @@
     &__text-container {
       grid-row: 1 / 2;
       grid-column: 1 / 1;
+      margin-bottom: 10px;
     }
 
     &__project {
