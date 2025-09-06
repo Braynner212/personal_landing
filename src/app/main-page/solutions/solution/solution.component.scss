@@ -1,18 +1,23 @@
 .solution {
   box-sizing: border-box;
-  padding: 30px 20px 40px;
-  width: 240px;
-  height: 260px;
+  padding: 20px;
+  width: 300px;
+  height: 300px;
   background: rgba(18, 18, 18, 0.95);
   border-width: 1px 0.5px 0.5px 1px;
   border-style: solid;
   border-color: #9d9a9a;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   
   &:hover {
     cursor: pointer;
     transform: scale(1.03);
+    transition: all 0.3s ease-in-out;
   }
 
   &__header {
@@ -30,23 +35,24 @@
   }
 
   &__imagen {
-    width: 113px;
-    height: 45px;
+    width: 117px;
+    height: 88px;
   }
 
   &__title {
     font-size: 26px;
     font-weight: bold;
-    margin-bottom: 0px;
+    margin: 0;
+    margin-top: 10px;
     color: #ffffff;
     text-align: center;
   }
 
   &__description {
-    font-size: 16px;
+    font-size: 18px;
     color: #807c7c;
+    margin: 0;
     margin-top: 10px;
     text-align: center;
-
   }
 }

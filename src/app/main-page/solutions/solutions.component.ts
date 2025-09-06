@@ -16,29 +16,29 @@ export class SolutionsComponent implements OnInit {
     {
       name: 'Diseño UX',
       description:
-        'Creamos experiencias digitales centradas en el usuario, claras y fáciles de usar, que impulsan confianza y decisiones rápidas.',
-      image: 'assets/images/services/design.png',
+        'Creamos experiencias digitales, claras y intuitivas, que impulsan confianza y decisiones rápidas.',
+      image: 'assets/images/solutions/design-ux.png',
       alt: 'Diseño de experiencia',
     },
     {
       name: 'Sitios Web',
       description:
-        'Construimos páginas que cuentan una historia, atraen miradas y convierten visitas en oportunidades para tu negocio crecer.',
-      image: 'assets/images/services/landing-pages.png',
+        'Construimos páginas que reflejan la identidad de tu negocio y convierten visitas en oportunidades.',
+      image: 'assets/images/solutions/websites.png',
       alt: 'Páginas efectivas',
     },
     {
       name: 'Software a Medida',
       description:
-        'Creamos software y sitios a medida que se ajustan a tus procesos, reducen tareas repetitivas y crecen junto a tu empresa.',
-      image: 'assets/images/services/custom-software.png',
+        'Creamos software que se ajustan a tus procesos, optimizan tareas y crecen junto a tu empresa.',
+      image: 'assets/images/solutions/custom-softwares.png',
       alt: 'Soluciones personalizadas',
     },
     {
-      name: 'Automatización con IA',
+      name: 'Automatización - IA',
       description:
-        'Implementamos inteligencia artificial en procesos administrativos y operativos para ahorrar tiempo y aumentar eficiencia.',
-      image: 'assets/images/services/ai-automation.png',
+        'Automatizamos con inteligencia artificial procesos administrativos y operativos.',
+      image: 'assets/images/solutions/ai-automation.png',
       alt: 'Automatización inteligente',
     },
   ];
