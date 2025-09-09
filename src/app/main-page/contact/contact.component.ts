@@ -101,7 +101,6 @@ export class ContactComponent implements OnInit, AfterViewInit {
   }
 
   async onSubmit() {
-    console.log(this.form.value);
     if (this.form.invalid) {
       Object.keys(this.form.controls).forEach((key) => {
         if (this.form.controls[key].invalid) {
