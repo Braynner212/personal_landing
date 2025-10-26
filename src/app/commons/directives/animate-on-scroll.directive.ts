@@ -13,6 +13,8 @@ export class AnimateOnScrollDirective implements OnInit {
         if (entry.isIntersecting) {
           this.renderer.addClass(this.el.nativeElement, 'visible');
           observer.unobserve(this.el.nativeElement);
+        } else {
+          this.renderer.removeClass(this.el.nativeElement, 'visible');
         }
       });
     }, { threshold: 0.3 });
