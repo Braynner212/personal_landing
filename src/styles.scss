@@ -1,10 +1,24 @@
-/* You can add global styles to this file, and also import other style files */
-/* Agrega más definiciones @font-face si tienes más estilos (italic, bold italic, etc.) */
+/*
+ * Estilos Globales de Atemia
+ * Importa los módulos de estilo base.
+ */
 
-/* Establece la fuente como la predeterminada para el cuerpo del documento */
+// 1. Módulos de Estilo (variables, mixins, etc.)
+// Usamos @use en lugar de @import para una mejor gestión de dependencias en Sass.
+@use "assets/styles/breakpoint" as bp; 
+@use "assets/styles/colors";
+@use "assets/styles/typography";
+
+// 2. Importaciones de Fuentes y Animaciones
 @import "assets/styles/fonts";
 @import "assets/styles/animation";
 @import "assets/styles/scrollbar";
+
+// --- Reseteo Básico y Estilos del Body ---
+
+* {
+  box-sizing: border-box;
+}
 
 html,
 body {
@@ -15,16 +29,24 @@ body {
 body {
   height: 100vh;
   width: 100vw;
-  background: radial-gradient(
+  font-family: var(--font-primary);
+  color: var(--color-text-body);
+  font-size: var(--font-size-base); // ¡Aplicamos la semilla!
+  line-height: 1.6;
+
+  // El fondo de Atemia (actualizado con las variables de color)
+  background-color: var(--color-background-dark);
+  background-image: radial-gradient(
     233.19% 107.27% at 50.05% 104.78%,
-    #000000 1%,
-    #0fd7cb 69%,
-    #000000 100%
+    var(--color-background-dark) 1%,
+    var(--color-accent-glow) 69%,
+    var(--color-background-dark) 100%
   );
   background-attachment: fixed;
-  font-family: "Noto Sans", sans-serif;
+  overflow-x: hidden;
 }
 
+// Estilos de Animación (de tu archivo)
 [appAnimateOnScroll] {
   opacity: 0;
   transform: translateY(30px);

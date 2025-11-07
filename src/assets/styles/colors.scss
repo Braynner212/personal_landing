@@ -1,0 +1,30 @@
+/*
+ * Paleta de Colores de Atemia
+ * Definida en :root para uso global en CSS y componentes.
+ */
+
+:root {
+  // Paleta Principal (Extraída de atemia.tech)
+  --color-primary-body: #5163e5; // El azul/violeta principal del logo y botones
+  --color-primary-rgb: 81, 99, 229; // Para usar con opacidad (ej. rgba(var(--color-primary-rgb), 0.5))
+
+  // Fondos (Del sitio y tu styles.scss)
+  --color-background-dark: #000000;
+  --color-background-start: #0d0d1a; // Degradado oscuro del sitio
+  --color-background-end: #000000;
+  --color-surface: #121212; // Un gris casi negro para "superficies" (de tu lista)
+
+  // Acentos (Verdes/Teal de tu lista y styles.scss)
+  --color-accent-teal: #0a8d85;
+  --color-accent-cyan: #2ef5e9;
+  --color-accent-cyan-light: #6ab1ac;
+  --color-accent-glow: #0fd7cb; // Del radial-gradient en tu styles.scss
+
+  // Texto (De tu lista)
+  --color-text-heading: #ffffff;
+  --color-text-body: #b3aeae;
+  --color-text-muted: #807c7c;
+
+  // Estados
+  --color-error: #ff4d4d;
+}

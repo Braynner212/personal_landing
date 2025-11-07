@@ -1,0 +1,49 @@
+/*
+ * Tipografía Fluida (Semilla Proporcional)
+ * Define el --font-size-base y las variantes.
+ */
+
+// --- Sobreescrituras de Breakpoints (Como en tu ejemplo) ---
+@use "breakpoint" as bp;
+
+:root {
+  // --- La Semilla Proporcional ---
+  // Esta es la variable principal que usaremos con calc() para márgenes, paddings, etc.
+  --font-size-base: clamp(1rem, 0.34vw + 0.91rem, 1.2rem); // Base mobile-first (ligeramente ajustada de tu ejemplo)
+
+  // Variantes de texto
+  --font-size-sm: clamp(0.8rem, 0.17vw + 0.76rem, 0.9rem);
+  --font-size-lg: clamp(1.25rem, 0.61vw + 1.1rem, 1.5rem);
+  --font-size-xl: clamp(1.56rem, 1.02vw + 1.3rem, 2.0rem);
+  --font-size-xxl: clamp(1.95rem, 1.56vw + 1.5rem, 2.5rem);
+
+  // Fuentes
+  --font-primary: "Noto Sans", sans-serif; // De tu styles.scss
+}
+
+@include bp.responsive("laptop") {
+  :root {
+    // Hacemos la "semilla" un poco más grande en pantallas de escritorio
+    --font-size-base: clamp(1.1rem, 0.34vw + 0.91rem, 1.3rem);
+  }
+}
+
+@include bp.responsive("laptop l") {
+  :root {
+    --font-size-base: clamp(1.2rem, 0.4vw + 1.0rem, 1.5rem); // Ajustado
+  }
+}
+
+@media (min-width: 1800px) {
+  :root {
+    --font-size-base: clamp(1.3rem, 0.4vw + 1.1rem, 1.7rem); // Ajustado
+  }
+}
+
+// Manejo de Landscape en móviles (Como en tu ejemplo)
+@media screen and (max-height: 450px) and (orientation: landscape) {
+  :root {
+    // Reducimos la fuente base en landscape móvil para que quepa más
+    --font-size-base: clamp(0.9rem, 0.34vw + 0.8rem, 1rem);
+  }
+}

@@ -1,0 +1,198 @@
+@use "../../../assets/styles/breakpoint" as bp;
+
+.personality-step {
+  width: 100%;
+  // Animación de entrada suave
+  animation: fadeIn 0.5s ease-out;
+
+  &__header {
+    margin-bottom: calc(var(--font-size-base) * 2);
+    text-align: center;
+  }
+
+  &__title {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-heading);
+    margin-bottom: calc(var(--font-size-base) * 0.5);
+  }
+
+  &__subtitle {
+    color: var(--color-text-body);
+    font-size: var(--font-size-base);
+    max-width: 60ch;
+    margin: 0 auto;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--font-size-base) * 2.5);
+  }
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--font-size-base) * 1);
+  }
+
+  &__section-title {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-heading);
+    margin-bottom: calc(var(--font-size-base) * 0.2);
+  }
+
+  &__section-desc {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-top: 0;
+  }
+
+  &__label {
+    font-size: var(--font-size-base);
+    color: var(--color-text-heading);
+    margin-bottom: calc(var(--font-size-base) * 0.5);
+  }
+
+  // --- Inputs y Botones ---
+  &__input {
+    width: 100%;
+    padding: calc(var(--font-size-base) * 0.75);
+    font-size: var(--font-size-base);
+    font-family: var(--font-primary);
+    background-color: rgba(255, 255, 255, 0.05); // Fondo sutil
+    border: 1px solid var(--color-text-muted);
+    border-radius: 4px;
+    color: var(--color-text-heading);
+    transition: all 0.3s ease;
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-primary-body);
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  &__valores-list {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--font-size-base) * 0.8);
+  }
+
+  &__valor-item {
+    display: flex;
+    gap: calc(var(--font-size-base) * 0.5);
+    align-items: center;
+  }
+
+  &__remove-btn {
+    background: none;
+    border: none;
+    color: var(--color-error);
+    font-size: var(--font-size-lg);
+    cursor: pointer;
+    padding: 0 calc(var(--font-size-base) * 0.5);
+    transition: opacity 0.3s ease;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  &__add-btn {
+    align-self: flex-start;
+    background: none;
+    border: 1px dashed var(--color-primary-body);
+    color: var(--color-primary-body);
+    padding: calc(var(--font-size-base) * 0.5) calc(var(--font-size-base) * 1);
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: var(--font-primary);
+    font-weight: 600;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: rgba(var(--color-primary-rgb), 0.1);
+    }
+  }
+
+  // --- Sliders Personalizados ---
+  &__sliders {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--font-size-base) * 2);
+    margin-top: calc(var(--font-size-base) * 1);
+  }
+
+  &__slider-group {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--font-size-base) * 0.5);
+  }
+
+  &__slider-labels {
+    display: flex;
+    justify-content: space-between;
+    color: var(--color-text-body);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+  }
+
+  &__range {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    background: var(--color-surface); // Pista del slider
+    border-radius: 3px;
+    outline: none;
+
+    // Thumb (el control deslizante) - Webkit
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--color-primary-body);
+      cursor: pointer;
+      border: 2px solid var(--color-background-dark);
+      transition: transform 0.2s ease, background-color 0.2s ease;
+
+      &:hover {
+        transform: scale(1.2);
+        background-color: lighten(#5163e5, 10%);
+      }
+    }
+
+    // Thumb - Firefox
+    &::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--color-primary-body);
+      cursor: pointer;
+      border: 2px solid var(--color-background-dark);
+      transition: transform 0.2s ease, background-color 0.2s ease;
+
+      &:hover {
+        transform: scale(1.2);
+        background-color: lighten(#5163e5, 10%);
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+// --- Breakpoints ---
+@include bp.responsive("tablet") {
+  .personality-step {
+    &__sliders {
+      // En tablets/desktop, los sliders pueden ir en 2 columnas si hay espacio
+      // o mantenerse en 1 pero más anchos.
+      padding: 0 calc(var(--font-size-base) * 2);
+    }
+  }
+}

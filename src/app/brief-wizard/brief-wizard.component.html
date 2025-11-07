@@ -1,0 +1,91 @@
+@if (!formInitialized) {
+  <div class="brief-wizard__loading">
+    <span>Cargando tu borrador...</span>
+  </div>
+} @else {
+
+  <div class="brief-wizard">
+
+    @if (currentStepIndex > 0) {
+      <div class="brief-wizard__progress-bar">
+        <div 
+          class="brief-wizard__progress-bar-inner" 
+          [style.--step-index]="currentStepIndex"
+          [style.--total-steps]="totalSteps - 1"> 
+          </div>
+      </div>
+    }
+
+    <div class="brief-wizard__step-container">
+      
+      @switch (currentStepIndex) {
+        
+        @case (0) {
+          <app-step-welcome (formSubmitted)="onWelcomeSubmit($event)" />
+        }
+        
+        @case (1) {
+          @if (currentStepFormGroup) {
+            <app-step-context [contextForm]="currentStepFormGroup"></app-step-context>
+          }
+        }
+
+        @case (2) {
+          @if (currentStepFormGroup) {
+            <app-step-personality [personalityForm]="currentStepFormGroup"></app-step-personality>
+          }
+        }
+        @case (3) {
+          @if (currentStepFormGroup) {
+            <app-step-value-proposition [valuePropositionForm]="currentStepFormGroup"></app-step-value-proposition>
+          }
+        }
+
+        @case (11) {
+          <h1 style="color:white">Paso 11: Aplicaciones (Componente por crear)</h1>
+        }
+        
+        @case (12) {
+          <h1 style="color:white">Paso 12: ¡Gracias! (Componente por crear)</h1>
+        }
+      }
+    </div>
+
+    <footer 
+      class="brief-wizard__navigation" 
+      role="navigation"
+      aria-label="Controles del formulario">
+      
+      @if (currentStepIndex > 0 && currentStepIndex < 12) {
+        <button 
+          type="button" 
+          (click)="goToPreviousStep()"
+          class="brief-wizard__nav-button brief-wizard__nav-button--prev">
+          Volver
+        </button>
+      } @else {
+        <div></div>
+      }
+
+      @if (currentStepIndex > 0 && currentStepIndex < 11) {
+        <button 
+          type="button" 
+          (click)="goToNextStep()"
+          class="brief-wizard__nav-button brief-wizard__nav-button--next">
+          Siguiente
+        </button>
+      }
+      
+      @if (currentStepIndex === 11) {
+         <button 
+          type="button" 
+          (click)="goToNextStep()" 
+          class="brief-wizard__nav-button brief-wizard__nav-button--finish">
+          Finalizar y Enviar
+        </button>
+      }
+
+    </footer>
+
+  </div>
+}

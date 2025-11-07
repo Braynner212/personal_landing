@@ -1,0 +1,57 @@
+<div class="value-step" [formGroup]="valuePropositionForm">
+  
+  <header class="value-step__header">
+    <h2 class="value-step__title">Propuesta de Valor</h2>
+    <p class="value-step__subtitle">
+      Esto es lo que te hace diferente. ¿Por qué deberían elegirte a ti y no a la competencia?
+    </p>
+  </header>
+
+  <div class="value-step__form">
+
+    <div class="value-step__form-group">
+      <label for="unica" class="value-step__label">
+        ¿Qué hace que tu marca sea única en el mercado?
+      </label>
+      <p class="value-step__help-text">
+        Puede ser tu tecnología, tu enfoque en el cliente, tu modelo de precios, tu historia...
+      </p>
+      <textarea
+        id="unica"
+        formControlName="unica"
+        class="value-step__textarea"
+        [class.value-step__textarea--error]="unicaControl?.invalid && unicaControl?.touched"
+        placeholder="Ej: Somos los únicos que combinamos IA con consultoría humana personalizada..."
+        rows="4">
+      </textarea>
+      @if (unicaControl?.invalid && unicaControl?.touched) {
+        <span class="value-step__error-message">
+          Definir tu factor único es fundamental.
+        </span>
+      }
+    </div>
+
+    <div class="value-step__form-group">
+      <label for="beneficioPrincipal" class="value-step__label">
+        ¿Cuál es el principal beneficio que ofreces a tus clientes?
+      </label>
+      <p class="value-step__help-text">
+        Enfócate en el resultado final para el cliente. ¿Qué ganan ellos? (Ahorrar tiempo, ganar dinero, sentir paz mental...)
+      </p>
+      <textarea
+        id="beneficioPrincipal"
+        formControlName="beneficioPrincipal"
+        class="value-step__textarea"
+        [class.value-step__textarea--error]="beneficioPrincipalControl?.invalid && beneficioPrincipalControl?.touched"
+        placeholder="Ej: Nuestros clientes reducen sus costos operativos en un 30%..."
+        rows="4">
+      </textarea>
+      @if (beneficioPrincipalControl?.invalid && beneficioPrincipalControl?.touched) {
+        <span class="value-step__error-message">
+          Por favor, describe el beneficio principal.
+        </span>
+      }
+    </div>
+
+  </div>
+</div>

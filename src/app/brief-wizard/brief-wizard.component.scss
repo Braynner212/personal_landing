@@ -1,0 +1,132 @@
+@use "../../assets/styles/breakpoint" as bp;
+
+/*
+ * Componente: Brief Wizard
+ * El componente padre que orquesta el formulario multi-paso.
+ */
+
+.brief-wizard {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; // Ocupa toda la altura de la vista
+  width: 100vw;  // Ocupa todo el ancho
+  // background-color: var(--color-background-dark); // Fondo de Atemia
+}
+
+.brief-wizard__loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: var(--color-text-heading);
+  font-size: var(--font-size-lg);
+}
+
+// --- 1. Barra de Progreso ---
+.brief-wizard__progress-bar {
+  width: 100%;
+  height: calc(var(--font-size-base) * 0.4); // 8px~
+  background-color: var(--color-surface); // Gris oscuro
+}
+
+.brief-wizard__progress-bar-inner {
+  height: 100%;
+  background-color: var(--color-primary-body); // Azul de Atemia
+  // Usamos calc() para la animación de la barra
+  // --step-index y --total-steps se pasan desde el HTML
+  width: calc( (var(--step-index, 0) / var(--total-steps, 1)) * 100% );
+  transition: width 0.4s ease;
+}
+
+// --- 2. Contenedor de Pasos ---
+.brief-wizard__step-container {
+  flex-grow: 1; // Ocupa todo el espacio disponible
+  overflow-y: auto; // Permite scroll si el contenido del paso es largo
+  padding: calc(var(--font-size-base) * 1.5);
+  
+  // Estilos de scrollbar (deberías tener esto en /assets/styles/scrollbar)
+  @media (pointer: fine) {
+    &::-webkit-scrollbar {
+      width: calc(var(--font-size-base) * 0.4);
+    }
+    &::-webkit-scrollbar-track {
+      background: var(--color-surface);
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--color-primary-body);
+      border-radius: calc(var(--font-size-base) * 0.4);
+    }
+  }
+}
+
+// --- 3. Navegación ---
+.brief-wizard__navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: calc(var(--font-size-base) * 1);
+  background-color: var(--color-surface); // Un poco más claro que el fondo
+  border-top: 1px solid rgba(var(--color-primary-rgb), 0.2);
+  flex-shrink: 0; // Evita que se encoja
+}
+
+.brief-wizard__nav-button {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  padding: calc(var(--font-size-base) * 0.6) calc(var(--font-size-base) * 1.2);
+  border: 1px solid var(--color-text-muted);
+  border-radius: calc(var(--font-size-base) * 0.25);
+  background-color: transparent;
+  color: var(--color-text-body);
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: var(--color-text-heading);
+    border-color: var(--color-primary-body);
+    transform: translateY(-2px);
+  }
+
+  // Modificador BEM para "Siguiente" y "Finalizar"
+  &--next,
+  &--finish {
+    background-color: var(--color-primary-body);
+    border-color: var(--color-primary-body);
+    color: var(--color-text-heading);
+    
+    &:hover {
+      background-color: lighten(#5163e5, 5%);
+      border-color: lighten(#5163e5, 5%);
+      box-shadow: 0 4px 15px rgba(var(--color-primary-rgb), 0.3);
+    }
+  }
+
+  &--finish {
+    // Podrías añadir un efecto de "glow" aquí
+    background-color: var(--color-accent-cyan);
+    color: var(--color-background-dark);
+    border-color: var(--color-accent-cyan);
+  }
+}
+
+// --- Breakpoints ---
+@include bp.responsive("tablet") {
+  .brief-wizard__step-container {
+    // Centra el contenido en pantallas grandes
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; // Alinea arriba
+    padding: calc(var(--font-size-base) * 2);
+    
+    // El contenido de cada paso no debe ser más ancho que ~900px
+    & > * { // Elige el hijo directo (el componente del paso)
+      max-width: 900px;
+      width: 100%;
+    }
+  }
+  
+  .brief-wizard__navigation {
+    padding: calc(var(--font-size-base) * 1) calc(var(--font-size-base) * 2);
+  }
+}

@@ -1,0 +1,39 @@
+<div class="welcome-step">
+
+  <!-- <canvas #splineCanvas class="welcome-step__spline-bg"></canvas> -->
+
+  <div class="welcome-step__content">
+    
+    <header class="welcome-step__header">
+      <h1 class="welcome-step__title">Bienvenido a la evolución de tu marca</h1>
+      <p class="welcome-step__subtitle">
+        Estás a un paso de definir la identidad digital de tu proyecto.
+        Para comenzar, dinos tu nombre o el de tu empresa.
+      </p>
+    </header>
+
+    <form [formGroup]="welcomeForm" (ngSubmit)="onSubmit()" class="welcome-step__form" novalidate>
+      
+      <div class="welcome-step__form-group">
+        <label for="clientName" class="welcome-step__label">Tu nombre o empresa:</label>
+        <input 
+          id="clientName"
+          type="text" 
+          formControlName="clientName"
+          placeholder="Ej: Atemia"
+          class="welcome-step__input"
+          [class.welcome-step__input--error]="formError && welcomeForm.get('clientName')?.invalid">
+        
+        @if (formError && welcomeForm.get('clientName')?.invalid) {
+          <span class="welcome-step__error-message">Por favor, introduce tu nombre para comenzar.</span>
+        }
+      </div>
+
+      <button type="submit" class="welcome-step__cta-button">
+        Comenzar el Brief
+      </button>
+
+    </form>
+
+  </div>
+</div>
