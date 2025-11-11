@@ -1,0 +1,36 @@
+<div class="logo-step" [formGroup]="logoFormatForm">
+
+  <header class="logo-step__header">
+    <h2 class="logo-step__title">Formato del Logo</h2>
+    <p class="logo-step__subtitle">
+      ¿Qué formato prefieres para tu logo principal? Selecciona una opción.
+    </p>
+  </header>
+
+  <div class="logo-step__grid">
+    @for (logo of logoTypes; track logo.name) {
+      <div 
+        class="logo-step__card"
+        [class.selected]="isSelected(logo.name)"
+        (click)="selectLogoType(logo.name)">
+        
+        <img 
+          [src]="logo.exampleImage" 
+          alt="Ejemplo de {{ logo.name }}" 
+          class="logo-step__card-image"
+          aria-hidden="true">
+        
+        <div class="logo-step__card-content">
+          <h3 class="logo-step__card-name">{{ logo.name }}</h3>
+          <p class="logo-step__card-desc">{{ logo.description }}</p>
+        </div>
+      </div>
+    }
+  </div>
+
+  @if (tipoControl?.invalid && tipoControl?.touched) {
+    <span class="logo-step__error-message">
+      Por favor, selecciona un formato de logo.
+    </span>
+  }
+</div>

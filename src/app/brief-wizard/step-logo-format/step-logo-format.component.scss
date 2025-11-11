@@ -1,0 +1,118 @@
+@use "../../../assets/styles/breakpoint" as bp;
+
+/*
+ * Componente: Step Logo Format (Paso 9)
+ */
+
+.logo-step {
+  width: 100%;
+  max-width: 900px; // Un poco más ancho para la cuadrícula 2x2
+  margin: 0 auto;
+  animation: fadeIn 0.5s ease-out;
+
+  &__header {
+    margin-bottom: calc(var(--font-size-base) * 2);
+    text-align: center;
+  }
+
+  &__title {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-heading);
+    margin-bottom: calc(var(--font-size-base) * 0.5);
+  }
+
+  &__subtitle {
+    font-size: var(--font-size-base);
+    color: var(--color-text-body);
+    max-width: 60ch;
+    margin: 0 auto;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr; // 1 columna en móvil
+    gap: calc(var(--font-size-base) * 1.5);
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(var(--color-surface), 0.7);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: calc(var(--font-size-base) * 1.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-5px);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+  }
+
+  &__card-image {
+    width: 100%;
+    max-width: 250px; // Limita el tamaño de la imagen de ejemplo
+    height: auto;
+    object-fit: contain;
+    margin-bottom: calc(var(--font-size-base) * 1);
+    background-color: #fff; // Fondo blanco para que los logos se vean bien
+    border-radius: 4px;
+    padding: calc(var(--font-size-base) * 0.5);
+    border: 1px solid #eee;
+  }
+
+  &__card-content {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--font-size-base) * 0.5);
+  }
+
+  &__card-name {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--color-text-heading);
+    margin: 0;
+  }
+
+  &__card-desc {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-body);
+    margin: 0;
+    min-height: 2.4em; // Evita que la tarjeta salte de tamaño
+  }
+
+  // --- Estado Seleccionado ---
+  &__card.selected {
+    border-color: var(--color-primary-body);
+    box-shadow: 0 0 15px rgba(var(--color-primary-rgb), 0.5);
+    transform: translateY(-5px) scale(1.03);
+
+    & .logo-step__card-name {
+      color: var(--color-accent-cyan);
+    }
+  }
+
+  &__error-message {
+    display: block;
+    text-align: center;
+    color: var(--color-error);
+    font-size: var(--font-size-sm);
+    margin-top: calc(var(--font-size-base) * 1.5);
+  }
+}
+
+// Keyframe para la animación de entrada
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+// --- Breakpoints ---
+@include bp.responsive("tablet") {
+  .logo-step__grid {
+    grid-template-columns: repeat(2, 1fr); // 2x2 en tablet
+  }
+}

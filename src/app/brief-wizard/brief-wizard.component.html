@@ -35,19 +35,49 @@
             <app-step-personality [personalityForm]="currentStepFormGroup"></app-step-personality>
           }
         }
+        
         @case (3) {
           @if (currentStepFormGroup) {
             <app-step-value-proposition [valuePropositionForm]="currentStepFormGroup"></app-step-value-proposition>
           }
         }
 
-        @case (11) {
-          <h1 style="color:white">Paso 11: Aplicaciones (Componente por crear)</h1>
+        @case (4) {
+          @if (currentStepFormGroup) {
+            <app-step-audience [audienceForm]="currentStepFormGroup"></app-step-audience>
+          }
         }
-        
-        @case (12) {
-          <h1 style="color:white">Paso 12: ¡Gracias! (Componente por crear)</h1>
+
+        @case (5) {
+          @if (currentStepFormGroup) {
+            <app-step-competition [competitionForm]="currentStepFormGroup"></app-step-competition>
+          }
         }
+
+        @case (6) {
+          @if (currentStepFormGroup) {
+            <app-step-tone [toneForm]="currentStepFormGroup"></app-step-tone>
+          }
+        }
+
+        @case (7) {
+          @if (currentStepFormGroup) {
+            <app-step-visual-style [visualStyleForm]="currentStepFormGroup"></app-step-visual-style>
+          }
+        }
+
+        @case (8) {
+          @if (currentStepFormGroup) {
+            <app-step-references [referencesForm]="currentStepFormGroup"></app-step-references>
+          }
+        }
+
+        @case (9) {
+          @if (currentStepFormGroup) {
+            <app-step-logo-format [logoFormatForm]="currentStepFormGroup"></app-step-logo-format>
+          }
+        }
+
       }
     </div>
 

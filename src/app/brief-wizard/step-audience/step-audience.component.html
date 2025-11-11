@@ -1,0 +1,94 @@
+<div class="audience-step" [formGroup]="audienceForm">
+
+  <header class="audience-step__header">
+    <h2 class="audience-step__title">Público Objetivo</h2>
+    <p class="audience-step__subtitle">
+      Imagina a tu cliente perfecto. ¿Cómo es esa persona? No podemos apuntar a todos.
+    </p>
+  </header>
+
+  <div class="audience-step__form">
+
+    <div class="audience-step__demographics-grid">
+      
+      <div class="audience-step__form-group">
+        <label for="edad" class="audience-step__label">Rango de Edad</label>
+        <input 
+          id="edad"
+          type="text"
+          formControlName="edad"
+          class="audience-step__input"
+          [class.audience-step__input--error]="edadControl?.invalid && edadControl?.touched"
+          placeholder="Ej: 25-40 años">
+        @if (edadControl?.invalid && edadControl?.touched) {
+          <span class="audience-step__error-message">Campo requerido.</span>
+        }
+      </div>
+
+      <div class="audience-step__form-group">
+        <label for="genero" class="audience-step__label">Género</label>
+        <input 
+          id="genero"
+          type="text"
+          formControlName="genero"
+          class="audience-step__input"
+          [class.audience-step__input--error]="generoControl?.invalid && generoControl?.touched"
+          placeholder="Ej: Femenino, Hombres, Todos">
+        @if (generoControl?.invalid && generoControl?.touched) {
+          <span class="audience-step__error-message">Campo requerido.</span>
+        }
+      </div>
+
+      <div class="audience-step__form-group">
+        <label for="ubicacion" class="audience-step__label">Ubicación</label>
+        <input 
+          id="ubicacion"
+          type="text"
+          formControlName="ubicacion"
+          class="audience-step__input"
+          [class.audience-step__input--error]="ubicacionControl?.invalid && ubicacionControl?.touched"
+          placeholder="Ej: Ciudades principales, Global">
+        @if (ubicacionControl?.invalid && ubicacionControl?.touched) {
+          <span class="audience-step__error-message">Campo requerido.</span>
+        }
+      </div>
+    </div>
+
+    <div class="audience-step__form-group">
+      <label for="estiloVida" class="audience-step__label">Estilo de vida e Intereses</label>
+      <p class="audience-step__help-text">
+        ¿Qué hacen en su tiempo libre? ¿Qué les importa? (Valores, hobbies, ocupación).
+      </p>
+      <textarea
+        id="estiloVida"
+        formControlName="estiloVida"
+        class="audience-step__textarea"
+        [class.audience-step__textarea--error]="estiloVidaControl?.invalid && estiloVidaControl?.touched"
+        placeholder="Ej: Profesionales ocupados, valoran la eficiencia, aman el diseño minimalista y la tecnología..."
+        rows="4">
+      </textarea>
+      @if (estiloVidaControl?.invalid && estiloVidaControl?.touched) {
+        <span class="audience-step__error-message">Este campo es clave para el diseño.</span>
+      }
+    </div>
+
+    <div class="audience-step__form-group">
+      <label for="problemasNecesidades" class="audience-step__label">Problemas y Necesidades</label>
+      <p class="audience-step__help-text">
+        ¿Qué problema específico de ellos resuelves tú? (Relacionado con el Paso 1).
+      </p>
+      <textarea
+        id="problemasNecesidades"
+        formControlName="problemasNecesidades"
+        class="audience-step__textarea"
+        [class.audience-step__textarea--error]="problemasNecesidadesControl?.invalid && problemasNecesidadesControl?.touched"
+        placeholder="Ej: No encuentran un software que sea a la vez potente y fácil de usar. Se sienten abrumados por..."
+        rows="4">
+      </textarea>
+      @if (problemasNecesidadesControl?.invalid && problemasNecesidadesControl?.touched) {
+        <span class="audience-step__error-message">Saber su problema nos ayuda a enfocar el mensaje.</span>
+      }
+    </div>
+
+  </div>
+</div>

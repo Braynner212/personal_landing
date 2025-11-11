@@ -1,0 +1,39 @@
+<div class="style-step" [formGroup]="visualStyleForm">
+
+  <header class="style-step__header">
+    <h2 class="style-step__title">Estética y Estilo Visual</h2>
+    <p class="style-step__subtitle">
+      ¿Qué estética te gustaría que tu marca reflejara?
+    </p>
+    <p class="style-step__helper">
+      Selecciona hasta <strong>3</strong> estilos que se alineen con tu visión.
+    </p>
+  </header>
+
+  <div class="style-step__grid">
+    @for (style of allStyles; track style.name) {
+      <div 
+        class="style-step__card"
+        [class.selected]="isSelected(style.name)"
+        [class.disabled]="isSelectionLimited() && !isSelected(style.name)"
+        (click)="toggleStyle(style.name)"
+        (mousemove)="onCardMouseMove($event, $el)" 
+        (mouseleave)="onCardMouseLeave($el)"
+        #$el>
+
+        <div class="style-step__card-glare"></div>
+        
+        <div class="style-step__card-content">
+          <span class="style-step__card-name">{{ style.name }}</span>
+          <span class="style-step__card-desc">{{ style.description }}</span>
+        </div>
+      </div>
+    }
+  </div>
+
+  @if (selectedStylesArray.invalid && selectedStylesArray.touched) {
+    <span class="style-step__error-message">
+      Por favor, selecciona al menos 1 estilo (máximo 3).
+    </span>
+  }
+</div>

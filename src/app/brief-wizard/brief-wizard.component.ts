@@ -14,10 +14,12 @@ import { StepWelcomeComponent } from './step-welcome/step-welcome.component';
 import { StepPersonalityComponent } from "./step-personality/step-personality.component";
 import { StepContextComponent } from "./step-context/step-context.component";
 import { StepValuePropositionComponent } from "./step-value-proposition/step-value-proposition.component";
-// (Importa aquí todos tus componentes de pasos. Ej: StepContextComponent)
-// import { StepContextComponent } from '../step-context/step-context.component';
-// ...
-// import { StepFinalComponent } from '../step-final/step-final.component';
+import { StepAudienceComponent } from "./step-audience/step-audience.component";
+import { StepCompetitionComponent } from "./step-competition/step-competition.component";
+import { StepToneComponent } from "./step-tone/step-tone.component";
+import { StepVisualStyleComponent } from "./step-visual-style/step-visual-style.component";
+import { StepReferencesComponent } from "./step-references/step-references.component";
+import { StepLogoFormatComponent } from "./step-logo-format/step-logo-format.component";
 
 @Component({
   selector: 'app-brief-wizard',
@@ -28,7 +30,13 @@ import { StepValuePropositionComponent } from "./step-value-proposition/step-val
     StepWelcomeComponent,
     StepPersonalityComponent,
     StepContextComponent,
-    StepValuePropositionComponent
+    StepValuePropositionComponent,
+    StepAudienceComponent,
+    StepCompetitionComponent,
+    StepToneComponent,
+    StepVisualStyleComponent,
+    StepReferencesComponent,
+    StepLogoFormatComponent
 ],
   templateUrl: './brief-wizard.component.html',
   styleUrl: './brief-wizard.component.scss'
@@ -60,6 +68,7 @@ export class BriefWizardComponent implements OnInit, OnDestroy {
 
     // 3. Obtenemos el formulario (creado y gestionado por el servicio)
     this.mainForm = this.formStateService.getForm();
+    console.log('Main FormGroup en BriefWizardComponent:', this.mainForm);
 
     // 4. Nos suscribimos a los cambios de estado del servicio
     this.subscriptions.add(
@@ -173,7 +182,7 @@ export class BriefWizardComponent implements OnInit, OnDestroy {
    */
   get currentStepFormGroup(): FormGroup | null {
     const stepNames = [
-      null, 'context', 'personality', 'valueProposition', // ...y así sucesivamente
+      null, 'context', 'personality', 'valueProposition', 'public', 'competition', 'tone', 'visualStyle', 'references', 'logoFormat' // ...y así sucesivamente
     ];
     const formGroupName = stepNames[this.currentStepIndex];
     return formGroupName ? this.mainForm.get(formGroupName) as FormGroup : null;

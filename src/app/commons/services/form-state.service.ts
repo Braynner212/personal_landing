@@ -62,6 +62,62 @@ export class FormStateService implements OnDestroy {
         beneficioPrincipal: ['', Validators.required]
       }),
 
+      // --- PASO 4 (Público Objetivo) ---
+      public: this.fb.group({
+        edad: ['', Validators.required],
+        genero: ['', Validators.required],
+        ubicacion: ['', Validators.required],
+        estiloVida: ['', Validators.required], // Usará textarea
+        problemasNecesidades: ['', Validators.required] // Usará textarea
+      }),
+
+      competition: this.fb.group({
+        // FormArray para la lista de competidores
+        competitors: this.fb.array(
+          [this.createCompetitorGroup()], // Empezamos con un campo de competidor
+          [Validators.required, Validators.minLength(1)] 
+        ),
+        // Campo para el valor agregado/diferenciador
+        diferenciador: ['', Validators.required]
+      }),
+
+      // --- PASO 6 (Tono de Marca) ---
+      tone: this.fb.group({
+        // Palabras clave como: formal, amigable, divertida, etc.
+        palabrasClave: ['', Validators.required],
+        // 3 ejemplos de frases
+        frasesEjemplo: ['', Validators.required]
+      }),
+
+      // --- PASO 7 (Estilo Visual) ---
+      visualStyle: this.fb.group({
+        // Almacena los strings de los estilos, ej: ["Minimalista", "Moderno"]
+        selectedStyles: this.fb.array(
+          [], // Inicia vacío
+          // Validadores: Mínimo 1 seleccionado, Máximo 3
+          [Validators.required, Validators.minLength(1), Validators.maxLength(3)]
+        )
+      }),
+
+      // --- PASO 8 (Referencias) ---
+      references: this.fb.group({
+        // El brief pide 2 referentes, así que creamos 2 grupos por defecto
+        files: this.fb.array(
+          [
+            this.createReferenceGroup(), // Referente #1
+            this.createReferenceGroup()  // Referente #2
+          ],
+          Validators.required
+        )
+      }),
+
+      // --- PASO 9 (Formato de Logo) ---
+      logoFormat: this.fb.group({
+        // Almacena el tipo de logo seleccionado, ej: "Imagotipo"
+        // Es un campo requerido, por lo que debe seleccionar uno.
+        tipo: ['', Validators.required]
+      }),
+
       // (Añadir aquí los FormGroups para los pasos 4 al 11)
 
       // ...
@@ -129,7 +185,7 @@ export class FormStateService implements OnDestroy {
           this.draftIdSubject.next(draftId);
 
           // 3. Inicia el auto-guardado
-          // this.startAutoSave();
+          this.startAutoSave();
 
           // 4. Avanza al siguiente paso y actualiza la URL
           this.setStep(1);
@@ -166,6 +222,18 @@ export class FormStateService implements OnDestroy {
               valoresArray.push(this.fb.control(valor));
             });
           }
+
+          if (draftData.formData.visualStyle && draftData.formData.visualStyle.selectedStyles) {
+            console.log('Cargando estilos visuales:', draftData.formData.visualStyle.selectedStyles);
+            const estilosArray = this.mainForm.get('visualStyle.selectedStyles') as FormArray;
+            estilosArray.clear();
+            
+            draftData.formData.visualStyle.selectedStyles.forEach((valor: string) => {
+              estilosArray.push(this.fb.control(valor));
+            });
+          }
+
+
           
             console.log('Borrador cargado:', draftData.formData);
             console.log('MainForm:', this.mainForm);
@@ -176,7 +244,7 @@ export class FormStateService implements OnDestroy {
             localStorage.setItem(DRAFT_ID_KEY, draftId);
 
             // 4. Inicia el auto-guardado
-            // this.startAutoSave();
+            this.startAutoSave();
             this.formInitializedSubject.next(true);
           },
           error: (err) => {
@@ -231,6 +299,21 @@ export class FormStateService implements OnDestroy {
     // Enviamos al backend (usamos sendBeacon como en AnalyticsService)
     const dataBlob = new Blob([JSON.stringify(draftData)], { type: 'application/json' });
     navigator.sendBeacon(`${environment.apiUrl}/brief/${draftId}/guardar`, dataBlob);
+  }
+
+  private createCompetitorGroup(): FormGroup {
+    return this.fb.group({
+      nombre: ['', Validators.required],
+      analisis: ['', Validators.required] // "qué hacen bien y qué haces tú mejor"
+    });
+  }
+
+  private createReferenceGroup(): FormGroup {
+    return this.fb.group({
+      // Aquí se guardaría la URL del archivo una vez subido al backend
+      fileUrl: ['', Validators.required], 
+      description: ['', [Validators.required, Validators.maxLength(280)]]
+    });
   }
 
   ngOnDestroy(): void {
