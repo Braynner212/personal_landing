@@ -1,15 +1,40 @@
 // src/app/core/services/form-state.service.ts
 import { Injectable, OnDestroy } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators, ValidatorFn, ValidationErrors, AbstractControl, } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subscription, timer } from 'rxjs';
 import { debounce, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { RecaptchaService } from './recaptcha.service';
+import { AnalyticsService } from './analytics.service';
 
 // Constante para la clave de localStorage
 const DRAFT_ID_KEY = 'atemia_brief_draft_id';
+
+/**
+ * Validador personalizado para un FormGroup de checkboxes.
+ * Comprueba si al menos uno de los controles hijos tiene el valor `true`.
+ * @returns ValidatorFn
+ */
+export function requireAtLeastOneCheckbox(): ValidatorFn {
+  return (group: AbstractControl): ValidationErrors | null => {
+
+    // Si no es un FormGroup, no podemos validarlo (aunque aquí siempre lo será)
+    if (!(group instanceof FormGroup)) {
+      return null;
+    }
+
+    const controls = group.controls;
+
+    // Usamos .some() para ver si al menos un valor es 'true'
+    const atLeastOneSelected = Object.keys(controls)
+      .some(key => controls[key].value === true);
+
+    // Si 'atLeastOneSelected' es false, devolvemos un error
+    return atLeastOneSelected ? null : { requireAtLeastOne: true };
+  };
+}
 
 @Injectable({
   providedIn: 'root'
@@ -25,16 +50,22 @@ export class FormStateService implements OnDestroy {
   private currentStepSubject = new BehaviorSubject<number>(0);
   private formInitializedSubject = new BehaviorSubject<boolean>(false);
 
+  // --- NUEVO ---
+  // Subject para mostrar el mensaje de "ya completado"
+  private showCompletedMessageSubject = new BehaviorSubject<boolean>(false);
+
   // --- Observables Públicos ---
   public currentDraftId$ = this.draftIdSubject.asObservable();
   public currentStepIndex$ = this.currentStepSubject.asObservable();
   public formInitialized$ = this.formInitializedSubject.asObservable();
+  public showCompletedMessage$ = this.showCompletedMessageSubject.asObservable(); // --- NUEVO ---
 
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
     private router: Router,
-    private recaptchaServ: RecaptchaService
+    private recaptchaServ: RecaptchaService,
+    private analyticsServ: AnalyticsService
   ) {
     // Definimos la estructura completa del formulario aquí, en un solo lugar.
     this.mainForm = this.fb.group({
@@ -75,7 +106,7 @@ export class FormStateService implements OnDestroy {
         // FormArray para la lista de competidores
         competitors: this.fb.array(
           [this.createCompetitorGroup()], // Empezamos con un campo de competidor
-          [Validators.required, Validators.minLength(1)] 
+          [Validators.required, Validators.minLength(1)]
         ),
         // Campo para el valor agregado/diferenciador
         diferenciador: ['', Validators.required]
@@ -117,6 +148,40 @@ export class FormStateService implements OnDestroy {
         // Es un campo requerido, por lo que debe seleccionar uno.
         tipo: ['', Validators.required]
       }),
+
+      // --- PASO 10 (Estrategia Digital) ---
+      digitalStrategy: this.fb.group({
+        // Todos son opcionales, así que no llevan validadores
+        paginaWeb: [''],
+        facebook: [''],
+        instagram: [''],
+        tiktok: [''],
+        otra: ['']
+      }),
+
+      // --- PASO 11 (Formatos y Aplicaciones) ---
+      // (Este era el Paso 10 en mi respuesta anterior)
+      formats: this.fb.group({
+        logotipo: [false],
+        tarjetaPresentacion: [false],
+        hojaMembretada: [false],
+        firmaCorreo: [false],
+        manualMarca: [false],
+        iconografia: [false],
+        patterns: [false],
+        postRedes: [false],
+        historiasRedes: [false],
+        portadaRedes: [false]
+      }, {
+        // El validador se queda aquí para el Paso 11
+        validators: requireAtLeastOneCheckbox()
+      }),
+
+      // --- PASO 12 (Información Adicional) ---
+      // (Este era el Paso 11 en mi respuesta anterior)
+      additionalInfo: this.fb.group({
+        comments: ['']
+      })
 
       // (Añadir aquí los FormGroups para los pasos 4 al 11)
 
@@ -189,7 +254,7 @@ export class FormStateService implements OnDestroy {
 
           // 4. Avanza al siguiente paso y actualiza la URL
           this.setStep(1);
-          this.router.navigate(['/initial-form', draftId]); // Asumiendo que tu ruta es /brief/:id
+          this.router.navigate(['/initial-form', draftId]); // Asumiendo que tu ruta es /initial-form/:id
         },
         error: (err) => console.error('Error al crear el borrador:', err)
       });
@@ -201,7 +266,7 @@ export class FormStateService implements OnDestroy {
   private async loadDraft(draftId: string): Promise<void> {
 
     const recaptchaToken = await this.recaptchaServ.executeRecaptcha(
-      'submit'
+      'load'
     );
 
     const headers = { 'X-Recaptcha-Token': recaptchaToken };
@@ -211,53 +276,86 @@ export class FormStateService implements OnDestroy {
     this.http.get<any>(`${environment.apiUrl}/brief/${draftId}`, { headers })
       .subscribe({
         next: (draftData) => {
-          // 2. Parchea el formulario con los datos guardados
-          this.mainForm.patchValue(draftData.formData);
 
-          if (draftData.formData.personality && draftData.formData.personality.valores) {
-            const valoresArray = this.mainForm.get('personality.valores') as FormArray;
-            valoresArray.clear();
+          if (draftData.completed) {
+            // Caso 2: El borrador ya fue completado
+            this.clearDraftData(); // Limpia localStorage y resetea la URL
+            this.showCompletedMessageSubject.next(true); // Activa el mensaje
+            this.formInitializedSubject.next(true);
+            this.currentStepSubject.next(0); // Resetea al paso 0 (detrás del mensaje)
+          } else {
+            // Caso 3: El borrador existe y no está completado (Carga normal)
+            this.mainForm.patchValue(draftData.formData);
 
-            draftData.formData.personality.valores.forEach((valor: string) => {
-              valoresArray.push(this.fb.control(valor));
-            });
-          }
+            if (draftData.formData.personality && draftData.formData.personality.valores) {
+              const valoresArray = this.mainForm.get('personality.valores') as FormArray;
+              valoresArray.clear();
 
-          if (draftData.formData.visualStyle && draftData.formData.visualStyle.selectedStyles) {
-            console.log('Cargando estilos visuales:', draftData.formData.visualStyle.selectedStyles);
-            const estilosArray = this.mainForm.get('visualStyle.selectedStyles') as FormArray;
-            estilosArray.clear();
-            
-            draftData.formData.visualStyle.selectedStyles.forEach((valor: string) => {
-              estilosArray.push(this.fb.control(valor));
-            });
-          }
+              draftData.formData.personality.valores.forEach((valor: string) => {
+                valoresArray.push(this.fb.control(valor));
+              });
+            }
 
+            if (draftData.formData.visualStyle && draftData.formData.visualStyle.selectedStyles) {
+              const estilosArray = this.mainForm.get('visualStyle.selectedStyles') as FormArray;
+              estilosArray.clear();
 
-          
-            console.log('Borrador cargado:', draftData.formData);
-            console.log('MainForm:', this.mainForm);
-
-            // 3. Actualiza los observables
+              draftData.formData.visualStyle.selectedStyles.forEach((valor: string) => {
+                estilosArray.push(this.fb.control(valor));
+              });
+            }
+            // 2. Actualiza los observables
             this.draftIdSubject.next(draftId);
-            this.currentStepSubject.next(draftData.lastStep || 1); // Continúa donde lo dejó
+            this.currentStepSubject.next(draftData.lastStep || 1);
             localStorage.setItem(DRAFT_ID_KEY, draftId);
 
             // 4. Inicia el auto-guardado
             this.startAutoSave();
             this.formInitializedSubject.next(true);
-          },
-          error: (err) => {
-            // Error (ej. 404), el borrador no existe. Reinicia.
-            console.error('Error al cargar el borrador:', err);
-            localStorage.removeItem(DRAFT_ID_KEY);
-            this.draftIdSubject.next(null);
-            this.currentStepSubject.next(0); // Vuelve al inicio
-            this.formInitializedSubject.next(true);
           }
-        });
+        },
+        error: (err) => {
+          // Error (ej. 404), el borrador no existe. Reinicia.
+          if(err.status === 404) {
+            console.warn('Borrador no encontrado, iniciando uno nuevo.');
+          } else {
+            console.error('Error al cargar el borrador:', err);
+          }
+
+           this.clearDraftData();
+        }
+      });
   }
 
+  /**
+ * Se llama desde el brief-wizard cuando el usuario hace clic en "Finalizar y Enviar"
+ * (en el paso 12).
+ */
+  public async completeBrief(): Promise<void> {
+    const draftId = this.draftIdSubject.value;
+    if (!draftId) return;
+
+    // 1. Guarda los últimos cambios (por si acaso)
+    await this.saveDraftToApi(); // 'true' para forzar guardado inmediato
+
+    // 2. Llama al backend para marcar como "completado"
+    const recaptchaToken = await this.recaptchaServ.executeRecaptcha('complete');
+    this.http.post(`${environment.apiUrl}/brief/${draftId}/completed`, { recaptchaToken })
+      .subscribe({
+        next: () => {
+          // 3. Dispara evento de analítica
+
+          this.analyticsServ.trackEvent(
+            'brief_completed',
+            { completion_time: new Date().toISOString() },
+            draftId
+          );
+
+        },
+        error: (err) => console.error('Error al completar el brief:', err)
+      });
+  }
+  
   /**
    * Inicia la suscripción de auto-guardado (debounced).
    */
@@ -274,6 +372,22 @@ export class FormStateService implements OnDestroy {
   }
 
   /**
+ * NUEVO: Helper para limpiar todos los datos del borrador del localStorage
+ * y resetear la URL.
+ */
+  private clearDraftData(): void {
+    console.log('Limpiando datos del borrador del localStorage y reseteando la URL.', localStorage.getItem(DRAFT_ID_KEY));
+    const draftId = localStorage.getItem(DRAFT_ID_KEY);
+    if (draftId) {
+      localStorage.removeItem(`draft_${draftId}`); // Limpia datos guardados
+    }
+    localStorage.removeItem(DRAFT_ID_KEY); // Limpia el ID principal
+    this.draftIdSubject.next(null);
+    // Resetea la URL a la raíz del formulario
+    this.router.navigate(['/initial-form']);
+  }
+
+  /**
    * Guarda el estado actual del formulario en el backend.
    */
   private async saveDraftToApi(): Promise<void> {
@@ -285,7 +399,8 @@ export class FormStateService implements OnDestroy {
     );
 
     const draftData = {
-      recaptchaToken, data: {
+      recaptchaToken,
+      data: {
         formData: this.mainForm.getRawValue(),
         lastStep: this.currentStepSubject.value
       }
@@ -311,7 +426,7 @@ export class FormStateService implements OnDestroy {
   private createReferenceGroup(): FormGroup {
     return this.fb.group({
       // Aquí se guardaría la URL del archivo una vez subido al backend
-      fileUrl: ['', Validators.required], 
+      fileUrl: ['', Validators.required],
       description: ['', [Validators.required, Validators.maxLength(280)]]
     });
   }

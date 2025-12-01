@@ -1,0 +1,19 @@
+<div class="additional-info-step" [formGroup]="additionalInfoForm">
+
+  <header class="additional-info-step__header">
+    <h2 class="additional-info-step__title">Información Adicional</h2>
+    <p class="additional-info-step__subtitle">
+      ¿Hay algo más que debamos saber? Comentarios, sugerencias, ideas o cualquier cosa que nos ayude a entender mejor tu marca.
+    </p>
+  </header>
+
+  <div class="additional-info-step__content">
+    <textarea 
+      formControlName="comments"
+      class="additional-info-step__textarea"
+      placeholder="Escribe aquí tus ideas (opcional)..."
+      rows="8">
+    </textarea>
+  </div>
+  
+</div>

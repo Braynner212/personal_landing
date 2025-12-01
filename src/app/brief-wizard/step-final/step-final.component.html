@@ -1,0 +1,57 @@
+<div class="final-step">
+  
+  <div class="final-step__content">
+
+    <header class="final-step__header">
+      <h1 class="final-step__title">¡Gracias! Hemos recibido tu brief.</h1>
+      <p class="final-step__subtitle">
+        Tu visión es el punto de partida. Nos pondremos en contacto contigo pronto
+        para discutir los siguientes pasos.
+      </p>
+    </header>
+
+    <div class="final-step__feedback-section">
+      
+      @if (!formSubmitted) {
+        <form 
+          [formGroup]="feedbackForm" 
+          (ngSubmit)="onFeedbackSubmit()" 
+          class="final-step__form"
+          [@fadeInOut]>
+          
+          <label for="feedbackText" class="final-step__label">
+            ¿Cómo fue tu experiencia llenando este formulario? (Opcional)
+          </label>
+          
+          <textarea
+            id="feedbackText"
+            formControlName="feedbackText"
+            placeholder="Tu opinión nos ayuda a mejorar..."
+            class="final-step__textarea"
+            rows="4"
+          ></textarea>
+          
+          <button 
+            type="submit" 
+            class="final-step__feedback-button"
+            [disabled]="!feedbackForm.get('feedbackText')?.value">
+            Enviar Comentario
+          </button>
+        </form>
+      } @else {
+        <div class="final-step__feedback-success" [@fadeInOut]>
+          <p>¡Feedback recibido! Gracias por ayudarnos a mejorar.</p>
+        </div>
+      }
+
+    </div>
+
+    <button 
+      type="button" 
+      class="final-step__skip-button" 
+      (click)="onSkip()">
+      Volver al inicio
+    </button>
+
+  </div>
+</div>

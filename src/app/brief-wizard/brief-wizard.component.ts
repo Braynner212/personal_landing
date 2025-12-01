@@ -20,6 +20,10 @@ import { StepToneComponent } from "./step-tone/step-tone.component";
 import { StepVisualStyleComponent } from "./step-visual-style/step-visual-style.component";
 import { StepReferencesComponent } from "./step-references/step-references.component";
 import { StepLogoFormatComponent } from "./step-logo-format/step-logo-format.component";
+import { StepFormatsComponent } from "./step-formats/step-formats.component";
+import { StepAdditionalInfoComponent } from "./step-additional-info/step-additional-info.component";
+import { StepDigitalStrategyComponent } from "./step-digital-strategy/step-digital-strategy.component";
+import { StepFinalComponent } from "./step-final/step-final.component";
 
 @Component({
   selector: 'app-brief-wizard',
@@ -36,7 +40,11 @@ import { StepLogoFormatComponent } from "./step-logo-format/step-logo-format.com
     StepToneComponent,
     StepVisualStyleComponent,
     StepReferencesComponent,
-    StepLogoFormatComponent
+    StepLogoFormatComponent,
+    StepFormatsComponent,
+    StepAdditionalInfoComponent,
+    StepDigitalStrategyComponent,
+    StepFinalComponent
 ],
   templateUrl: './brief-wizard.component.html',
   styleUrl: './brief-wizard.component.scss'
@@ -46,8 +54,9 @@ export class BriefWizardComponent implements OnInit, OnDestroy {
   mainForm!: FormGroup;
   currentStepIndex = 0;
   draftId: string | null = null;
-  totalSteps = 12; // 0 (Welcome) + 11 Pasos + 1 (Final)
+  totalSteps = 13; // 0 (Welcome) + 11 Pasos + 1 (Final)
   formInitialized = false;
+  showCompletedMessage = false;
 
   private stepStartTime = 0;
   private subscriptions = new Subscription();
@@ -68,7 +77,6 @@ export class BriefWizardComponent implements OnInit, OnDestroy {
 
     // 3. Obtenemos el formulario (creado y gestionado por el servicio)
     this.mainForm = this.formStateService.getForm();
-    console.log('Main FormGroup en BriefWizardComponent:', this.mainForm);
 
     // 4. Nos suscribimos a los cambios de estado del servicio
     this.subscriptions.add(
@@ -89,6 +97,13 @@ export class BriefWizardComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.formStateService.formInitialized$.subscribe(init => {
         this.formInitialized = init; // Para no mostrar nada hasta que cargue
+      })
+    );
+
+    // Suscripción al mensaje de "completado"
+    this.subscriptions.add(
+      this.formStateService.showCompletedMessage$.subscribe(show => {
+        this.showCompletedMessage = show;
       })
     );
   }
@@ -121,8 +136,18 @@ export class BriefWizardComponent implements OnInit, OnDestroy {
     //   return;
     // }
     
-    this.trackStepCompleted(); // Rastrea la finalización
-    this.formStateService.setStep(this.currentStepIndex + 1);
+    // --- LÓGICA DE COMPLETADO ---
+    if (this.currentStepIndex === 12) {
+      // El usuario está en el último paso del formulario, no incluye el form del feedback ("additional-info")
+      // y hace clic en "Finalizar y Enviar"
+      this.trackStepCompleted(); // Rastrea el paso 12
+      this.formStateService.setStep(this.currentStepIndex + 1); // Va al paso 13 (Final)
+      this.formStateService.completeBrief(); // Llama al método de completar
+    } else {
+      // Navegación normal
+      this.trackStepCompleted();
+      this.formStateService.setStep(this.currentStepIndex + 1);
+    }
   }
 
   /**
@@ -169,7 +194,7 @@ export class BriefWizardComponent implements OnInit, OnDestroy {
     const stepNames = [
       'Welcome', 'Contexto', 'Personalidad', 'PropuestaValor', 
       'Publico', 'Competencia', 'Tono', 'EstiloVisual', 
-      'Referentes', 'Logo', 'EstrategiaDigital', 'Aplicaciones', 'Final'
+      'Referentes', 'Logo', 'EstrategiaDigital', 'Aplicaciones', 'Información Adicional', 'Final'
     ];
     return stepNames[index] || 'UnknownStep';
   }
@@ -182,7 +207,7 @@ export class BriefWizardComponent implements OnInit, OnDestroy {
    */
   get currentStepFormGroup(): FormGroup | null {
     const stepNames = [
-      null, 'context', 'personality', 'valueProposition', 'public', 'competition', 'tone', 'visualStyle', 'references', 'logoFormat' // ...y así sucesivamente
+      null, 'context', 'personality', 'valueProposition', 'public', 'competition', 'tone', 'visualStyle', 'references', 'logoFormat', 'digitalStrategy', 'formats', 'additionalInfo', null
     ];
     const formGroupName = stepNames[this.currentStepIndex];
     return formGroupName ? this.mainForm.get(formGroupName) as FormGroup : null;

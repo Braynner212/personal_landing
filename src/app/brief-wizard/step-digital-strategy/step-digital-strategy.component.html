@@ -1,0 +1,29 @@
+<div class="strategy-step" [formGroup]="digitalStrategyForm">
+
+  <header class="strategy-step__header">
+    <h2 class="strategy-step__title">Estrategia Digital</h2>
+    <p class="strategy-step__subtitle">
+      Indícanos las redes sociales o sitios web donde tu marca tendrá presencia. (Opcional)
+    </p>
+  </header>
+
+  <div class="strategy-step__content">
+    @for (field of strategyFields; track field.id) {
+      <div class="strategy-step__field-group">
+        
+        <label [for]="field.id" class="strategy-step__label">
+          {{ field.label }}
+        </label>
+        
+        <input 
+          [type]="field.type"
+          [id]="field.id"
+          [formControlName]="field.id"
+          [placeholder]="field.placeholder"
+          class="strategy-step__input">
+          
+      </div>
+    }
+  </div>
+
+</div>

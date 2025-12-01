@@ -1,0 +1,103 @@
+@use "../../../assets/styles/breakpoint" as bp;
+
+/*
+ * Componente: Step Formats (Paso 10)
+ */
+
+.formats-step {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  animation: fadeIn 0.5s ease-out;
+
+  &__header {
+    margin-bottom: calc(var(--font-size-base) * 2);
+    text-align: center;
+  }
+
+  &__title {
+    font-size: var(--font-size-xl);
+    color: var(--color-text-heading);
+    margin-bottom: calc(var(--font-size-base) * 0.5);
+  }
+
+  &__subtitle {
+    font-size: var(--font-size-base);
+    color: var(--color-text-body);
+    max-width: 60ch;
+    margin: 0 auto;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr; // 1 columna en móvil
+    gap: calc(var(--font-size-base) * 1);
+  }
+
+  &__checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--font-size-base) * 0.75);
+    background-color: rgba(var(--color-surface), 0.7);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: calc(var(--font-size-base) * 1);
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      background-color: rgba(var(--color-surface), 1);
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+  }
+
+  // --- Estado Seleccionado ---
+  &__checkbox-label.checked {
+    border-color: var(--color-primary-body);
+    background-color: rgba(var(--color-primary-rgb), 0.1);
+
+    & .formats-step__checkbox-text {
+      color: var(--color-accent-cyan);
+      font-weight: 500;
+    }
+  }
+
+  &__checkbox-text {
+    color: var(--color-text-body);
+    font-size: var(--font-size-base);
+    transition: color 0.2s ease-in-out;
+  }
+
+  // Estilo del checkbox (puedes personalizarlo más si lo deseas)
+  &__checkbox-input {
+    // Aumenta el tamaño del checkbox
+    width: 1.1em;
+    height: 1.1em;
+    cursor: pointer;
+    
+    // Colores para el tema oscuro
+    accent-color: var(--color-primary-body);
+  }
+
+  &__error-message {
+    display: block;
+    text-align: center;
+    color: var(--color-error);
+    font-size: var(--font-size-sm);
+    margin-top: calc(var(--font-size-base) * 1.5);
+  }
+}
+
+// Keyframe para la animación de entrada
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+// --- Breakpoints ---
+@include bp.responsive("tablet") {
+  .formats-step__grid {
+    grid-template-columns: repeat(2, 1fr); // 2 columnas en tablet/desktop
+    gap: calc(var(--font-size-base) * 1.25);
+  }
+}

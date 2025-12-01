@@ -54,11 +54,18 @@ export class AnalyticsService {
     }
   }
 
-  public sendFeedback(feedback: string, draftId: string): void {
+  public async sendFeedback(feedback: string, draftId: string): Promise<void> {
+
+    const recaptchaToken = await this.recaptchaServ.executeRecaptcha(
+          'submit'
+        );
     
-    const feedbackData = {
-      draft_id: draftId,
-      feedback_text: feedback,
+    const feedbackData = { 
+      recaptchaToken, 
+      data: {
+        draft_id: draftId,
+        feedback_text: feedback,
+      }
     };
 
     this.http.post(this.backendFeedbackEndpoint, feedbackData)

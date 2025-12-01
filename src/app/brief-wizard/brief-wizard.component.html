@@ -35,7 +35,7 @@
             <app-step-personality [personalityForm]="currentStepFormGroup"></app-step-personality>
           }
         }
-        
+
         @case (3) {
           @if (currentStepFormGroup) {
             <app-step-value-proposition [valuePropositionForm]="currentStepFormGroup"></app-step-value-proposition>
@@ -78,15 +78,38 @@
           }
         }
 
+        @case (10) {
+          @if (currentStepFormGroup) {
+            <app-step-digital-strategy [digitalStrategyForm]="currentStepFormGroup"></app-step-digital-strategy>
+          }
+        }
+
+        @case (11) {
+          @if (currentStepFormGroup) {
+            <app-step-formats [formatsForm]="currentStepFormGroup"></app-step-formats>
+          }
+        }
+
+        @case (12) {
+          @if (currentStepFormGroup) {
+            <app-step-additional-info [additionalInfoForm]="currentStepFormGroup"></app-step-additional-info>
+          }
+        }
+
+        @case (13) {
+            <app-step-final/>
+        }
+
       }
     </div>
 
+    @if (currentStepIndex > 0 && currentStepIndex < 13) {
     <footer 
       class="brief-wizard__navigation" 
       role="navigation"
       aria-label="Controles del formulario">
       
-      @if (currentStepIndex > 0 && currentStepIndex < 12) {
+      @if (currentStepIndex > 0 && currentStepIndex < 13) {
         <button 
           type="button" 
           (click)="goToPreviousStep()"
@@ -97,7 +120,7 @@
         <div></div>
       }
 
-      @if (currentStepIndex > 0 && currentStepIndex < 11) {
+      @if (currentStepIndex > 0 && currentStepIndex < 12) {
         <button 
           type="button" 
           (click)="goToNextStep()"
@@ -106,7 +129,7 @@
         </button>
       }
       
-      @if (currentStepIndex === 11) {
+      @if (currentStepIndex === 12) {
          <button 
           type="button" 
           (click)="goToNextStep()" 
@@ -116,6 +139,6 @@
       }
 
     </footer>
-
+    }
   </div>
 }
