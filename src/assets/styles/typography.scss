@@ -23,8 +23,10 @@
 
 @include bp.responsive("laptop") {
   :root {
+  --font-size-sm: clamp(1rem, 0.4vw + 0.86rem, 1.2rem);
+
     // Hacemos la "semilla" un poco más grande en pantallas de escritorio
-    --font-size-base: clamp(1.1rem, 0.34vw + 0.91rem, 1.3rem);
+    --font-size-base: clamp(1.1rem, 0.34vw + 0.91rem, 1.4rem);
   }
 }
 
