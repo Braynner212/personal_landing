@@ -71,7 +71,6 @@ export class AnalyticsService {
     this.http.post(this.backendFeedbackEndpoint, feedbackData)
       .subscribe({
         next: () => { 
-          console.log('Feedback enviado con éxito');
           // Emitir un evento para mostrar un "Toast" de éxito
         },
         error: (err) => console.error('Error al enviar feedback:', err)

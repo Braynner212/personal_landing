@@ -109,7 +109,6 @@ export class StepReferencesComponent {
    * Al completarse, parchearía el 'fileUrl' con la URL del backend.
    */
   private uploadFile(file: File, index: number): void {
-    console.log('Subiendo archivo:', file.name, ', de Index: ', index);
     // 1. Crear FormData
     const formData = new FormData();
     formData.append('file', file);

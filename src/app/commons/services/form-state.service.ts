@@ -376,7 +376,6 @@ export class FormStateService implements OnDestroy {
  * y resetear la URL.
  */
   private clearDraftData(): void {
-    console.log('Limpiando datos del borrador del localStorage y reseteando la URL.', localStorage.getItem(DRAFT_ID_KEY));
     const draftId = localStorage.getItem(DRAFT_ID_KEY);
     if (draftId) {
       localStorage.removeItem(`draft_${draftId}`); // Limpia datos guardados
@@ -405,8 +404,6 @@ export class FormStateService implements OnDestroy {
         lastStep: this.currentStepSubject.value
       }
     };
-
-    console.log('Guardando borrador...', draftData);
 
     // Guardamos en localStorage como backup inmediato
     localStorage.setItem(`draft_${draftId}`, JSON.stringify(draftData));
