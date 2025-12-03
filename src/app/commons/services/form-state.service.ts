@@ -8,6 +8,7 @@ import { debounce, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { RecaptchaService } from './recaptcha.service';
 import { AnalyticsService } from './analytics.service';
+import { DraftApiResponse } from '../interfaces/response.interface';
 
 // Constante para la clave de localStorage
 const DRAFT_ID_KEY = 'atemia_brief_draft_id';
@@ -273,9 +274,11 @@ export class FormStateService implements OnDestroy {
 
 
     // 1. Llama al backend para obtener los datos
-    this.http.get<any>(`${environment.apiUrl}/brief/${draftId}`, { headers })
+    this.http.get<DraftApiResponse>(`${environment.apiUrl}/brief/${draftId}`, { headers })
       .subscribe({
         next: (draftData) => {
+
+          console.log('Borrador cargado:', draftData);
 
           if (draftData.completed) {
             // Caso 2: El borrador ya fue completado
@@ -287,20 +290,20 @@ export class FormStateService implements OnDestroy {
             // Caso 3: El borrador existe y no está completado (Carga normal)
             this.mainForm.patchValue(draftData.formData);
 
-            if (draftData.formData.personality && draftData.formData.personality.valores) {
+            if (draftData.formData['personality'] && draftData.formData['personality'].valores) {
               const valoresArray = this.mainForm.get('personality.valores') as FormArray;
               valoresArray.clear();
 
-              draftData.formData.personality.valores.forEach((valor: string) => {
+              draftData.formData['personality'].valores.forEach((valor: string) => {
                 valoresArray.push(this.fb.control(valor));
               });
             }
 
-            if (draftData.formData.visualStyle && draftData.formData.visualStyle.selectedStyles) {
+            if (draftData.formData['visualStyle'] && draftData.formData['visualStyle'].selectedStyles) {
               const estilosArray = this.mainForm.get('visualStyle.selectedStyles') as FormArray;
               estilosArray.clear();
 
-              draftData.formData.visualStyle.selectedStyles.forEach((valor: string) => {
+              draftData.formData['visualStyle'].selectedStyles.forEach((valor: string) => {
                 estilosArray.push(this.fb.control(valor));
               });
             }
