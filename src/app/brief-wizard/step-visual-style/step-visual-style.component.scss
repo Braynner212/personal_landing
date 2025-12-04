@@ -26,15 +26,11 @@
   &__grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: calc(var(--font-size-base) * 1);
+    gap: var(--font-size-base);
 
     @include bp.responsive("tablet") {
       grid-template-columns: repeat(4, 1fr);
       gap: calc(var(--font-size-base) * 1.25);
-    }
-
-    @include bp.responsive("laptop") {
-      grid-template-columns: repeat(5, 1fr);
     }
   }
 
@@ -73,7 +69,7 @@
       height: 100%;
       background: radial-gradient(
         circle 200px at var(--glare-x) var(--glare-y),
-        rgba(255, 255, 255, 1) var(--glare-opacity),
+        rgb(44, 44, 44) var(--glare-opacity),
         transparent
       );
       transition: opacity 0.1s linear;
@@ -95,7 +91,7 @@
     &.disabled {
       opacity: 0.5;
       cursor: not-allowed;
-      background-color: rgba(var(--color-surface), 0.3);
+      background-color: rgba(#000, 0.3);
     }
   }
 
