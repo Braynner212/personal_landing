@@ -1,26 +1,19 @@
 @use "../../../assets/styles/breakpoint" as bp;
+@use "../../../assets/styles/step-general" as g;
 
 .personality-step {
-  width: 100%;
-  // Animación de entrada suave
-  animation: fadeIn 0.5s ease-out;
+  @include g.step-container;
 
   &__header {
-    margin-bottom: calc(var(--font-size-base) * 2);
-    text-align: center;
+    @include g.step-header;
   }
 
   &__title {
-    font-size: var(--font-size-xl);
-    color: var(--color-text-heading);
-    margin-bottom: calc(var(--font-size-base) * 0.5);
+    @include g.title-xl;
   }
 
   &__subtitle {
-    color: var(--color-text-body);
-    font-size: var(--font-size-base);
-    max-width: 60ch;
-    margin: 0 auto;
+    @include g.subtitle-base;
   }
 
   &__content {
@@ -36,40 +29,23 @@
   }
 
   &__section-title {
-    font-size: var(--font-size-lg);
-    color: var(--color-text-heading);
+    // Usamos label-text como base pero ajustamos márgenes si es necesario
+    @include g.label-text;
     margin-bottom: calc(var(--font-size-base) * 0.2);
   }
 
   &__section-desc {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
-    margin-top: 0;
+    @include g.help-text;
   }
 
   &__label {
-    font-size: var(--font-size-base);
-    color: var(--color-text-heading);
-    margin-bottom: calc(var(--font-size-base) * 0.5);
+    @include g.label-text;
+    font-size: var(--font-size-base); // Ligeramente más pequeño que un título de sección
   }
 
   // --- Inputs y Botones ---
   &__input {
-    width: 100%;
-    padding: calc(var(--font-size-base) * 0.75);
-    font-size: var(--font-size-base);
-    font-family: var(--font-primary);
-    background-color: rgba(255, 255, 255, 0.05); // Fondo sutil
-    border: 1px solid var(--color-text-muted);
-    border-radius: 4px;
-    color: var(--color-text-heading);
-    transition: all 0.3s ease;
-
-    &:focus {
-      outline: none;
-      border-color: var(--color-primary-body);
-      background-color: rgba(255, 255, 255, 0.1);
-    }
+    @include g.input-base;
   }
 
   &__valores-list {
@@ -85,37 +61,15 @@
   }
 
   &__remove-btn {
-    background: none;
-    border: none;
-    color: var(--color-error);
-    font-size: var(--font-size-lg);
-    cursor: pointer;
-    padding: 0 calc(var(--font-size-base) * 0.5);
-    transition: opacity 0.3s ease;
-
-    &:hover {
-      opacity: 0.7;
-    }
+    @include g.btn-remove-x;
   }
 
   &__add-btn {
+    @include g.btn-secondary-dashed;
     align-self: flex-start;
-    background: none;
-    border: 1px dashed var(--color-primary-body);
-    color: var(--color-primary-body);
-    padding: calc(var(--font-size-base) * 0.5) calc(var(--font-size-base) * 1);
-    border-radius: 4px;
-    cursor: pointer;
-    font-family: var(--font-primary);
-    font-weight: 600;
-    transition: all 0.3s ease;
-
-    &:hover {
-      background-color: rgba(var(--color-primary-rgb), 0.1);
-    }
   }
 
-  // --- Sliders Personalizados ---
+  // --- Sliders Personalizados (Se mantienen locales por especificidad) ---
   &__sliders {
     display: flex;
     flex-direction: column;
@@ -141,57 +95,42 @@
     -webkit-appearance: none;
     width: 100%;
     height: 6px;
-    background: var(--color-surface); // Pista del slider
+    background: var(--color-surface); 
     border-radius: 3px;
     outline: none;
 
-    // Thumb (el control deslizante) - Webkit
+    // Mixin local para el thumb (duplicación reducida)
+    @mixin range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--color-primary-body);
+      cursor: pointer;
+      border: 2px solid var(--color-background-dark);
+      transition: transform 0.2s ease, background-color 0.2s ease;
+
+      &:hover {
+        transform: scale(1.2);
+        background-color: lighten(#5163e5, 10%); // Ajustar si el preprocesador lo permite o usar calc color
+      }
+    }
+
     &::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: var(--color-primary-body);
-      cursor: pointer;
-      border: 2px solid var(--color-background-dark);
-      transition: transform 0.2s ease, background-color 0.2s ease;
-
-      &:hover {
-        transform: scale(1.2);
-        background-color: lighten(#5163e5, 10%);
-      }
+      @include range-thumb;
     }
 
-    // Thumb - Firefox
     &::-moz-range-thumb {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: var(--color-primary-body);
-      cursor: pointer;
-      border: 2px solid var(--color-background-dark);
-      transition: transform 0.2s ease, background-color 0.2s ease;
-
-      &:hover {
-        transform: scale(1.2);
-        background-color: lighten(#5163e5, 10%);
-      }
+      @include range-thumb;
     }
   }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 // --- Breakpoints ---
 @include bp.responsive("tablet") {
   .personality-step {
     &__sliders {
-      // En tablets/desktop, los sliders pueden ir en 2 columnas si hay espacio
-      // o mantenerse en 1 pero más anchos.
       padding: 0 calc(var(--font-size-base) * 2);
     }
   }

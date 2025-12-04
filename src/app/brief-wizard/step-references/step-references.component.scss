@@ -1,35 +1,30 @@
 @use "../../../assets/styles/breakpoint" as bp;
-
-/*
- * Componente: Step References (Paso 8)
- */
+@use "../../../assets/styles/step-general" as g;
 
 .references-step {
-  width: 100%;
-  animation: fadeIn 0.5s ease-out;
+  @include g.step-container;
 
   &__header {
-    margin-bottom: calc(var(--font-size-base) * 2);
-    text-align: center;
+    @include g.step-header;
   }
 
   &__title {
-    font-size: var(--font-size-xl);
-    color: var(--color-text-heading);
-    margin-bottom: calc(var(--font-size-base) * 0.5);
+    @include g.title-xl;
   }
 
   &__subtitle {
-    font-size: var(--font-size-base);
-    color: var(--color-text-body);
+    @include g.subtitle-base;
     max-width: 65ch;
-    margin: 0 auto;
   }
 
   &__grid {
     display: grid;
-    grid-template-columns: 1fr; // 1 columna en móvil
+    grid-template-columns: 1fr;
     gap: calc(var(--font-size-base) * 2);
+
+    @include bp.responsive("tablet") {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   &__card {
@@ -39,11 +34,10 @@
   }
 
   &__card-title {
-    font-size: var(--font-size-lg);
-    color: var(--color-text-heading);
-    font-weight: 600;
+    @include g.label-text; // Reusamos estilo de label grande
   }
 
+  // --- Dropzone (Estilo específico) ---
   &__dropzone {
     position: relative;
     width: 100%;
@@ -57,28 +51,26 @@
     cursor: pointer;
     transition: all 0.3s ease;
     background-color: rgba(var(--color-surface), 0.5);
-    overflow: hidden; // Para la imagen de preview
+    overflow: hidden;
 
     &:hover {
       border-color: var(--color-primary-body);
       background-color: rgba(var(--color-primary-rgb), 0.1);
     }
-  }
-  
-  // Estado cuando se arrastra un archivo sobre la zona
-  &__dropzone--active {
-    border-color: var(--color-primary-body);
-    border-style: solid;
-    background-color: rgba(var(--color-primary-rgb), 0.2);
-    transform: scale(1.02);
-  }
-  
-  // Estado cuando ya hay un archivo cargado
-  &__dropzone--filled {
-    border-color: rgba(255, 255, 255, 0.2);
-    border-style: solid;
-    padding: 0;
-    min-height: auto;
+    
+    &--active {
+      border-color: var(--color-primary-body);
+      border-style: solid;
+      background-color: rgba(var(--color-primary-rgb), 0.2);
+      transform: scale(1.02);
+    }
+    
+    &--filled {
+      border-color: rgba(255, 255, 255, 0.2);
+      border-style: solid;
+      padding: 0;
+      min-height: auto;
+    }
   }
 
   &__dropzone-prompt {
@@ -87,7 +79,7 @@
     align-items: center;
     gap: calc(var(--font-size-base) * 1);
     color: var(--color-text-body);
-    pointer-events: none; // Permite que el clic llegue al dropzone
+    pointer-events: none;
   }
 
   &__dropzone-icon {
@@ -95,7 +87,7 @@
   }
 
   &__file-input {
-    display: none; // Se activa con clic en el dropzone
+    display: none;
   }
 
   &__preview-img {
@@ -106,6 +98,7 @@
   }
 
   &__remove-btn {
+    // Botón flotante específico sobre la imagen
     position: absolute;
     top: 10px;
     right: 10px;
@@ -137,40 +130,13 @@
   }
 
   &__label {
+    // Label pequeño para la descripción
     font-size: var(--font-size-sm);
     color: var(--color-text-muted);
     margin-bottom: calc(var(--font-size-base) * 0.5);
   }
 
   &__textarea {
-    width: 100%;
-    padding: calc(var(--font-size-base) * 0.75);
-    font-size: var(--font-size-base);
-    font-family: var(--font-primary);
-    background-color: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--color-text-muted);
-    border-radius: 4px;
-    color: var(--color-text-heading);
-    resize: vertical;
-    transition: all 0.3s ease;
-
-    &:focus {
-      outline: none;
-      border-color: var(--color-primary-body);
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-  }
-}
-
-// Keyframe para la animación de entrada
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-// --- Breakpoints ---
-@include bp.responsive("tablet") {
-  .references-step__grid {
-    grid-template-columns: repeat(2, 1fr); // 2 columnas en tablet/desktop
+    @include g.textarea-base;
   }
 }

@@ -1,13 +1,8 @@
-/* src/app/features/brief/step-final/step-final.component.scss */
 @use "../../../assets/styles/breakpoint" as bp;
+@use "../../../assets/styles/step-general" as g;
 
-/*
- * Componente: Step Final (final-step)
- * El paso final (Gracias) con el formulario de feedback.
- */
-
-// Usamos la misma estructura base de welcome-step
 .final-step {
+  // Reutilizamos la estructura full-screen del welcome
   width: 100%;
   height: 100%;
   position: relative;
@@ -15,158 +10,117 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
-}
 
-// --- 1. Fondo de Spline ---
-.final-step__spline-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  background: radial-gradient(circle, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%);
-}
-
-// --- 2. Contenido ---
-.final-step__content {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: calc(var(--font-size-base) * 1.5);
-  
-  // Efecto "vidrio"
-  background: rgba(var(--color-surface-rgb, 18, 18, 18), 0.7);
-  backdrop-filter: blur(10px);
-  border-radius: calc(var(--font-size-base) * 0.5);
-  max-width: 90%;
-}
-
-// --- 3. Cabecera ---
-.final-step__header {
-  margin-bottom: calc(var(--font-size-base) * 1.5);
-  border-bottom: 1px solid rgba(var(--color-primary-rgb), 0.2);
-  padding-bottom: calc(var(--font-size-base) * 1.5);
-  width: 100%;
-}
-
-.final-step__title {
-  font-size: var(--font-size-xl);
-  font-weight: 700;
-  color: var(--color-text-heading);
-  line-height: 1.2;
-  margin: 0 0 calc(var(--font-size-base) * 0.5) 0;
-}
-
-.final-step__subtitle {
-  font-size: var(--font-size-base);
-  color: var(--color-text-body);
-  margin: 0;
-  max-width: 60ch;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-// --- 4. Sección de Feedback ---
-.final-step__feedback-section {
-  width: 100%;
-  max-width: 500px; // Limitamos el ancho del form de feedback
-}
-
-.final-step__form {
-  display: flex;
-  flex-direction: column;
-  gap: calc(var(--font-size-base) * 0.75);
-}
-
-.final-step__label {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
-  text-align: left;
-}
-
-.final-step__textarea {
-  // Reutilizamos estilos de input
-  width: 100%;
-  padding: calc(var(--font-size-base) * 0.75);
-  font-size: var(--font-size-base);
-  font-family: var(--font-primary);
-  background-color: rgba(0, 0, 0, 0.3);
-  border: 1px solid var(--color-text-muted);
-  border-radius: calc(var(--font-size-base) * 0.25);
-  color: var(--color-text-heading);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  resize: vertical; // Permitir al usuario ajustar la altura
-
-  &:focus {
-    outline: none;
-    border-color: var(--color-primary-body);
-    box-shadow: 0 0 10px rgba(var(--color-primary-rgb), 0.5);
-  }
-}
-
-.final-step__feedback-button {
-  // Botón de estilo secundario (no el CTA principal)
-  font-family: var(--font-primary);
-  font-size: var(--font-size-sm);
-  font-weight: 600;
-  padding: calc(var(--font-size-base) * 0.6) calc(var(--font-size-base) * 1.2);
-  border: 1px solid var(--color-text-muted);
-  border-radius: calc(var(--font-size-base) * 0.25);
-  background-color: transparent;
-  color: var(--color-text-body);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  align-self: flex-end; // Alinea el botón a la derecha
-
-  &:hover:not(:disabled) {
-    color: var(--color-text-heading);
-    border-color: var(--color-primary-body);
-    background-color: rgba(var(--color-primary-rgb), 0.1);
+  // --- Fondo Spline ---
+  &__spline-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%);
   }
 
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
+  // --- Contenido (Glass Panel) ---
+  &__content {
+    @include g.glass-panel; // Mixin que aplica fondo, blur, padding, etc.
+    
+    @include bp.responsive("tablet") {
+      max-width: calc(var(--font-size-base) * 40);
+    }
   }
-}
 
-.final-step__feedback-success {
-  padding: calc(var(--font-size-base) * 1);
-  font-size: var(--font-size-base);
-  color: var(--color-accent-cyan);
-}
+  // --- Header ---
+  &__header {
+    margin-bottom: calc(var(--font-size-base) * 1.5);
+    border-bottom: 1px solid rgba(var(--color-primary-rgb), 0.2);
+    padding-bottom: calc(var(--font-size-base) * 1.5);
+    width: 100%;
+  }
 
-/*
- * NUEVO: Estilo para el botón de "salida"
- * Lo hacemos sutil, como un enlace.
- */
-.final-step__skip-button {
-  background: none;
-  border: none;
-  color: var(--color-text-muted);
-  font-family: var(--font-primary);
-  font-size: var(--font-size-sm);
-  cursor: pointer;
-  padding: calc(var(--font-size-base) * 0.5);
-  margin-top: calc(var(--font-size-base) * 1.5); // Espacio después del bloque de feedback
-  text-decoration: underline;
-  transition: color 0.3s ease;
+  &__title {
+    @include g.title-xl;
+  }
 
-  &:hover {
+  &__subtitle {
+    @include g.subtitle-base;
+  }
+
+  // --- Feedback Section ---
+  &__feedback-section {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--font-size-base) * 0.75);
+  }
+
+  &__label {
+    // Label alineado a la izquierda para el feedback
+    @include g.label-text;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    text-align: left;
+    margin-bottom: 0;
+  }
+
+  &__textarea {
+    @include g.textarea-base;
+    // Override: fondo más oscuro específico del paso final (si se desea mantener)
+    background-color: rgba(0, 0, 0, 0.3); 
+  }
+
+  &__feedback-button {
+    // Botón secundario/pequeño
+    font-family: var(--font-primary);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    padding: calc(var(--font-size-base) * 0.6) calc(var(--font-size-base) * 1.2);
+    border: 1px solid var(--color-text-muted);
+    border-radius: calc(var(--font-size-base) * 0.25);
+    background-color: transparent;
     color: var(--color-text-body);
-  }
-}
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: flex-end;
 
-/*
- * Breakpoints (Tablet y superior)
- */
-@include bp.responsive("tablet") {
-  .final-step__content {
-    padding: calc(var(--font-size-base) * 2.5);
-    max-width: calc(var(--font-size-base) * 40); // 800px~
+    &:hover:not(:disabled) {
+      color: var(--color-text-heading);
+      border-color: var(--color-primary-body);
+      background-color: rgba(var(--color-primary-rgb), 0.1);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &__feedback-success {
+    padding: calc(var(--font-size-base) * 1);
+    font-size: var(--font-size-base);
+    color: var(--color-accent-cyan);
+  }
+
+  // --- Botón "Skip/Salir" ---
+  &__skip-button {
+    background: none;
+    border: none;
+    color: var(--color-text-muted);
+    font-family: var(--font-primary);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    padding: calc(var(--font-size-base) * 0.5);
+    margin-top: calc(var(--font-size-base) * 1.5);
+    text-decoration: underline;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: var(--color-text-body);
+    }
   }
 }

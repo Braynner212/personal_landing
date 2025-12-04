@@ -1,97 +1,49 @@
+@use "../../../assets/styles/step-general" as g;
+
 .context-step {
+  @include g.step-container; // Contenedor con animación fadeIn
 
+  &__header {
+    @include g.step-header;
+  }
+
+  &__title {
+    @include g.title-xl;
+  }
+
+  &__subtitle {
+    @include g.subtitle-base;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--font-size-base);
+  }
+  
+  // Un wrapper para agrupar label + input/textarea + errores
+  &__form-group {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    // Animación de entrada suave
-    animation: fadeIn 0.5s ease-out;
+  }
 
-    &__header {
-        margin-bottom: calc(var(--font-size-base) * 2);
-        text-align: center;
-    }
+  &__label {
+    @include g.label-text;
+  }
 
-    &__title {
-        font-size: var(--font-size-xl);
-        color: var(--color-text-heading);
-        margin-bottom: calc(var(--font-size-base) * 0.5);
-    }
+  &__help-text {
+    @include g.help-text;
+  }
 
-    &__subtitle {
-        color: var(--color-text-body);
-        font-size: var(--font-size-base);
-        max-width: 60ch;
-        margin: 0 auto;
-    }
+  &__textarea {
+    @include g.textarea-base; // Incluye estilos base, focus y error states
 
-    &__form {
-        display: flex;
-        flex-direction: column;
-        gap: var(--font-size-base);
-    }
+    // El modificador de error (--error) ya está contemplado en el mixin base 
+    // como "&--error", así que no necesitamos reescribirlo aquí.
+  }
 
-    &__label {
-        font-size: var(--font-size-lg);
-        color: var(--color-text-heading);
-        margin-bottom: calc(var(--font-size-base) * 0.5);
-    }
-
-    &__help-text {
-        font-size: var(--font-size-sm);
-        color: var(--color-text-muted);
-        margin-top: 0;
-    }
-
-    &__textarea {
-        width: 100%;
-        padding: calc(var(--font-size-base) * 1);
-        font-size: var(--font-size-base);
-        font-family: var(--font-primary);
-        background-color: rgba(255, 255, 255, 0.05);
-        border: 1px solid var(--color-text-muted);
-        border-radius: 8px;
-        color: var(--color-text-heading);
-        resize: vertical;
-        transition: all 0.3s ease;
-
-        &::placeholder {
-            color: var(--color-text-muted);
-        }
-
-        &:focus {
-            outline: none;
-            border-color: var(--color-primary-body);
-            background-color: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 0 4px rgba(var(--color-primary-rgb), 0.1);
-        }
-
-        &--error {
-            border-color: var(--color-error);
-
-            &:focus {
-                box-shadow: 0 0 0 4px rgba(var(--color-error), 0.1);
-            }
-        }
-    }
-
-    &__error-message {
-        color: var(--color-error);
-        font-size: var(--font-size-sm);
-        margin: calc(var(--font-size-base) * 0.5) 0;
-        display: flex;
-        align-items: center;
-
-        &::before {
-            content: "!";
-            display: inline-block;
-            width: 16px;
-            height: 16px;
-            background-color: var(--color-error);
-            color: var(--color-background-dark);
-            border-radius: 50%;
-            text-align: center;
-            line-height: 16px;
-            font-weight: bold;
-            margin-right: 8px;
-            font-size: 12px;
-        }
-    }
+  &__error-message {
+    @include g.error-text;
+  }
 }

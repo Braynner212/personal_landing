@@ -8,6 +8,7 @@
 @use "assets/styles/breakpoint" as bp; 
 @use "assets/styles/colors";
 @use "assets/styles/typography";
+@use "assets/styles/step-general" as g;
 
 // 2. Importaciones de Fuentes y Animaciones
 @import "assets/styles/fonts";

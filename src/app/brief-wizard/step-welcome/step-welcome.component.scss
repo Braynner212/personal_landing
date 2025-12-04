@@ -1,8 +1,8 @@
 @use "../../../assets/styles/breakpoint" as bp;
+@use "../../../assets/styles/step-general" as g; // Importamos el nuevo archivo
 
 /*
  * Componente: Step Welcome (welcome-step)
- * El primer paso (Paso 0) del wizard.
  */
 
 .welcome-step {
@@ -15,10 +15,7 @@
   align-items: center;
   overflow: hidden;
 
-  // Fondo oscuro de Atemia como fallback
-  // background-color: var(--color-background-dark);
-
-  // --- 1. Fondo de Spline (BEM Element) ---
+  // --- 1. Fondo de Spline ---
   &__spline-bg {
     position: absolute;
     top: 0;
@@ -26,56 +23,43 @@
     width: 100%;
     height: 100%;
     z-index: 1;
-    // Un sutil degradado oscuro encima para que el texto resalte
     background: radial-gradient(circle, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%);
   }
 
-  // --- 2. Contenido (BEM Element) ---
+  // --- 2. Contenido (Glass Panel) ---
   &__content {
-    position: relative;
-    z-index: 2; // El contenido va sobre el fondo de Spline
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    @include g.glass-panel; // Usamos el mixin global
     
-    // Usamos la semilla proporcional para el padding
-    padding: calc(var(--font-size-base) * 1.5);
-    
-    // Fondo de "vidrio" para legibilidad sobre el 3D
-    background: rgba(var(--color-surface-rgb, 18, 18, 18), 0.7); // Asumiendo --color-surface-rgb
-    backdrop-filter: blur(10px);
-    border-radius: calc(var(--font-size-base) * 0.5);
-    max-width: 90%;
+    // Override específico: este paso requiere un max-width específico en Desktop
+    @include bp.responsive("tablet") {
+      max-width: calc(var(--font-size-base) * 35);
+    }
   }
 
-  // --- 3. Cabecera (BEM Element) ---
+  // --- 3. Cabecera ---
   &__header {
     margin-bottom: calc(var(--font-size-base) * 1.5);
   }
 
   &__title {
-    font-size: var(--font-size-xl); // Variable de tipografía fluida
-    font-weight: 700;
-    color: var(--color-text-heading);
-    line-height: 1.2;
-    margin: 0 0 calc(var(--font-size-base) * 0.5) 0;
+    @include g.title-xl;
   }
 
   &__subtitle {
-    font-size: var(--font-size-base);
-    color: var(--color-text-body);
-    margin: 0;
-    max-width: 60ch; // Buena legibilidad
+    @include g.subtitle-base;
   }
 
-  // --- 4. Formulario (BEM Element) ---
+  // --- 4. Formulario ---
   &__form {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: calc(var(--font-size-base) * 1.25);
+
+    @include bp.responsive("tablet") {
+      max-width: 80%;
+    }
   }
   
   &__form-group {
@@ -86,73 +70,29 @@
   }
 
   &__label {
-    font-size: var(--font-size-sm);
+    // Usamos el mixin pero ajustamos tamaño para este paso específico que usa fuente pequeña en el label
+    @include g.label-text; 
+    font-size: var(--font-size-sm); 
     color: var(--color-text-muted);
     margin-bottom: calc(var(--font-size-base) * 0.3);
   }
 
   &__input {
-    width: 100%;
-    padding: calc(var(--font-size-base) * 0.75);
-    font-size: var(--font-size-base);
-    font-family: var(--font-primary);
-    background-color: rgba(0, 0, 0, 0.3);
-    border: 1px solid var(--color-text-muted);
-    border-radius: calc(var(--font-size-base) * 0.25);
-    color: var(--color-text-heading);
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-
-    &:focus {
-      outline: none;
-      border-color: var(--color-primary-body); // El azul de Atemia
-      box-shadow: 0 0 10px rgba(var(--color-primary-rgb), 0.5);
-    }
-    
-    // Modificador BEM para error
-    &--error {
-      border-color: var(--color-error);
-    }
+    @include g.input-base;
+    // Overrides específicos del Welcome (si quieres mantener el fondo oscuro específico que tenías)
+    // background-color: rgba(0, 0, 0, 0.3); // Opcional: Descomentar si prefieres el negro sobre el gris standard
   }
 
   &__error-message {
-    color: var(--color-error);
-    font-size: var(--font-size-sm);
+    @include g.error-text;
+    // Ajuste margen específico
     margin-top: calc(var(--font-size-base) * 0.25);
+    // En este paso específico no usabas el icono "!", si quieres quitarlo:
+    // &::before { content: none; } 
   }
 
-  // --- 5. Botón CTA (BEM Element) ---
+  // --- 5. Botón CTA ---
   &__cta-button {
-    // Estilo del botón principal de Atemia
-    background-color: var(--color-primary-body);
-    color: var(--color-text-heading);
-    font-size: var(--font-size-base);
-    font-weight: 600;
-    font-family: var(--font-primary);
-    border: none;
-    padding: calc(var(--font-size-base) * 0.75) calc(var(--font-size-base) * 1.5);
-    border-radius: calc(var(--font-size-base) * 0.25);
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-
-    &:hover {
-      background-color: lighten(#5163e5, 5%);
-      transform: scale(1.03);
-    }
-  }
-}
-
-/*
- * Breakpoints (Tablet y superior)
- */
-@include bp.responsive("tablet") {
-  .welcome-step {
-    &__content {
-      padding: calc(var(--font-size-base) * 2.5);
-      max-width: calc(var(--font-size-base) * 35); // 700px~
-    }
-    
-    &__form {
-      max-width: 80%;
-    }
+    @include g.btn-primary;
   }
 }

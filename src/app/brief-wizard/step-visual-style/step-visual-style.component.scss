@@ -1,30 +1,20 @@
 @use "../../../assets/styles/breakpoint" as bp;
-
-/*
- * Componente: Step Visual Style (Paso 7)
- */
+@use "../../../assets/styles/step-general" as g;
 
 .style-step {
-  width: 100%;
-  animation: fadeIn 0.5s ease-out;
+  @include g.step-container;
 
   &__header {
-    margin-bottom: calc(var(--font-size-base) * 2);
-    text-align: center;
+    @include g.step-header;
   }
 
   &__title {
-    font-size: var(--font-size-xl);
-    color: var(--color-text-heading);
-    margin-bottom: calc(var(--font-size-base) * 0.5);
+    @include g.title-xl;
   }
 
   &__subtitle,
   &__helper {
-    font-size: var(--font-size-base);
-    color: var(--color-text-body);
-    margin: 0 auto;
-    max-width: 60ch;
+    @include g.subtitle-base;
   }
   
   &__helper {
@@ -35,27 +25,37 @@
 
   &__grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); // 2 columnas en móvil
+    grid-template-columns: repeat(2, 1fr);
     gap: calc(var(--font-size-base) * 1);
+
+    @include bp.responsive("tablet") {
+      grid-template-columns: repeat(4, 1fr);
+      gap: calc(var(--font-size-base) * 1.25);
+    }
+
+    @include bp.responsive("laptop") {
+      grid-template-columns: repeat(5, 1fr);
+    }
   }
 
+  // --- Card 3D Interactiva ---
   &__card {
-    position: relative; // Necesario para el glare
-    overflow: hidden; // Oculta el glare que se sale
+    // No usamos el mixin card-base completo porque este tiene transformaciones 3D específicas
+    position: relative;
+    overflow: hidden;
     padding: calc(var(--font-size-base) * 1.5);
     background-color: rgba(var(--color-surface), 0.7);
     border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     cursor: pointer;
     
-    // --- Variables de Interacción (controladas por TS) ---
+    // Variables CSS para interacción (controladas por JS)
     --rotate-x: 0deg;
     --rotate-y: 0deg;
     --glare-x: 50%;
     --glare-y: 50%;
     --glare-opacity: 0;
     
-    // --- Parallax Effect ---
     transform: perspective(1000px) rotateX(var(--rotate-x)) rotateY(var(--rotate-y));
     transition: transform 0.1s linear, border-color 0.3s ease;
 
@@ -63,8 +63,7 @@
       border-color: rgba(255, 255, 255, 0.3);
     }
 
-    // --- Glare Effect (Brillo) ---
-    // Usamos un pseudo-elemento para el brillo
+    // Glare Effect
     &::before {
       content: '';
       position: absolute;
@@ -72,7 +71,6 @@
       top: 0;
       width: 100%;
       height: 100%;
-      // El brillo sigue al mouse usando las variables CSS
       background: radial-gradient(
         circle 200px at var(--glare-x) var(--glare-y),
         rgba(255, 255, 255, 1) var(--glare-opacity),
@@ -80,18 +78,35 @@
       );
       transition: opacity 0.1s linear;
       z-index: 1;
-      pointer-events: none; // Permite hacer clic "a través" de él
+      pointer-events: none;
+    }
+
+    // Estados
+    &.selected {
+      border-color: var(--color-primary-body);
+      box-shadow: 0 0 15px rgba(var(--color-primary-rgb), 0.5);
+      transform: perspective(1000px) scale(1.05);
+
+      & .style-step__card-name {
+        color: var(--color-accent-cyan);
+      }
+    }
+
+    &.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      background-color: rgba(var(--color-surface), 0.3);
     }
   }
 
   &__card-content {
     position: relative;
-    z-index: 2; // Contenido por encima del glare
+    z-index: 2;
     display: flex;
     flex-direction: column;
-    align-items: center; // Centrado
+    align-items: center;
     text-align: center;
-    user-select: none; // Evita seleccionar texto al hacer clic
+    user-select: none;
   }
 
   &__card-name {
@@ -106,51 +121,9 @@
     color: var(--color-text-body);
   }
 
-  // --- Estados de la Tarjeta ---
-
-  &__card.selected {
-    // Estilo "seleccionado" (Borde azul Atemia)
-    border-color: var(--color-primary-body);
-    box-shadow: 0 0 15px rgba(var(--color-primary-rgb), 0.5);
-    transform: perspective(1000px) scale(1.05); // Resalta un poco
-
-    & .style-step__card-name {
-      color: var(--color-accent-cyan);
-    }
-  }
-
-  &__card.disabled {
-    // Estilo "deshabilitado" (límite alcanzado)
-    opacity: 0.5;
-    cursor: not-allowed;
-    background-color: rgba(var(--color-surface), 0.3);
-  }
-
   &__error-message {
-    display: block;
-    text-align: center;
-    color: var(--color-error);
-    font-size: var(--font-size-sm);
+    @include g.error-text;
+    justify-content: center; // Centrado específico para este mensaje global
     margin-top: calc(var(--font-size-base) * 1.5);
-  }
-}
-
-// Keyframe para la animación de entrada
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-// --- Breakpoints ---
-@include bp.responsive("tablet") {
-  .style-step__grid {
-    grid-template-columns: repeat(4, 1fr); // 4 columnas
-    gap: calc(var(--font-size-base) * 1.25);
-  }
-}
-
-@include bp.responsive("laptop") {
-  .style-step__grid {
-    grid-template-columns: repeat(5, 1fr); // 5 columnas
   }
 }

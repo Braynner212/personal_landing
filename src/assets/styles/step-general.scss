@@ -1,0 +1,217 @@
+@use "breakpoint" as bp;
+
+/*
+ * ==========================================
+ * STEP STYLES GENERAL
+ * Mixins y utilidades para unificar estilos
+ * en el Wizard de Atemia.
+ * ==========================================
+ */
+
+// --- 1. Animaciones ---
+@mixin animate-fade-in($duration: 0.5s) {
+  animation: fadeIn $duration ease-out;
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+// --- 2. Contenedores y Layout ---
+
+// Contenedor principal del paso (no glass)
+@mixin step-container {
+  width: 100%;
+  @include animate-fade-in;
+}
+
+// Header del paso (Título + Subtítulo)
+@mixin step-header {
+  margin-bottom: calc(var(--font-size-base) * 2);
+  text-align: center;
+}
+
+// Contenedor "Glass" (Usado en Welcome y Final)
+@mixin glass-panel {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: calc(var(--font-size-base) * 1.5);
+  background: rgba(var(--color-surface, 18, 18, 18), 0.7); // Fallback a 18,18,18
+  backdrop-filter: blur(10px);
+  border-radius: calc(var(--font-size-base) * 0.5);
+  max-width: 90%;
+  
+  @include bp.responsive("tablet") {
+    padding: calc(var(--font-size-base) * 2.5);
+  }
+}
+
+// --- 3. Tipografía ---
+
+@mixin title-xl {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-text-heading);
+  line-height: 1.2;
+  margin: 0 0 calc(var(--font-size-base) * 0.5) 0;
+}
+
+@mixin subtitle-base {
+  font-size: var(--font-size-base);
+  color: var(--color-text-body);
+  margin: 0 auto;
+  max-width: 60ch;
+}
+
+@mixin label-text {
+  font-size: var(--font-size-lg); // Por defecto grande, ajustable
+  color: var(--color-text-heading);
+  margin-bottom: calc(var(--font-size-base) * 0.5);
+  font-weight: 600;
+  display: block;
+}
+
+@mixin help-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin-top: 0;
+  margin-bottom: calc(var(--font-size-base) * 0.8);
+}
+
+@mixin error-text {
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
+  margin-top: calc(var(--font-size-base) * 0.5);
+  
+  &::before {
+    content: "!";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-color: var(--color-error);
+    color: var(--color-background-dark);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 16px;
+    font-weight: bold;
+    margin-right: 8px;
+    font-size: 12px;
+  }
+}
+
+// --- 4. Inputs y Formularios ---
+
+// Estilo base para Input y Textarea
+@mixin input-base {
+  width: 100%;
+  padding: calc(var(--font-size-base) * 0.75); // Unificado a 0.75 para inputs (1 para textarea)
+  font-size: var(--font-size-base);
+  font-family: var(--font-primary);
+  
+  // Unificamos el fondo a la versión más común y legible
+  background-color: rgba(255, 255, 255, 0.05); 
+  border: 1px solid var(--color-text-muted);
+  border-radius: 8px; // Unificado a 8px (era 4px y 8px mezclado)
+  color: var(--color-text-heading);
+  transition: all 0.3s ease;
+
+  &::placeholder {
+    color: rgba(128, 124, 124, 0.5); // var(--color-text-muted) con opacidad
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary-body);
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 10px rgba(var(--color-primary-rgb), 0.2);
+  }
+
+  // Estado de error
+  &--error {
+    border-color: var(--color-error);
+    &:focus {
+      border-color: var(--color-error);
+      box-shadow: 0 0 0 4px rgba(var(--color-error), 0.1);
+    }
+  }
+}
+
+// Mixin específico para textarea (ajustes de resize y padding)
+@mixin textarea-base {
+  @include input-base;
+  padding: calc(var(--font-size-base) * 1);
+  resize: vertical;
+  min-height: 100px;
+}
+
+// --- 5. Botones ---
+
+@mixin btn-primary {
+  background-color: var(--color-primary-body);
+  color: var(--color-text-heading);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  font-family: var(--font-primary);
+  border: none;
+  padding: calc(var(--font-size-base) * 0.75) calc(var(--font-size-base) * 1.5);
+  border-radius: 4px; // Botones suelen verse mejor con radio menor que inputs
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  display: inline-block;
+
+  &:hover {
+    background-color: lighten(#5163e5, 5%); // Ajustar según color real si scss permite funciones
+    transform: scale(1.03);
+    box-shadow: 0 0 15px rgba(var(--color-primary-rgb), 0.4);
+  }
+}
+
+@mixin btn-secondary-dashed {
+  background: none;
+  border: 1px dashed var(--color-primary-body);
+  color: var(--color-primary-body);
+  padding: calc(var(--font-size-base) * 0.7) calc(var(--font-size-base) * 1.4);
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font-primary);
+  font-weight: 600;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: rgba(var(--color-primary-rgb), 0.1);
+    transform: translateY(-2px);
+  }
+}
+
+@mixin btn-remove-x {
+  background: none;
+  border: none;
+  color: var(--color-error);
+  font-size: var(--font-size-lg);
+  cursor: pointer;
+  padding: calc(var(--font-size-base) * 0.5);
+  transition: opacity 0.3s ease;
+  line-height: 1;
+
+  &:hover {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+}
+
+// --- 6. Cards (Usado en Competencia, Estilo, Referencias) ---
+@mixin card-base {
+  background-color: rgba(var(--color-surface, 18,18,18), 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: calc(var(--font-size-base) * 1.5);
+  transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+}

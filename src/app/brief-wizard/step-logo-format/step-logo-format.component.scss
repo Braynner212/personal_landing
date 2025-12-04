@@ -1,64 +1,67 @@
 @use "../../../assets/styles/breakpoint" as bp;
-
-/*
- * Componente: Step Logo Format (Paso 9)
- */
+@use "../../../assets/styles/step-general" as g;
 
 .logo-step {
-  width: 100%;
-  max-width: 900px; // Un poco más ancho para la cuadrícula 2x2
+  @include g.step-container;
+  max-width: 900px;
   margin: 0 auto;
-  animation: fadeIn 0.5s ease-out;
 
   &__header {
-    margin-bottom: calc(var(--font-size-base) * 2);
-    text-align: center;
+    @include g.step-header;
   }
 
   &__title {
-    font-size: var(--font-size-xl);
-    color: var(--color-text-heading);
-    margin-bottom: calc(var(--font-size-base) * 0.5);
+    @include g.title-xl;
   }
 
   &__subtitle {
-    font-size: var(--font-size-base);
-    color: var(--color-text-body);
-    max-width: 60ch;
-    margin: 0 auto;
+    @include g.subtitle-base;
   }
 
   &__grid {
     display: grid;
-    grid-template-columns: 1fr; // 1 columna en móvil
+    grid-template-columns: 1fr;
     gap: calc(var(--font-size-base) * 1.5);
+
+    @include bp.responsive("tablet") {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   &__card {
+    // Usamos el mixin de card base como punto de partida
+    @include g.card-base; // fondo, borde, padding, transición
+    
+    // Añadimos layout flex específico
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    background-color: rgba(var(--color-surface), 0.7);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    padding: calc(var(--font-size-base) * 1.5);
     cursor: pointer;
-    transition: all 0.3s ease;
     
     &:hover {
       transform: translateY(-5px);
-      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    // Estado seleccionado
+    &.selected {
+      border-color: var(--color-primary-body);
+      box-shadow: 0 0 15px rgba(var(--color-primary-rgb), 0.5);
+      transform: translateY(-5px) scale(1.03);
+
+      & .logo-step__card-name {
+        color: var(--color-accent-cyan);
+      }
     }
   }
 
   &__card-image {
     width: 100%;
-    max-width: 250px; // Limita el tamaño de la imagen de ejemplo
+    max-width: 250px;
     height: auto;
     object-fit: contain;
     margin-bottom: calc(var(--font-size-base) * 1);
-    background-color: #fff; // Fondo blanco para que los logos se vean bien
+    background-color: #fff;
     border-radius: 4px;
     padding: calc(var(--font-size-base) * 0.5);
     border: 1px solid #eee;
@@ -81,38 +84,12 @@
     font-size: var(--font-size-sm);
     color: var(--color-text-body);
     margin: 0;
-    min-height: 2.4em; // Evita que la tarjeta salte de tamaño
-  }
-
-  // --- Estado Seleccionado ---
-  &__card.selected {
-    border-color: var(--color-primary-body);
-    box-shadow: 0 0 15px rgba(var(--color-primary-rgb), 0.5);
-    transform: translateY(-5px) scale(1.03);
-
-    & .logo-step__card-name {
-      color: var(--color-accent-cyan);
-    }
+    min-height: 2.4em;
   }
 
   &__error-message {
-    display: block;
-    text-align: center;
-    color: var(--color-error);
-    font-size: var(--font-size-sm);
+    @include g.error-text;
+    justify-content: center;
     margin-top: calc(var(--font-size-base) * 1.5);
-  }
-}
-
-// Keyframe para la animación de entrada
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-// --- Breakpoints ---
-@include bp.responsive("tablet") {
-  .logo-step__grid {
-    grid-template-columns: repeat(2, 1fr); // 2x2 en tablet
   }
 }
