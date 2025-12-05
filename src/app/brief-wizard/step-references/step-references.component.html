@@ -7,47 +7,48 @@
     </p>
   </header>
 
-  <div class="references-step__grid" formArrayName="files">
-    @for (group of filesArray.controls; track $index) {
-    <div class="references-step__card" [formGroupName]="$index">
+  <div class="references-step__container-content">
+    <div class="references-step__grid" formArrayName="files">
+      @for (group of filesArray.controls; track $index) {
+      <div class="references-step__card" [formGroupName]="$index">
 
-      <h3 class="references-step__card-title">Referente #{{ $index + 1 }}</h3>
+        <h3 class="references-step__card-title">Referente #{{ $index + 1 }}</h3>
 
-      <div class="references-step__dropzone" [class.references-step__dropzone--active]="isDraggingOver[$index]"
-        [class.references-step__dropzone--filled]="getReferenceGroup($index).get('fileUrl')?.value"
-        (dragover)="onDragOver($event, $index)" (dragleave)="onDragLeave($event, $index)"
-        (drop)="onDrop($event, $index)" (click)="fileInput.click()"> @if
-        (getReferenceGroup($index).get('fileUrl')?.value; as imageUrl) {
-        <img [src]="imageUrl" alt="Vista previa de Referente {{ $index + 1 }}" class="references-step__preview-img">
-        <button type="button" (click)="$event.stopPropagation(); removeFile($index)" class="references-step__remove-btn"
-          aria-label="Eliminar imagen">
-          ✕
-        </button>
-        } @else {
-        <div class="references-step__dropzone-prompt">
-          <span class="references-step__dropzone-icon">📤</span>
-          <span>
-            <strong>Arrastra tu imagen aquí</strong>
-            <br> o haz clic para seleccionar
-          </span>
+        <div class="references-step__dropzone" [class.references-step__dropzone--active]="isDraggingOver[$index]"
+          [class.references-step__dropzone--filled]="getReferenceGroup($index).get('fileUrl')?.value"
+          (dragover)="onDragOver($event, $index)" (dragleave)="onDragLeave($event, $index)"
+          (drop)="onDrop($event, $index)" (click)="fileInput.click()"> @if
+          (getReferenceGroup($index).get('fileUrl')?.value; as imageUrl) {
+          <img [src]="imageUrl" alt="Vista previa de Referente {{ $index + 1 }}" class="references-step__preview-img">
+          <button type="button" (click)="$event.stopPropagation(); removeFile($index)"
+            class="references-step__remove-btn" aria-label="Eliminar imagen">
+            ✕
+          </button>
+          } @else {
+          <div class="references-step__dropzone-prompt">
+            <span class="references-step__dropzone-icon">📤</span>
+            <span>
+              <strong>Arrastra tu imagen aquí</strong>
+              <br> o haz clic para seleccionar
+            </span>
+          </div>
+          }
+
+          <input type="file" class="references-step__file-input" (change)="onFileSelected($event, $index)"
+            accept="image/png, image/jpeg, image/gif, image/webp" #fileInput>
         </div>
-        }
 
-        <input type="file" class="references-step__file-input" (change)="onFileSelected($event, $index)"
-          accept="image/png, image/jpeg, image/gif, image/webp" #fileInput>
-      </div>
-
-      <div class="references-step__form-group">
-        <label [for]="'desc-' + $index" class="references-step__label">
-          Descripción (no más de 2 oraciones)
-        </label>
-        <textarea [id]="'desc-' + $index" formControlName="description" class="references-step__textarea"
-          placeholder="¿Qué te gusta de esta referencia? (colores, tipografía, estructura...)" rows="3">
+        <div class="references-step__form-group">
+          <label [for]="'desc-' + $index" class="references-step__label">
+            Descripción (no más de 2 oraciones)
+          </label>
+          <textarea [id]="'desc-' + $index" formControlName="description" class="references-step__textarea"
+            placeholder="¿Qué te gusta de esta referencia? (colores, tipografía, estructura...)" rows="3">
           </textarea>
+        </div>
+
       </div>
-
+      }
     </div>
-    }
   </div>
-
 </div>

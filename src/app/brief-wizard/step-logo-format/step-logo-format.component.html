@@ -3,10 +3,11 @@
   <header class="logo-step__header">
     <h2 class="logo-step__title">Formato del Logo</h2>
     <p class="logo-step__subtitle">
-      ¿Qué formato prefieres para tu logo principal? Selecciona una opción.
+      ¿Qué formato prefieres para tu logo principal? Selecciona 1 de 4 opciones.
     </p>
   </header>
 
+  <div class="logo-step__container-content">
   <div class="logo-step__grid">
     @for (logo of logoTypes; track logo.name) {
       <div 
@@ -26,6 +27,7 @@
         </div>
       </div>
     }
+  </div>
   </div>
 
   @if (tipoControl?.invalid && tipoControl?.touched) {

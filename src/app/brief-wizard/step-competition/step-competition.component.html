@@ -5,84 +5,70 @@
     <p class="competition-step__subtitle">
       Conocer tu entorno nos ayuda a encontrar tu espacio único en el mercado.
     </p>
+    <p class="competition-step__section-desc">
+      (2 preguntas)
+    </p>
   </header>
+  <div class="competition-step__container-content">
+    <div class="competition-step__form">
+      <div class="competition-step__competitors-list" formArrayName="competitors">
+        <h3 class="competition-step__list-title">Tus Competidores Principales</h3>
 
-  <div class="competition-step__form">
-
-    <div class="competition-step__competitors-list" formArrayName="competitors">
-      <h3 class="competition-step__list-title">Tus Competidores Principales</h3>
-      
-      @for (competitor of competitorsArray.controls; track $index) {
+        @for (competitor of competitorsArray.controls; track $index) {
         <div class="competition-step__competitor-card" [formGroupName]="$index">
-          
+
           <div class="competition-step__card-header">
             <h4 class="competition-step__card-title">Competidor #{{ $index + 1 }}</h4>
             @if (competitorsArray.length > 1) {
-              <button
-                type="button"
-                (click)="removeCompetitor($index)"
-                class="competition-step__remove-btn"
-                aria-label="Eliminar competidor">
-                ✕
-              </button>
+            <button type="button" (click)="removeCompetitor($index)" class="competition-step__remove-btn"
+              aria-label="Eliminar competidor">
+              ✕
+            </button>
             }
           </div>
 
           <div class="competition-step__form-group">
             <label [for]="'competitor-name-' + $index" class="competition-step__label">Nombre del Competidor</label>
-            <input
-              [id]="'competitor-name-' + $index"
-              type="text"
-              formControlName="nombre"
-              class="competition-step__input"
-              placeholder="Ej: Apple, Google...">
+            <input [id]="'competitor-name-' + $index" type="text" formControlName="nombre"
+              class="competition-step__input" placeholder="Ej: Apple, Google...">
           </div>
 
           <div class="competition-step__form-group">
             <label [for]="'competitor-analysis-' + $index" class="competition-step__label">
               ¿Qué hacen ellos muy bien y qué haces tú mejor?
             </label>
-            <textarea
-              [id]="'competitor-analysis-' + $index"
-              formControlName="analisis"
-              class="competition-step__textarea"
-              placeholder="Ej: Hacen bien X, pero nosotros somos mejores en Y..."
+            <textarea [id]="'competitor-analysis-' + $index" formControlName="analisis"
+              class="competition-step__textarea" placeholder="Ej: Hacen bien X, pero nosotros somos mejores en Y..."
               rows="3">
             </textarea>
           </div>
 
         </div>
-      }
-      
-      <button
-        type="button"
-        (click)="addCompetitor()"
-        class="competition-step__add-btn">
-        + Añadir otro competidor
-      </button>
-    </div>
+        }
 
-    <div class="competition-step__form-group competition-step__diferenciador-group">
-      <label for="diferenciador" class="competition-step__label">
-        Tu Valor Agregado o Factor Diferencial 
-      </label>
-      <p class="competition-step__help-text">
-        En una frase, ¿por qué un cliente debería elegirte a ti sobre toda esta competencia?
-      </p>
-      <textarea
-        id="diferenciador"
-        formControlName="diferenciador"
-        class="competition-step__textarea"
-        [class.competition-step__textarea--error]="diferenciadorControl?.invalid && diferenciadorControl?.touched"
-        placeholder="Ej: Ofrecemos el único servicio con garantía de resultados en 30 días..."
-        rows="4">
+        <button type="button" (click)="addCompetitor()" class="competition-step__add-btn">
+          + Añadir otro competidor
+        </button>
+      </div>
+
+      <div class="competition-step__form-group competition-step__diferenciador-group">
+        <label for="diferenciador" class="competition-step__label">
+          Tu Valor Agregado o Factor Diferencial
+        </label>
+        <p class="competition-step__help-text">
+          En una frase, ¿por qué un cliente debería elegirte a ti sobre toda esta competencia?
+        </p>
+        <textarea id="diferenciador" formControlName="diferenciador" class="competition-step__textarea"
+          [class.competition-step__textarea--error]="diferenciadorControl?.invalid && diferenciadorControl?.touched"
+          placeholder="Ej: Ofrecemos el único servicio con garantía de resultados en 30 días..." rows="4">
       </textarea>
-      @if (diferenciadorControl?.invalid && diferenciadorControl?.touched) {
+        @if (diferenciadorControl?.invalid && diferenciadorControl?.touched) {
         <span class="competition-step__error-message">
           Este es tu argumento de venta más importante.
         </span>
-      }
-    </div>
+        }
+      </div>
 
+    </div>
   </div>
 </div>

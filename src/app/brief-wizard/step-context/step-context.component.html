@@ -1,57 +1,53 @@
 <div class="context-step" [formGroup]="contextForm">
-  
+
   <header class="context-step__header">
     <h2 class="context-step__title">Contexto y Propósito</h2>
     <p class="context-step__subtitle">
       Para empezar, necesitamos entender la raíz de tu proyecto. Cuéntanos qué hay detrás de tu marca.
     </p>
+    <p class="context-step__help-text">
+      (2 preguntas)
+    </p>
   </header>
+  <div class="context-step__container-content">
+    <div class="context-step__form">
 
-  <div class="context-step__form">
-
-    <div class="context-step__form-group">
-      <label for="origenMarca" class="context-step__label">
-        ¿De dónde surgió tu marca y qué quiere comunicar?
-      </label>
-      <p class="context-step__help-text">
-        Piensa en la historia fundacional, la inspiración o el momento "aha!" que lo inició todo.
-      </p>
-      <textarea
-        id="origenMarca"
-        formControlName="origenMarca"
-        class="context-step__textarea"
-        [class.context-step__textarea--error]="origenMarcaControl?.invalid && origenMarcaControl?.touched"
-        placeholder="Ej: Surgió de la necesidad de simplificar la tecnología para las empresas..."
-        rows="4">
+      <div class="context-step__form-group">
+        <label for="origenMarca" class="context-step__label">
+          ¿De dónde surgió tu marca y qué quiere comunicar?
+        </label>
+        <p class="context-step__help-text">
+          Piensa en la historia fundacional, la inspiración o el momento "aha!" que lo inició todo.
+        </p>
+        <textarea id="origenMarca" formControlName="origenMarca" class="context-step__textarea"
+          [class.context-step__textarea--error]="origenMarcaControl?.invalid && origenMarcaControl?.touched"
+          placeholder="Ej: Surgió de la necesidad de simplificar la tecnología para las empresas..." rows="4">
       </textarea>
-      @if (origenMarcaControl?.invalid && origenMarcaControl?.touched) {
+        @if (origenMarcaControl?.invalid && origenMarcaControl?.touched) {
         <span class="context-step__error-message">
           Por favor, cuéntanos un poco sobre el origen de tu marca.
         </span>
-      }
-    </div>
+        }
+      </div>
 
-    <div class="context-step__form-group">
-      <label for="problemaResolver" class="context-step__label">
-        ¿Cuál es el problema o necesidad principal que buscas resolver?
-      </label>
-      <p class="context-step__help-text">
-        ¿Qué dolor tienen tus clientes que tú alivias? Sé específico.
-      </p>
-      <textarea
-        id="problemaResolver"
-        formControlName="problemaResolver"
-        class="context-step__textarea"
-        [class.context-step__textarea--error]="problemaResolverControl?.invalid && problemaResolverControl?.touched"
-        placeholder="Ej: Las PYMES pierden mucho tiempo gestionando múltiples herramientas desconectadas..."
-        rows="4">
+      <div class="context-step__form-group">
+        <label for="problemaResolver" class="context-step__label">
+          ¿Cuál es el problema o necesidad principal que buscas resolver?
+        </label>
+        <p class="context-step__help-text">
+          ¿Qué dolor tienen tus clientes que tú alivias? Sé específico.
+        </p>
+        <textarea id="problemaResolver" formControlName="problemaResolver" class="context-step__textarea"
+          [class.context-step__textarea--error]="problemaResolverControl?.invalid && problemaResolverControl?.touched"
+          placeholder="Ej: Las PYMES pierden mucho tiempo gestionando múltiples herramientas desconectadas..." rows="4">
       </textarea>
-      @if (problemaResolverControl?.invalid && problemaResolverControl?.touched) {
+        @if (problemaResolverControl?.invalid && problemaResolverControl?.touched) {
         <span class="context-step__error-message">
           Es importante definir qué problema resuelves.
         </span>
-      }
-    </div>
+        }
+      </div>
 
+    </div>
   </div>
 </div>

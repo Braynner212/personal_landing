@@ -5,46 +5,52 @@
     <p class="tone-step__subtitle">
       ¿Cómo quieres que tu marca "hable"? Esto define la conexión emocional con tu audiencia.
     </p>
+    <p class="tone-step__help-text">
+      (2 preguntas)
+    </p>
   </header>
 
-  <div class="tone-step__form">
+  <div class="tone-step__container-content">
+    <div class="tone-step__form">
 
-    <div class="tone-step__form-group">
-      <label for="palabrasClave" class="tone-step__label">
-        ¿Cómo se comunica tu marca? [cite: 3044]
-      </label>
-      <p class="tone-step__help-text">
-        Escribe palabras clave. Ej: Formal, amigable, divertida, elegante, técnica, etc.
-      </p>
-      <input id="palabrasClave" type="text" formControlName="palabrasClave" class="tone-step__input"
-        [class.tone-step__input--error]="palabrasClaveControl?.invalid && palabrasClaveControl?.touched"
-        placeholder="Ej: Amigable, profesional, innovadora">
-      @if (palabrasClaveControl?.invalid && palabrasClaveControl?.touched) {
-      <span class="tone-step__error-message">
-        Define al menos una palabra clave para el tono.
-      </span>
-      }
-    </div>
+      <div class="tone-step__form-group">
+        <label for="palabrasClave" class="tone-step__label">
+          ¿Cómo se comunica tu marca? [cite: 3044]
+        </label>
+        <p class="tone-step__help-text">
+          Escribe palabras clave. Ej: Formal, amigable, divertida, elegante, técnica, etc.
+        </p>
+        <input id="palabrasClave" type="text" formControlName="palabrasClave" class="tone-step__input"
+          [class.tone-step__input--error]="palabrasClaveControl?.invalid && palabrasClaveControl?.touched"
+          placeholder="Ej: Amigable, profesional, innovadora">
+        @if (palabrasClaveControl?.invalid && palabrasClaveControl?.touched) {
+        <span class="tone-step__error-message">
+          Define al menos una palabra clave para el tono.
+        </span>
+        }
+      </div>
 
-    <div class="tone-step__form-group">
-      <label for="frasesEjemplo" class="tone-step__label">
-        Escribe al menos 3 frases de ejemplo
-      </label>
-      <p class="tone-step__help-text">
-        ¿Cómo saludaría tu marca? ¿Cómo describiría un producto? Esto nos da un ejemplo tangible.
-      </p>
-      <textarea id="frasesEjemplo" formControlName="frasesEjemplo" class="tone-step__textarea"
-        [class.tone-step__textarea--error]="frasesEjemploControl?.invalid && frasesEjemploControl?.touched" placeholder="Ej: 
+      <div class="tone-step__form-group">
+        <label for="frasesEjemplo" class="tone-step__label">
+          Escribe al menos 3 frases de ejemplo
+        </label>
+        <p class="tone-step__help-text">
+          ¿Cómo saludaría tu marca? ¿Cómo describiría un producto? Esto nos da un ejemplo tangible.
+        </p>
+        <textarea id="frasesEjemplo" formControlName="frasesEjemplo" class="tone-step__textarea"
+          [class.tone-step__textarea--error]="frasesEjemploControl?.invalid && frasesEjemploControl?.touched"
+          placeholder="Ej: 
 1. ¡Hola! Estamos aquí para evolucionar tu proyecto.
 2. La sinergia perfecta entre datos y diseño.
 3. Descubre el futuro de la analítica web." rows="5">
       </textarea>
-      @if (frasesEjemploControl?.invalid && frasesEjemploControl?.touched) {
-      <span class="tone-step__error-message">
-        Los ejemplos nos ayudan a entender el tono en acción.
-      </span>
-      }
-    </div>
+        @if (frasesEjemploControl?.invalid && frasesEjemploControl?.touched) {
+        <span class="tone-step__error-message">
+          Los ejemplos nos ayudan a entender el tono en acción.
+        </span>
+        }
+      </div>
 
+    </div>
   </div>
 </div>

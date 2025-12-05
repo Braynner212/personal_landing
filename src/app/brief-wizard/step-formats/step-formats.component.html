@@ -7,24 +7,20 @@
     </p>
   </header>
 
-  <div class="formats-step__grid" ngSkipHydration>
-    @for (app of applicationList; track app.id) {
-      <label 
-        class="formats-step__checkbox-label" 
-        [class.checked]="getControl(app.id)?.value === true">
-        
-        <input 
-          type="checkbox" 
-          class="formats-step__checkbox-input"
-          [formControlName]="app.id"
+  <div class="formats-step__container-content">
+    <div class="formats-step__grid" ngSkipHydration>
+      @for (app of applicationList; track app.id) {
+      <label class="formats-step__checkbox-label" [class.checked]="getControl(app.id)?.value === true">
+
+        <input type="checkbox" class="formats-step__checkbox-input" [formControlName]="app.id"
           (change)="formatsForm.markAsTouched()"> <span class="formats-step__checkbox-text">{{ app.label }}</span>
       </label>
-    }
+      }
+    </div>
   </div>
-
   @if (isGroupInvalid) {
-    <span class="formats-step__error-message">
-      Por favor, selecciona al menos una aplicación o formato.
-    </span>
+  <span class="formats-step__error-message">
+    Por favor, selecciona al menos una aplicación o formato.
+  </span>
   }
 </div>

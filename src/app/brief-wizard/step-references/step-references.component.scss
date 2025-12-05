@@ -17,6 +17,10 @@
     max-width: 65ch;
   }
 
+  &__container-content {
+    @include g.step-container-content;
+  }
+
   &__grid {
     display: grid;
     grid-template-columns: 1fr;

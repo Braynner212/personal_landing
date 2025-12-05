@@ -22,6 +22,10 @@
     @include g.subtitle-base;
   }
 
+  &__container-content {
+    @include g.step-container-content;
+  }
+
   &__form {
     display: flex;
     flex-direction: column;

@@ -1,115 +1,91 @@
 <div class="personality-step" [formGroup]="personalityForm">
-  
+
   <header class="personality-step__header">
     <h2 class="personality-step__title">Valores y Personalidad</h2>
     <p class="personality-step__subtitle">
       Define el corazón de tu marca. ¿Qué la mueve y cómo se comporta?
     </p>
+    <p class="personality-step__section-desc">
+      (3 preguntas)
+    </p>
   </header>
+  <div class="personality-step__container-content">
+    <div class="personality-step__content">
 
-  <div class="personality-step__content">
+      <div class="personality-step__section">
+        <h3 class="personality-step__section-title">
+          Valores Fundamentales (Máx. 4)
+        </h3>
+        <p class="personality-step__section-desc">
+          Son los principios innegociables que guían a tu empresa.
+        </p>
 
-    <div class="personality-step__section">
-      <h3 class="personality-step__section-title">
-        Valores Fundamentales (Máx. 4)
-      </h3>
-      <p class="personality-step__section-desc">
-        Son los principios innegociables que guían a tu empresa.
-      </p>
-
-      <div class="personality-step__valores-list" formArrayName="valores">
-        @for (valor of valoresArray.controls; track $index) {
+        <div class="personality-step__valores-list" formArrayName="valores">
+          @for (valor of valoresArray.controls; track $index) {
           <div class="personality-step__valor-item">
-            <input 
-              type="text" 
-              [formControlName]="$index"
-              placeholder="Ej: Innovación, Transparencia..."
+            <input type="text" [formControlName]="$index" placeholder="Ej: Innovación, Transparencia..."
               class="personality-step__input">
-            
+
             @if (canRemoveValores) {
-              <button 
-                type="button" 
-                (click)="removeValor($index)"
-                class="personality-step__remove-btn"
-                aria-label="Eliminar valor">
-                ✕
-              </button>
+            <button type="button" (click)="removeValor($index)" class="personality-step__remove-btn"
+              aria-label="Eliminar valor">
+              ✕
+            </button>
             }
           </div>
+          }
+        </div>
+
+        @if (canAddMoreValores) {
+        <button type="button" (click)="addValor()" class="personality-step__add-btn">
+          + Añadir otro valor
+        </button>
         }
       </div>
 
-      @if (canAddMoreValores) {
-        <button 
-          type="button" 
-          (click)="addValor()"
-          class="personality-step__add-btn">
-          + Añadir otro valor
-        </button>
-      }
-    </div>
-
-    <div class="personality-step__section">
-      <label for="palabrasClave" class="personality-step__label">
-        Si tu marca fuera una persona, ¿cómo la describirías en 3-4 palabras?
-      </label>
-      <input 
-        id="palabrasClave"
-        type="text" 
-        formControlName="palabrasClave"
-        placeholder="Ej: Audaz, creativa, confiable"
-        class="personality-step__input">
-    </div>
-
-    <div class="personality-step__section">
-      <h3 class="personality-step__section-title">Espectro de Personalidad</h3>
-      <p class="personality-step__section-desc">
-        Mueve el deslizador hacia el lado que más represente a tu marca.
-      </p>
-
-      <div class="personality-step__sliders">
-        
-        <div class="personality-step__slider-group">
-          <div class="personality-step__slider-labels">
-            <span>Formal</span>
-            <span>Divertida</span>
-          </div>
-          <input 
-            type="range" 
-            min="0" 
-            max="100" 
-            formControlName="sliderFormal"
-            class="personality-step__range">
-        </div>
-
-        <div class="personality-step__slider-group">
-          <div class="personality-step__slider-labels">
-            <span>Exclusiva</span>
-            <span>Accesible</span>
-          </div>
-          <input 
-            type="range" 
-            min="0" 
-            max="100" 
-            formControlName="sliderExclusivo"
-            class="personality-step__range">
-        </div>
-
-        <div class="personality-step__slider-group">
-          <div class="personality-step__slider-labels">
-            <span>Técnica</span>
-            <span>Sencilla</span>
-          </div>
-          <input 
-            type="range" 
-            min="0" 
-            max="100" 
-            formControlName="sliderTecnico"
-            class="personality-step__range">
-        </div>
-
+      <div class="personality-step__section">
+        <label for="palabrasClave" class="personality-step__label">
+          Si tu marca fuera una persona, ¿cómo la describirías en 3-4 palabras?
+        </label>
+        <input id="palabrasClave" type="text" formControlName="palabrasClave"
+          placeholder="Ej: Audaz, creativa, confiable" class="personality-step__input">
       </div>
-    </div>
 
+      <div class="personality-step__section">
+        <h3 class="personality-step__section-title">Espectro de Personalidad</h3>
+        <p class="personality-step__section-desc">
+          Mueve el deslizador hacia el lado que más represente a tu marca.
+        </p>
+
+        <div class="personality-step__sliders">
+
+          <div class="personality-step__slider-group">
+            <div class="personality-step__slider-labels">
+              <span>Formal</span>
+              <span>Divertida</span>
+            </div>
+            <input type="range" min="0" max="100" formControlName="sliderFormal" class="personality-step__range">
+          </div>
+
+          <div class="personality-step__slider-group">
+            <div class="personality-step__slider-labels">
+              <span>Exclusiva</span>
+              <span>Accesible</span>
+            </div>
+            <input type="range" min="0" max="100" formControlName="sliderExclusivo" class="personality-step__range">
+          </div>
+
+          <div class="personality-step__slider-group">
+            <div class="personality-step__slider-labels">
+              <span>Técnica</span>
+              <span>Sencilla</span>
+            </div>
+            <input type="range" min="0" max="100" formControlName="sliderTecnico" class="personality-step__range">
+          </div>
+
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>

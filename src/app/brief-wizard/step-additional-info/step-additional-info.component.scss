@@ -18,6 +18,10 @@
     max-width: 65ch;
   }
 
+  &__help-text {
+    @include g.help-text;
+  }
+
   &__content {
     width: 100%;
   }

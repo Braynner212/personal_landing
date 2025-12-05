@@ -25,6 +25,15 @@
   @include animate-fade-in;
 }
 
+@mixin step-container-content {
+  width: 100%;
+  padding: var(--font-size-base);
+  height: calc(82vh - var(--font-size-base) * 2 - var(--font-size-base) * 10); // Altura dinámica según viewport
+  overflow-y: scroll;
+  padding: var(--font-size-base);
+
+}
+
 // Header del paso (Título + Subtítulo)
 @mixin step-header {
   margin-bottom: calc(var(--font-size-base) * 2);
